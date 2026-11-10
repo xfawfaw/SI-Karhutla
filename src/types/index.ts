@@ -70,9 +70,27 @@ export interface Hotspot {
   acquisition_time: string;
 }
 
-export interface UserSession {
-  username: string;
-  role: 'OFFICER' | 'ADMIN';
-  shelter_id?: number;
-  shelter_name?: string;
+// Karhutla.cloud Reference Features
+export interface AirQualityStation {
+  id: string;
+  province: string;
+  city: string;
+  aqi: number; // US EPA AQI
+  pm25: number; // ug/m3
+  category: 'BAIK' | 'SEDANG' | 'TIDAK SEHAT (SENSITIF)' | 'TIDAK SEHAT' | 'SANGAT TIDAK SEHAT' | 'BERBAHAYA';
+  color: string;
+  recommendation: string;
+  updated_at: string;
+}
+
+export interface CorporateConcession {
+  id: string;
+  company_name: string;
+  group_name: string;
+  sector: 'Perkebunan Kelapa Sawit (HGU)' | 'Hutan Tanaman Industri (PBPH-HTI)' | 'Restorasi Ekosistem';
+  province: string;
+  regency: string;
+  hotspots_count_2026: number;
+  gakkum_status: 'Dalam Pengawasan Khusus' | 'Peringatan Pertama' | 'Penyegelan Lahan' | 'Gugatan Perdata Berjalan';
+  peat_depth: string;
 }

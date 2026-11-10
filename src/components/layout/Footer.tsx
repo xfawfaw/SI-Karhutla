@@ -1,34 +1,72 @@
 import React from 'react';
 import Link from 'next/link';
-import { Flame } from 'lucide-react';
+import { Flame, Shield, ArrowUpRight } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#090d16] border-t border-slate-800/80 text-slate-500 text-xs py-6 px-4 sm:px-6 lg:px-8 mt-auto font-mono">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Left */}
-        <div className="flex items-center gap-2 text-slate-400">
-          <div className="w-5 h-5 rounded bg-orange-600 flex items-center justify-center text-white">
-            <Flame className="w-3 h-3" />
+    <footer className="bg-white border-t-3 border-black text-black text-xs py-8 px-4 sm:px-6 lg:px-8 mt-auto font-mono">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        {/* Brand */}
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-[#ff5722] border-2 border-black flex items-center justify-center text-white">
+              <Flame className="w-3.5 h-3.5 stroke-[2.5]" />
+            </div>
+            <span className="font-display text-lg font-black tracking-wider text-black">
+              SI-KARHUTLA CLOUD
+            </span>
+            <span className="bg-[#ffde59] text-black text-[10px] font-black px-1.5 py-0.2 border border-black">
+              BNPB 2026
+            </span>
           </div>
-          <span className="font-bold text-slate-200">SI-KARHUTLA</span>
-          <span>•</span>
-          <span>Standar Data BNPB 2026 & UU No. 24/2007</span>
+          <p className="text-slate-700 text-xs font-mono max-w-md">
+            Sistem Geoportal Hotspot, Kualitas Udara US EPA AQI & Manajemen Posko Evakuasi Bencana. Berbasis standar BNPB 2026 & UU No. 24 Tahun 2007.
+          </p>
         </div>
 
-        {/* Center / Nav */}
-        <div className="flex flex-wrap items-center gap-4 text-[11px] text-slate-400">
-          <Link href="/" className="hover:text-white transition-colors">Peta GIS</Link>
-          <Link href="/posko" className="hover:text-white transition-colors">Direktori Posko</Link>
-          <Link href="/lapor" className="hover:text-white transition-colors">Lapor Hilang</Link>
-          <Link href="/mitigasi" className="hover:text-white transition-colors">Mitigasi</Link>
-          <Link href="/petugas" className="hover:text-white transition-colors">Portal Petugas</Link>
+        {/* Links */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-bold">
+          <Link
+            href="/"
+            className="px-2.5 py-1 bg-[#f4f0e8] hover:bg-[#ffde59] border-2 border-black transition-colors"
+          >
+            Peta GIS
+          </Link>
+          <Link
+            href="/posko"
+            className="px-2.5 py-1 bg-[#f4f0e8] hover:bg-[#ffde59] border-2 border-black transition-colors"
+          >
+            Direktori Posko
+          </Link>
+          <Link
+            href="/lapor"
+            className="px-2.5 py-1 bg-[#f4f0e8] hover:bg-[#ffde59] border-2 border-black transition-colors"
+          >
+            Lapor Hilang
+          </Link>
+          <Link
+            href="/mitigasi"
+            className="px-2.5 py-1 bg-[#f4f0e8] hover:bg-[#ffde59] border-2 border-black transition-colors"
+          >
+            Mitigasi Gambut
+          </Link>
+          <Link
+            href="/petugas"
+            className="px-2.5 py-1 bg-[#f4f0e8] hover:bg-[#ffde59] border-2 border-black transition-colors"
+          >
+            Portal Petugas
+          </Link>
         </div>
 
-        {/* Right */}
-        <div className="text-[11px] text-slate-500">
-          Pusdalops BNPB: <strong className="text-orange-400">117</strong>
+        {/* Hotline */}
+        <div className="bg-[#ff5722] text-white px-3 py-1.5 border-2 border-black shadow-brutal-sm font-black text-xs">
+          CALL CENTER BNPB: 117
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto border-t-2 border-black mt-6 pt-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-700">
+        <p>© 2026 SI-KARHUTLA Cloud • Terinspirasi dari karhutla.cloud & Standar Bencana BNPB.</p>
+        <p className="font-bold">Desain Neobrutalisme & GIS Canvas 60 FPS</p>
       </div>
     </footer>
   );

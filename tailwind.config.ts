@@ -9,19 +9,30 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Geist Mono", "ui-monospace", "monospace"],
-        serif: ["serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        display: ["var(--font-bebas)", "Impact", "sans-serif"],
+        sans: ["var(--font-display)", "var(--font-sans)", "ui-sans-serif", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       colors: {
-        bnpb: {
-          orange: "#ea580c",
-          red: "#dc2626",
-          dark: "#0f172a",
-          card: "#1e293b",
-          border: "#334155",
-          accent: "#38bdf8",
+        brutal: {
+          bg: "#f4f0e8",
+          card: "#ffffff",
+          dark: "#0a0a0a",
+          border: "#000000",
+          yellow: "#ffde59",
+          orange: "#ff5722",
+          red: "#eb3b5a",
+          blue: "#3867d6",
+          green: "#20bf6b",
+          cream: "#fbf9f4",
+          muted: "#666666",
         },
+      },
+      boxShadow: {
+        brutal: "4px 4px 0px 0px #000000",
+        "brutal-sm": "2px 2px 0px 0px #000000",
+        "brutal-lg": "6px 6px 0px 0px #000000",
+        "brutal-xl": "8px 8px 0px 0px #000000",
       },
     },
   },

@@ -3,41 +3,69 @@
 @tailwind utilities;
 
 :root {
-  --bg: #090d16;
-  --surface: #0f172a;
-  --surface-hover: #1e293b;
-  --border: #1e293b;
-  --border-muted: #162032;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent: #f97316;
-  --safe: #10b981;
+  --bg: #f4f0e8;
+  --text: #0a0a0a;
 }
 
 body {
-  color: var(--text-primary);
+  color: var(--text);
   background-color: var(--bg);
-  font-family: var(--font-sans), 'Geist Mono', ui-monospace, monospace;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Base Leaflet Map styling */
+/* Neobrutalism UI Utility Classes */
+.brutal-box {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.brutal-box-lg {
+  background-color: #ffffff;
+  border: 3px solid #000000;
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.brutal-btn {
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px 0px #000000;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.brutal-btn:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+.brutal-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px 0px #000000;
+}
+
+.brutal-badge {
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px 0px #000000;
+  font-weight: 700;
+}
+
+/* Custom Leaflet Map styling for Neobrutalism */
 .leaflet-container {
   width: 100% !important;
   height: 100% !important;
-  background-color: #0b1120 !important;
-  font-family: var(--font-sans), 'Geist Mono', ui-monospace, monospace !important;
+  background-color: #e2dfd7 !important;
+  font-family: var(--font-mono), monospace !important;
   z-index: 1;
 }
 
 .leaflet-popup-content-wrapper {
-  background: #0f172a !important;
-  color: #f8fafc !important;
-  border: 1px solid #334155 !important;
-  border-radius: 8px !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 4px !important;
+  box-shadow: 4px 4px 0px 0px #000000 !important;
   padding: 0 !important;
   overflow: hidden;
 }
@@ -48,36 +76,35 @@ body {
 }
 
 .leaflet-popup-tip {
-  background: #0f172a !important;
-  border: 1px solid #334155 !important;
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
 }
 
-/* Supercluster marker styling - calm, professional, high-craft */
+/* Neobrutalist cluster marker */
 .custom-cluster-marker {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  font-weight: 700;
+  font-weight: 900;
   color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px 0px #000000;
   cursor: pointer;
   user-select: none;
+  font-family: var(--font-display), var(--font-mono), monospace;
 }
 
-/* Minimal subtle scrollbar */
+/* Brutalist Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #f4f0e8;
+  border-left: 2px solid #000000;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #ff5722;
+  border: 2px solid #000000;
 }

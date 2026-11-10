@@ -112,7 +112,7 @@ export default function PetugasPage() {
         throw new Error(data.error || 'Gagal memverifikasi');
       }
 
-      setActionMessage(`Laporan ${data.data.ticket_code} berhasil diperbarui.`);
+      setActionMessage(`Laporan ${data.data.ticket_code} berhasil diverifikasi!`);
       loadDashboardData();
     } catch (err: any) {
       setActionMessage(`Error: ${err.message}`);
@@ -144,7 +144,7 @@ export default function PetugasPage() {
         throw new Error(data.error || 'Gagal menyimpan');
       }
 
-      setActionMessage(`Pengungsi "${intakeName}" berhasil dicatat.`);
+      setActionMessage(`Penyintas "${intakeName}" berhasil dicatat di manifes posko.`);
       setIntakeName('');
       setIntakeAge('');
       setIntakeVillage('');
@@ -161,45 +161,47 @@ export default function PetugasPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center px-4 py-8">
-        <div className="w-full max-w-sm bg-[#0f172a] border border-slate-800 rounded-lg p-6 space-y-4 font-mono text-xs">
+      <div className="min-h-[70vh] flex items-center justify-center px-4 py-8 font-mono text-black">
+        <div className="w-full max-w-sm bg-white border-3 border-black p-6 sm:p-8 shadow-brutal space-y-5">
           <div className="text-center space-y-1">
-            <div className="w-10 h-10 rounded bg-slate-800 flex items-center justify-center mx-auto text-orange-400">
-              <Lock className="w-5 h-5" />
+            <div className="w-12 h-12 bg-[#ffde59] border-2 border-black shadow-brutal-sm flex items-center justify-center mx-auto text-black">
+              <Lock className="w-6 h-6 stroke-[3]" />
             </div>
-            <h1 className="text-base font-bold text-white">Portal Petugas Posko</h1>
-            <p className="text-slate-400 text-[11px]">Kredensial Bersama Satgas Lapangan</p>
+            <h1 className="text-2xl font-black font-display uppercase tracking-wider">
+              PORTAL PETUGAS POSKO
+            </h1>
+            <p className="text-xs text-slate-700 font-bold">Kredensial Bersama Relawan Lapangan</p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-3">
+          <form onSubmit={handleLogin} className="space-y-4 text-xs font-mono">
             {authError && (
-              <div className="bg-red-950/40 border border-red-800 rounded p-2 text-red-300 flex items-center gap-2">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <div className="bg-[#eb3b5a] text-white font-bold border-2 border-black p-2.5 shadow-brutal-sm flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 stroke-[3]" />
                 <span>{authError}</span>
               </div>
             )}
 
             <div>
-              <label className="block text-slate-400 mb-1">Password Akses:</label>
+              <label className="block font-bold text-black mb-1">PASSWORD POSKO:</label>
               <input
                 type="password"
                 required
-                placeholder="Password posko..."
+                placeholder="Masukkan kata sandi..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-white focus:outline-none focus:border-orange-500"
+                className="w-full bg-[#f4f0e8] border-2 border-black px-3 py-2.5 font-bold text-black focus:outline-none focus:bg-white"
               />
-              <span className="text-[10px] text-slate-500 mt-1 block">
-                Default: <code className="text-orange-400">poskosiaga2026</code>
+              <span className="text-[11px] text-slate-600 mt-1 block">
+                Default: <strong className="bg-[#ffde59] px-1 border border-black">poskosiaga2026</strong>
               </span>
             </div>
 
             <button
               type="submit"
               disabled={authLoading}
-              className="w-full py-2.5 rounded bg-orange-600 hover:bg-orange-500 text-white font-bold transition-colors disabled:opacity-50"
+              className="w-full py-3 bg-[#ff5722] text-white font-black text-sm border-2 border-black shadow-brutal brutal-btn uppercase"
             >
-              {authLoading ? 'Memeriksa...' : 'Masuk'}
+              {authLoading ? 'MEMVALIDASI...' : 'MASUK KE PANEL OPERATOR'}
             </button>
           </form>
         </div>
@@ -208,122 +210,129 @@ export default function PetugasPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1 space-y-6 font-mono text-xs">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1 space-y-6 font-mono text-black">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-black pb-4">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight">
-            Panel Petugas & Verifikasi Laporan
+          <div className="flex items-center gap-2 mb-1">
+            <span className="bg-[#20bf6b] text-black font-mono font-black text-[10px] px-2 py-0.5 border border-black shadow-brutal-sm">
+              AUTHORIZED OPERATOR
+            </span>
+            <span className="font-bold text-xs text-slate-700">Satgas Gabungan Lapangan</span>
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-black font-display uppercase tracking-wide">
+            PANEL MODERASI LAPORAN & MANIFES POSKO
           </h1>
-          <p className="text-slate-400 text-[11px]">
-            Moderasi laporan masyarakat dan registrasi pengungsi masuk posko.
-          </p>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={loadDashboardData}
-            className="px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1"
+            className="px-3 py-2 bg-white text-black font-bold border-2 border-black shadow-brutal-sm brutal-btn flex items-center gap-1 text-xs"
           >
-            <RefreshCw className={`w-3 h-3 ${loadingData ? 'animate-spin' : ''}`} />
-            Refresh
+            <RefreshCw className={`w-3.5 h-3.5 ${loadingData ? 'animate-spin' : ''}`} />
+            REFRESH
           </button>
           <button
             onClick={handleLogout}
-            className="px-2.5 py-1.5 rounded bg-red-950/60 hover:bg-red-900 text-red-300 border border-red-800 flex items-center gap-1 font-bold"
+            className="px-3 py-2 bg-[#eb3b5a] text-white font-bold border-2 border-black shadow-brutal-sm brutal-btn flex items-center gap-1 text-xs"
           >
-            <LogOut className="w-3 h-3" />
-            Keluar
+            <LogOut className="w-3.5 h-3.5" />
+            KELUAR
           </button>
         </div>
       </div>
 
       {actionMessage && (
-        <div className="p-2.5 rounded bg-emerald-950/40 border border-emerald-800 text-emerald-300 flex items-center justify-between">
-          <span>{actionMessage}</span>
-          <button onClick={() => setActionMessage('')} className="text-slate-400 hover:text-white">✕</button>
+        <div className="p-3 bg-[#20bf6b] text-black font-bold border-2 border-black shadow-brutal-sm flex items-center justify-between text-xs">
+          <span>✓ {actionMessage}</span>
+          <button onClick={() => setActionMessage('')} className="font-black">✕</button>
         </div>
       )}
 
-      {/* Grid: 2 cols moderation queue, 1 col intake */}
+      {/* Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Moderation Queue */}
+        {/* Antrean Verifikasi (2 cols) */}
         <div className="lg:col-span-2 space-y-3">
-          <div className="flex items-center justify-between">
-            <h2 className="font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-orange-400" />
-              Antrean Verifikasi ({pendingReports.length})
+          <div className="flex items-center justify-between border-b-2 border-black pb-2">
+            <h2 className="font-display text-xl font-black uppercase flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-[#ff5722] stroke-[3]" />
+              ANTEAN VERIFIKASI WARGA ({pendingReports.length} TIKET)
             </h2>
           </div>
 
           {loadingData ? (
-            <div className="py-12 flex justify-center text-slate-500">
-              <Loader2 className="w-5 h-5 animate-spin text-orange-500" />
+            <div className="py-12 flex justify-center text-black font-bold">
+              <Loader2 className="w-6 h-6 animate-spin" />
             </div>
           ) : pendingReports.length === 0 ? (
-            <div className="bg-[#0f172a] border border-slate-800 rounded-lg p-6 text-center text-slate-400 space-y-1">
-              <CheckCircle2 className="w-6 h-6 text-emerald-400 mx-auto mb-2" />
-              <p className="text-slate-200 font-bold">Semua Laporan Selesai Dimoderasi</p>
-              <p className="text-slate-500 text-[11px]">Tidak ada tiket berstatus PENDING.</p>
+            <div className="bg-white border-3 border-black p-8 text-center shadow-brutal space-y-2">
+              <CheckCircle2 className="w-8 h-8 text-[#20bf6b] mx-auto stroke-[3]" />
+              <p className="font-black text-sm uppercase">SEMUA LAPORAN BERHASIL DIMODERASI</p>
+              <p className="text-xs text-slate-700">Tidak ada tiket tertahan dalam antrean.</p>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-4">
               {pendingReports.map((report) => (
                 <div
                   key={report.id}
-                  className="bg-[#0f172a] border border-slate-800 rounded-lg p-3.5 space-y-2.5"
+                  className="bg-white border-3 border-black p-4 sm:p-5 shadow-brutal space-y-3 text-xs"
                 >
-                  <div className="flex items-start justify-between gap-2 border-b border-slate-800 pb-2">
+                  <div className="flex items-start justify-between gap-2 border-b-2 border-black pb-2">
                     <div>
-                      <span className="text-[10px] text-orange-400 font-bold">{report.ticket_code}</span>
-                      <h3 className="font-bold text-white text-sm">{report.victim_name} ({report.victim_age} thn)</h3>
+                      <span className="bg-[#ff5722] text-white font-bold px-1.5 py-0.5 border border-black text-[10px]">
+                        {report.ticket_code}
+                      </span>
+                      <h3 className="text-lg font-black font-display uppercase mt-1">
+                        {report.victim_name} (Usia ~{report.victim_age} Thn)
+                      </h3>
                     </div>
-                    <span className="px-2 py-0.5 rounded text-[10px] bg-amber-950/80 text-amber-300 border border-amber-800">
-                      PENDING
+                    <span className="bg-[#ffde59] text-black font-black px-2 py-0.5 border border-black text-[10px]">
+                      PENDING VERIFIKASI
                     </span>
                   </div>
 
-                  <div className="text-[11px] text-slate-300 space-y-0.5">
-                    <div><span className="text-slate-500">Terakhir terlihat:</span> {report.last_seen_location}</div>
-                    <div><span className="text-slate-500">Pelapor:</span> {report.reporter_name} ({report.reporter_phone})</div>
+                  <div className="bg-[#f4f0e8] p-3 border border-black space-y-1 text-slate-800">
+                    <div><strong>Lokasi Terakhir:</strong> {report.last_seen_location}</div>
+                    <div><strong>Pelapor:</strong> {report.reporter_name} ({report.reporter_phone})</div>
                     {report.description && (
-                      <div className="text-slate-400 italic pt-1 border-t border-slate-800">
+                      <div className="text-slate-700 italic pt-1 border-t border-black/20">
                         &ldquo;{report.description}&rdquo;
                       </div>
                     )}
                   </div>
 
-                  {/* One-click moderation actions */}
-                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  {/* One-click moderation buttons */}
+                  <div className="flex flex-wrap items-center gap-2 pt-1 font-bold">
                     <button
                       onClick={() => handleModerate(report.id, 'FOUND_AT_SHELTER', 1, 'Tiba di Posko A')}
-                      className="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-colors"
+                      className="px-3 py-1.5 bg-[#20bf6b] text-black border-2 border-black shadow-brutal-sm brutal-btn text-xs"
                     >
-                      Posko A
+                      DITEMUKAN DI POSKO A
                     </button>
                     <button
                       onClick={() => handleModerate(report.id, 'FOUND_AT_SHELTER', 2, 'Tiba di Posko B')}
-                      className="px-2.5 py-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-bold transition-colors"
+                      className="px-3 py-1.5 bg-[#20bf6b] text-black border-2 border-black shadow-brutal-sm brutal-btn text-xs"
                     >
-                      Posko B
+                      POSKO B
                     </button>
                     <button
                       onClick={() => handleModerate(report.id, 'FOUND_AT_SHELTER', 3, 'Tiba di Posko C')}
-                      className="px-2.5 py-1 rounded bg-emerald-800 hover:bg-emerald-700 text-white font-bold transition-colors"
+                      className="px-3 py-1.5 bg-[#20bf6b] text-black border-2 border-black shadow-brutal-sm brutal-btn text-xs"
                     >
-                      Posko C
+                      POSKO C
                     </button>
                     <button
                       onClick={() => handleModerate(report.id, 'VERIFIED_MISSING', undefined, 'Pencarian aktif tim TRC')}
-                      className="px-2.5 py-1 rounded bg-amber-800 hover:bg-amber-700 text-amber-100 font-bold transition-colors"
+                      className="px-3 py-1.5 bg-[#ffde59] text-black border-2 border-black shadow-brutal-sm brutal-btn text-xs"
                     >
-                      Verifikasi Hilang
+                      VERIFIKASI HILANG (SAR)
                     </button>
                     <button
                       onClick={() => handleModerate(report.id, 'REJECTED', undefined, 'Laporan duplikat')}
-                      className="px-2 py-1 rounded bg-slate-800 hover:bg-red-950 text-slate-400 hover:text-red-300 border border-slate-700 transition-colors"
+                      className="px-2.5 py-1.5 bg-black text-white border-2 border-black shadow-brutal-sm brutal-btn text-xs"
                     >
-                      Tolak
+                      TOLAK
                     </button>
                   </div>
                 </div>
@@ -332,44 +341,44 @@ export default function PetugasPage() {
           )}
         </div>
 
-        {/* Intake Form */}
+        {/* Form Intake Korban Baru */}
         <div>
-          <div className="bg-[#0f172a] border border-slate-800 rounded-lg p-4 space-y-3">
-            <h3 className="font-bold text-white flex items-center gap-1.5 border-b border-slate-800 pb-2">
-              <PlusCircle className="w-4 h-4 text-emerald-400" />
-              Catat Korban Tiba di Posko
+          <div className="bg-white border-3 border-black p-5 shadow-brutal space-y-4 text-xs font-mono">
+            <h3 className="font-display text-xl font-black uppercase flex items-center gap-1.5 border-b-2 border-black pb-2">
+              <PlusCircle className="w-5 h-5 text-[#20bf6b] stroke-[3]" />
+              CATAT PENYINTAS TIBA DI POSKO
             </h3>
 
-            <form onSubmit={handleIntakeSubmit} className="space-y-2.5">
+            <form onSubmit={handleIntakeSubmit} className="space-y-3 font-mono">
               <div>
-                <label className="block text-slate-400 mb-0.5">Nama Lengkap *</label>
+                <label className="block font-bold text-black mb-1">NAMA LENGKAP *</label>
                 <input
                   type="text"
                   required
                   placeholder="Nama pengungsi..."
                   value={intakeName}
                   onChange={(e) => setIntakeName(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white focus:outline-none focus:border-orange-500"
+                  className="w-full bg-[#f4f0e8] border-2 border-black px-2.5 py-2 font-bold text-black focus:outline-none focus:bg-white"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-400 mb-0.5">Usia</label>
+                  <label className="block font-bold text-black mb-1">USIA</label>
                   <input
                     type="number"
                     placeholder="30"
                     value={intakeAge}
                     onChange={(e) => setIntakeAge(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white focus:outline-none focus:border-orange-500"
+                    className="w-full bg-[#f4f0e8] border-2 border-black px-2.5 py-2 font-bold text-black focus:outline-none focus:bg-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-0.5">Gender</label>
+                  <label className="block font-bold text-black mb-1">GENDER</label>
                   <select
                     value={intakeGender}
                     onChange={(e) => setIntakeGender(e.target.value as any)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-white focus:outline-none focus:border-orange-500"
+                    className="w-full bg-[#f4f0e8] border-2 border-black px-2 py-2 font-bold text-black focus:outline-none cursor-pointer"
                   >
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
@@ -378,23 +387,23 @@ export default function PetugasPage() {
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-0.5">Desa Asal *</label>
+                <label className="block font-bold text-black mb-1">DESA / WILAYAH ASAL *</label>
                 <input
                   type="text"
                   required
                   placeholder="Desa / RT..."
                   value={intakeVillage}
                   onChange={(e) => setIntakeVillage(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white focus:outline-none focus:border-orange-500"
+                  className="w-full bg-[#f4f0e8] border-2 border-black px-2.5 py-2 font-bold text-black focus:outline-none focus:bg-white"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-0.5">Posko</label>
+                <label className="block font-bold text-black mb-1">LOKASI POSKO PENAMPUNGAN</label>
                 <select
                   value={intakeShelterId}
                   onChange={(e) => setIntakeShelterId(Number(e.target.value))}
-                  className="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-white focus:outline-none focus:border-orange-500"
+                  className="w-full bg-[#ffde59] border-2 border-black px-2.5 py-2 font-bold text-black focus:outline-none cursor-pointer"
                 >
                   {shelters.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -405,11 +414,11 @@ export default function PetugasPage() {
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-0.5">Kondisi Medis</label>
+                <label className="block font-bold text-black mb-1">STATUS MEDIS</label>
                 <select
                   value={intakeHealth}
                   onChange={(e) => setIntakeHealth(e.target.value as HealthCondition)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-white focus:outline-none focus:border-orange-500"
+                  className="w-full bg-[#f4f0e8] border-2 border-black px-2.5 py-2 font-bold text-black focus:outline-none cursor-pointer"
                 >
                   <option value="Sehat">Sehat</option>
                   <option value="Kelelahan Ringan">Kelelahan Ringan</option>
@@ -421,22 +430,22 @@ export default function PetugasPage() {
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-0.5">Catatan</label>
+                <label className="block font-bold text-black mb-1">CATATAN KHUSUS</label>
                 <textarea
                   rows={2}
-                  placeholder="Catatan bantuan..."
+                  placeholder="Kebutuhan obat / pendamping..."
                   value={intakeNotes}
                   onChange={(e) => setIntakeNotes(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white focus:outline-none focus:border-orange-500"
+                  className="w-full bg-[#f4f0e8] border-2 border-black px-2.5 py-2 font-bold text-black focus:outline-none focus:bg-white"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={intakeLoading}
-                className="w-full py-2 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-colors disabled:opacity-50"
+                className="w-full py-2.5 bg-[#20bf6b] text-black font-black text-xs border-2 border-black shadow-brutal brutal-btn uppercase"
               >
-                {intakeLoading ? 'Menyimpan...' : 'Simpan ke Manifes Posko'}
+                {intakeLoading ? 'MENYIMPAN...' : 'SIMPAN KE MANIFES RESMI'}
               </button>
             </form>
           </div>

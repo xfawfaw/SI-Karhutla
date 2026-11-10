@@ -1,13 +1,21 @@
 import fs from 'fs';
 import path from 'path';
-import { Shelter, Evacuee, MissingReport, Hotspot } from '@/types';
-import { INITIAL_SHELTERS, INITIAL_EVACUEES, INITIAL_MISSING_REPORTS } from './seeds';
+import { Shelter, Evacuee, MissingReport, Hotspot, AirQualityStation, CorporateConcession } from '@/types';
+import {
+  INITIAL_SHELTERS,
+  INITIAL_EVACUEES,
+  INITIAL_MISSING_REPORTS,
+  INITIAL_AQI_STATIONS,
+  INITIAL_CORPORATE_CONCESSIONS
+} from './seeds';
 import hotspotsData from '@/data/hotspots_bnpb_2026.json';
 
 interface DatabaseSchema {
   shelters: Shelter[];
   evacuees: Evacuee[];
   missing_reports: MissingReport[];
+  aqi_stations: AirQualityStation[];
+  corporate_concessions: CorporateConcession[];
   auth: {
     shared_password_hash: string;
     token_secret: string;
@@ -16,8 +24,6 @@ interface DatabaseSchema {
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
-
-// Default shared password for emergency field officers: 'poskosiaga2026'
 const DEFAULT_PASSWORD = 'poskosiaga2026';
 
 function initDatabase(): DatabaseSchema {
@@ -28,7 +34,11 @@ function initDatabase(): DatabaseSchema {
   if (fs.existsSync(DB_FILE)) {
     try {
       const raw = fs.readFileSync(DB_FILE, 'utf-8');
-      return JSON.parse(raw);
+      const parsed = JSON.parse(raw);
+      // Ensure new tables are seeded if not present
+      if (!parsed.aqi_stations) parsed.aqi_stations = INITIAL_AQI_STATIONS;
+      if (!parsed.corporate_concessions) parsed.corporate_concessions = INITIAL_CORPORATE_CONCESSIONS;
+      return parsed;
     } catch (e) {
       console.error('Error reading db.json, falling back to initial data', e);
     }
@@ -38,6 +48,8 @@ function initDatabase(): DatabaseSchema {
     shelters: INITIAL_SHELTERS,
     evacuees: INITIAL_EVACUEES,
     missing_reports: INITIAL_MISSING_REPORTS,
+    aqi_stations: INITIAL_AQI_STATIONS,
+    corporate_concessions: INITIAL_CORPORATE_CONCESSIONS,
     auth: {
       shared_password_hash: DEFAULT_PASSWORD,
       token_secret: 'si-karhutla-emergency-token-2026',
@@ -48,7 +60,6 @@ function initDatabase(): DatabaseSchema {
   return initialData;
 }
 
-// In-memory cache + persistent write-through
 let dbInstance: DatabaseSchema | null = null;
 
 function getDb(): DatabaseSchema {
@@ -117,7 +128,6 @@ export function addEvacuee(data: Omit<Evacuee, 'id' | 'admitted_at' | 'updated_a
 
   db.evacuees.unshift(newEvacuee);
 
-  // Increment shelter occupants
   if (shelter) {
     shelter.current_occupants += 1;
   }
@@ -149,7 +159,6 @@ export function createMissingReport(data: {
   const db = getDb();
   const newId = db.missing_reports.length > 0 ? Math.max(...db.missing_reports.map((r) => r.id)) + 1 : 1;
   
-  // Generate ticket code e.g. TKT-2026-XXXX
   const randomSuffix = Math.floor(1000 + Math.random() * 9000);
   const ticket_code = `TKT-2026-${randomSuffix}`;
 
@@ -192,7 +201,6 @@ export function updateReportStatus(
     const shelter = db.shelters.find((s) => s.id === options.matched_shelter_id);
     report.matched_shelter_name = shelter ? shelter.name : null;
 
-    // If marked as FOUND_AT_SHELTER, check if victim is already in evacuees; if not, auto-admit them
     if (status === 'FOUND_AT_SHELTER') {
       const alreadyIn = db.evacuees.some(
         (e) => e.full_name.toLowerCase() === report.victim_name.toLowerCase() && e.shelter_id === options.matched_shelter_id
@@ -203,7 +211,7 @@ export function updateReportStatus(
           shelter_name: report.matched_shelter_name || undefined,
           full_name: report.victim_name,
           age: report.victim_age,
-          gender: 'Laki-laki', // Default or unassigned
+          gender: 'Laki-laki',
           origin_village: report.last_seen_location,
           health_condition: 'Sehat',
           notes: `Ditemukan melalui tiket ${report.ticket_code}. Catatan: ${options.officer_notes || 'Telah dievakuasi ke posko.'}`,
@@ -240,6 +248,17 @@ export function getHotspots(filter?: {
   }
 
   return list;
+}
+
+// ==================== KARHUTLA.CLOUD FEATURES ====================
+export function getAirQualityStations(): AirQualityStation[] {
+  const db = getDb();
+  return db.aqi_stations || INITIAL_AQI_STATIONS;
+}
+
+export function getCorporateConcessions(): CorporateConcession[] {
+  const db = getDb();
+  return db.corporate_concessions || INITIAL_CORPORATE_CONCESSIONS;
 }
 
 // ==================== AUTH ====================
