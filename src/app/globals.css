@@ -1,44 +1,58 @@
-@import 'leaflet/dist/leaflet.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 241, 245, 249;
-  --background-start-rgb: 15, 23, 42;
-  --background-end-rgb: 2, 6, 23;
+  --bg: #090d16;
+  --surface: #0f172a;
+  --surface-hover: #1e293b;
+  --border: #1e293b;
+  --border-muted: #162032;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #f97316;
+  --safe: #10b981;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: #090d16;
-  font-family: 'Geist Mono', ui-monospace, monospace;
+  color: var(--text-primary);
+  background-color: var(--bg);
+  font-family: var(--font-sans), 'Geist Mono', ui-monospace, monospace;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Leaflet Map styling to match dark theme & high-performance */
+/* Base Leaflet Map styling */
 .leaflet-container {
-  width: 100%;
-  height: 100%;
-  background: #0f172a !important;
-  font-family: 'Geist Mono', ui-monospace, monospace;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #0b1120 !important;
+  font-family: var(--font-sans), 'Geist Mono', ui-monospace, monospace !important;
+  z-index: 1;
 }
 
 .leaflet-popup-content-wrapper {
-  background: #1e293b !important;
-  color: #f1f5f9 !important;
+  background: #0f172a !important;
+  color: #f8fafc !important;
   border: 1px solid #334155 !important;
   border-radius: 8px !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
 }
 
 .leaflet-popup-tip {
-  background: #1e293b !important;
+  background: #0f172a !important;
   border: 1px solid #334155 !important;
 }
 
-/* Custom supercluster marker animation */
+/* Supercluster marker styling - calm, professional, high-craft */
 .custom-cluster-marker {
   display: flex;
   align-items: center;
@@ -46,27 +60,24 @@ body {
   border-radius: 9999px;
   font-weight: 700;
   color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 15px rgba(234, 88, 12, 0.6);
-  transition: transform 0.15s ease-out;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  user-select: none;
 }
 
-.custom-cluster-marker:hover {
-  transform: scale(1.1);
-}
-
-/* Scrollbar styling */
+/* Minimal subtle scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #090d16;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
+  background: #1e293b;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #334155;
 }

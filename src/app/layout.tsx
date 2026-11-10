@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { JetBrains_Mono, Geist_Mono } from 'next/font/google';
+import 'leaflet/dist/leaflet.css';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';

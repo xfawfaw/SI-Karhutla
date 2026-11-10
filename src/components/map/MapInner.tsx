@@ -4,58 +4,37 @@ import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import L from 'leaflet';
 import Supercluster from 'supercluster';
 import { Hotspot, Shelter } from '@/types';
-import { Flame, Shield, Filter, MapPin, Gauge, Layers, Info } from 'lucide-react';
+import { Shield, Filter, MapPin } from 'lucide-react';
 
 interface MapInnerProps {
   hotspots: Hotspot[];
   shelters: Shelter[];
 }
 
-const PROVINCE_COORDINATES: Record<string, { lat: number; lng: number; zoom: number }> = {
-  ALL: { lat: -0.7893, lng: 108.5, zoom: 6 },
-  Riau: { lat: 0.5, lng: 101.8, zoom: 8 },
-  Jambi: { lat: -1.6, lng: 103.6, zoom: 8 },
-  'Sumatera Selatan': { lat: -3.3, lng: 104.5, zoom: 8 },
-  'Kalimantan Barat': { lat: -0.1, lng: 110.5, zoom: 7 },
-  'Kalimantan Tengah': { lat: -2.0, lng: 113.0, zoom: 7 },
-  'Kalimantan Selatan': { lat: -3.1, lng: 115.1, zoom: 8 },
-};
+const PROVINCES = [
+  { label: 'Semua Wilayah', value: 'ALL', lat: -0.7893, lng: 108.5, zoom: 5 },
+  { label: 'Riau', value: 'Riau', lat: 0.5, lng: 101.8, zoom: 8 },
+  { label: 'Jambi', value: 'Jambi', lat: -1.6, lng: 103.6, zoom: 8 },
+  { label: 'Sumatera Selatan', value: 'Sumatera Selatan', lat: -3.3, lng: 104.5, zoom: 8 },
+  { label: 'Kalimantan Barat', value: 'Kalimantan Barat', lat: -0.1, lng: 110.5, zoom: 7 },
+  { label: 'Kalimantan Tengah', value: 'Kalimantan Tengah', lat: -2.0, lng: 113.0, zoom: 7 },
+  { label: 'Kalimantan Selatan', value: 'Kalimantan Selatan', lat: -3.1, lng: 115.1, zoom: 8 },
+];
 
 export default function MapInner({ hotspots, shelters }: MapInnerProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const clusterLayerRef = useRef<L.LayerGroup | null>(null);
   const shelterLayerRef = useRef<L.LayerGroup | null>(null);
+  const canvasRendererRef = useRef<L.Canvas | null>(null);
 
-  // Filters state
+  // Filters state (clean & focused)
   const [selectedSatellite, setSelectedSatellite] = useState<string>('ALL');
   const [minConfidence, setMinConfidence] = useState<number>(0);
   const [selectedProvince, setSelectedProvince] = useState<string>('ALL');
   const [showShelters, setShowShelters] = useState<boolean>(true);
-  const [fps, setFps] = useState<number>(60);
 
-  // FPS meter counter
-  useEffect(() => {
-    let frameCount = 0;
-    let lastTime = performance.now();
-    let animId: number;
-
-    const calcFps = () => {
-      frameCount++;
-      const now = performance.now();
-      if (now - lastTime >= 1000) {
-        setFps(Math.round((frameCount * 1000) / (now - lastTime)));
-        frameCount = 0;
-        lastTime = now;
-      }
-      animId = requestAnimationFrame(calcFps);
-    };
-
-    animId = requestAnimationFrame(calcFps);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
-  // Filtered hotspots
+  // Filtered hotspots (memoized)
   const filteredHotspots = useMemo(() => {
     return hotspots.filter((h) => {
       const matchSat = selectedSatellite === 'ALL' || h.satellite === selectedSatellite;
@@ -65,7 +44,7 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
     });
   }, [hotspots, selectedSatellite, minConfidence, selectedProvince]);
 
-  // Build Supercluster index
+  // Build Supercluster index only when filteredHotspots change
   const superclusterIndex = useMemo(() => {
     const points: GeoJSON.Feature<GeoJSON.Point, Hotspot>[] = filteredHotspots.map((h) => ({
       type: 'Feature',
@@ -77,18 +56,20 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
     }));
 
     const sc = new Supercluster({
-      radius: 50,
+      radius: 45,
       maxZoom: 16,
     });
     sc.load(points);
     return sc;
   }, [filteredHotspots]);
 
-  // Update Clusters on the map
-  const updateClusters = useCallback(() => {
-    if (!mapRef.current || !clusterLayerRef.current) return;
+  // Fast cluster rendering without DOM churn
+  const renderClusters = useCallback(() => {
     const map = mapRef.current;
     const clusterLayer = clusterLayerRef.current;
+    const canvasRenderer = canvasRendererRef.current;
+    if (!map || !clusterLayer || !canvasRenderer) return;
+
     clusterLayer.clearLayers();
 
     const bounds = map.getBounds();
@@ -110,20 +91,12 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
         const count = feat.properties.point_count;
         const clusterId = feat.properties.cluster_id;
 
-        // Visual size & color based on density
-        let size = 36;
-        let colorClass = 'bg-orange-600';
-        if (count > 100) {
-          size = 52;
-          colorClass = 'bg-red-700';
-        } else if (count > 30) {
-          size = 44;
-          colorClass = 'bg-red-600';
-        }
+        const size = count > 100 ? 44 : count > 30 ? 38 : 32;
+        const color = count > 100 ? '#b91c1c' : count > 30 ? '#c2410c' : '#ea580c';
 
         const icon = L.divIcon({
-          html: `<div class="custom-cluster-marker ${colorClass}" style="width: ${size}px; height: ${size}px;">
-                  <span class="text-xs font-mono font-bold tracking-tighter">${count}</span>
+          html: `<div class="custom-cluster-marker" style="width:${size}px; height:${size}px; background:${color}; font-size:${size > 36 ? 12 : 11}px;">
+                  ${count}
                  </div>`,
           className: '',
           iconSize: [size, size],
@@ -134,127 +107,110 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
         marker.on('click', () => {
           const expansionZoom = Math.min(
             superclusterIndex.getClusterExpansionZoom(clusterId),
-            17
+            16
           );
-          map.flyTo([lat, lng], expansionZoom, { duration: 0.8 });
+          map.flyTo([lat, lng], expansionZoom, { duration: 0.5 });
         });
 
         clusterLayer.addLayer(marker);
       } else {
         const h = feat.properties as Hotspot;
-        const isHighConf = h.confidence >= 80;
+        const isHigh = h.confidence >= 80;
 
-        const icon = L.divIcon({
-          html: `<div class="w-4 h-4 rounded-full ${
-            isHighConf ? 'bg-red-500 animate-pulse' : 'bg-orange-400'
-          } border-2 border-white shadow-md cursor-pointer flex items-center justify-center">
-                  <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-                 </div>`,
-          className: '',
-          iconSize: [16, 16],
-          iconAnchor: [8, 8],
+        // Use Canvas circle marker for 60 FPS zero-DOM-overhead performance
+        const circle = L.circleMarker([lat, lng], {
+          renderer: canvasRenderer,
+          radius: isHigh ? 5 : 4,
+          fillColor: isHigh ? '#ef4444' : '#f97316',
+          color: '#ffffff',
+          weight: 1,
+          opacity: 0.9,
+          fillOpacity: 0.85,
         });
 
-        const popupHtml = `
-          <div class="p-2 space-y-1.5 font-sans text-xs">
-            <div class="flex items-center justify-between border-b border-slate-700 pb-1">
-              <span class="font-bold text-red-400 font-mono">HOTSPOT DETECTED</span>
-              <span class="text-[10px] bg-red-950 text-red-300 border border-red-800 px-1 py-0.5 rounded font-mono font-semibold">
-                ${h.confidence}% Conf
-              </span>
+        circle.bindPopup(`
+          <div style="padding:10px; font-family: monospace; font-size:12px; line-height:1.4; color:#f8fafc;">
+            <div style="font-weight:700; color:#f97316; margin-bottom:4px; font-size:13px;">
+              TITIK API TERDETEKSI
             </div>
-            <div class="space-y-0.5 text-slate-300">
-              <p><strong class="text-white">Wilayah:</strong> ${h.regency}, ${h.province}</p>
-              <p><strong class="text-white">Satelit:</strong> ${h.satellite}</p>
-              <p><strong class="text-white">Waktu Deteksi:</strong> ${h.acquisition_date} ${h.acquisition_time}</p>
-              <p><strong class="text-white">Brightness:</strong> ${h.brightness} K</p>
-              <p><strong class="text-white">Koordinat:</strong> ${h.latitude.toFixed(4)}, ${h.longitude.toFixed(4)}</p>
-            </div>
+            <div><strong>Wilayah:</strong> ${h.regency}, ${h.province}</div>
+            <div><strong>Satelit:</strong> ${h.satellite}</div>
+            <div><strong>Kepercayaan:</strong> ${h.confidence}%</div>
+            <div><strong>Brightness:</strong> ${h.brightness} K</div>
+            <div><strong>Waktu:</strong> ${h.acquisition_date} ${h.acquisition_time}</div>
+            <div><strong>Koordinat:</strong> ${lat.toFixed(4)}, ${lng.toFixed(4)}</div>
           </div>
-        `;
+        `);
 
-        const marker = L.marker([lat, lng], { icon }).bindPopup(popupHtml);
-        clusterLayer.addLayer(marker);
+        clusterLayer.addLayer(circle);
       }
     });
   }, [superclusterIndex]);
 
-  // Update Shelter markers
-  const updateShelters = useCallback(() => {
-    if (!shelterLayerRef.current) return;
+  // Render Shelter Layer
+  const renderShelters = useCallback(() => {
     const layer = shelterLayerRef.current;
+    if (!layer) return;
     layer.clearLayers();
 
     if (!showShelters) return;
 
     shelters.forEach((s) => {
-      const percentage = Math.round((s.current_occupants / s.capacity) * 100);
-      let statusColor = 'bg-emerald-500';
-      if (percentage >= 85) statusColor = 'bg-red-500';
-      else if (percentage >= 60) statusColor = 'bg-amber-500';
+      const occRatio = Math.round((s.current_occupants / s.capacity) * 100);
 
       const icon = L.divIcon({
         html: `
-          <div class="relative group cursor-pointer">
-            <div class="w-8 h-8 rounded-lg bg-emerald-700 border-2 border-emerald-300 shadow-lg flex items-center justify-center text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full ${statusColor} border border-slate-900"></span>
+          <div style="width:28px; height:28px; border-radius:6px; background:#065f46; border:2px solid #34d399; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(0,0,0,0.5); cursor:pointer;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
           </div>
         `,
         className: '',
-        iconSize: [32, 32],
-        iconAnchor: [16, 16],
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
       });
 
-      const popupHtml = `
-        <div class="p-2 space-y-1.5 font-sans text-xs">
-          <div class="flex items-center justify-between border-b border-slate-700 pb-1">
-            <span class="font-bold text-emerald-400 font-mono">${s.code}</span>
-            <span class="text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800 px-1.5 py-0.5 rounded font-mono">
-              ${percentage}% Terisi
-            </span>
+      const popup = `
+        <div style="padding:10px; font-family: monospace; font-size:12px; line-height:1.4; color:#f8fafc;">
+          <div style="font-weight:700; color:#34d399; font-size:13px; margin-bottom:2px;">
+            ${s.code}: ${s.name}
           </div>
-          <div class="space-y-1 text-slate-300">
-            <h4 class="font-bold text-white text-sm">${s.name}</h4>
-            <p class="text-slate-400 text-[11px] leading-tight">${s.address}</p>
-            <div class="pt-1 border-t border-slate-800 grid grid-cols-2 gap-1 text-[11px] font-mono">
-              <div>Penghuni: <strong class="text-white">${s.current_occupants}</strong></div>
-              <div>Kapasitas: <strong class="text-white">${s.capacity}</strong></div>
-            </div>
-            <div class="pt-1 text-[11px]">
-              <span class="text-slate-400">PIC:</span> <strong class="text-white">${s.pic_name}</strong><br/>
-              <span class="text-slate-400">Kontak:</span> <strong class="text-orange-300 font-mono">${s.pic_phone}</strong>
-            </div>
-            <a href="/posko?shelterId=${s.id}" class="mt-2 block text-center bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-[11px] py-1 rounded transition-colors">
-              Lihat Daftar Pengungsi →
-            </a>
-          </div>
+          <div style="color:#94a3b8; font-size:11px; margin-bottom:6px;">${s.address}</div>
+          <div style="margin-bottom:4px;"><strong>Keterisian:</strong> ${s.current_occupants} / ${s.capacity} Jiwa (${occRatio}%)</div>
+          <div><strong>PIC:</strong> ${s.pic_name} (${s.pic_phone})</div>
+          <a href="/posko?shelterId=${s.id}" style="display:inline-block; margin-top:8px; padding:4px 8px; background:#059669; color:#ffffff; text-decoration:none; border-radius:4px; font-size:11px; font-weight:700;">
+            Lihat Manifes Korban →
+          </a>
         </div>
       `;
 
-      const marker = L.marker([s.latitude, s.longitude], { icon }).bindPopup(popupHtml);
+      const marker = L.marker([s.latitude, s.longitude], { icon }).bindPopup(popup);
       layer.addLayer(marker);
     });
   }, [shelters, showShelters]);
 
-  // Map Initialization
+  // Initial Leaflet Map Setup (runs strictly once)
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
 
+    const canvasRenderer = L.canvas({ padding: 0.5 });
+    canvasRendererRef.current = canvasRenderer;
+
     const map = L.map(mapContainerRef.current, {
       center: [-0.7893, 108.5],
-      zoom: 6,
+      zoom: 5,
       minZoom: 4,
-      maxZoom: 18,
+      maxZoom: 17,
+      preferCanvas: true,
       zoomControl: false,
     });
 
-    // Dark Matter basemap for high-contrast emergency visualization
+    // High performance Dark Basemap
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://carto.com/">CARTO</a> | Data Hotspot &copy; BNPB 2026',
       subdomains: 'abcd',
       maxZoom: 19,
+      attribution: '&copy; CARTO &copy; BNPB 2026',
     }).addTo(map);
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -266,186 +222,136 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
     shelterLayerRef.current = shelterLayer;
     mapRef.current = map;
 
-    map.on('moveend', updateClusters);
+    // Critical fix: invalidateSize to ensure Leaflet renders tiles even if container flex is computing
+    const resizeTimer = setTimeout(() => {
+      map.invalidateSize();
+      renderClusters();
+    }, 150);
+
+    const handleMove = () => {
+      renderClusters();
+    };
+
+    map.on('moveend', handleMove);
 
     return () => {
+      clearTimeout(resizeTimer);
+      map.off('moveend', handleMove);
       map.remove();
       mapRef.current = null;
     };
-  }, [updateClusters]);
+  }, []);
 
-  // Re-run clustering on data or filter change
+  // Update clusters when superclusterIndex changes
   useEffect(() => {
-    updateClusters();
-  }, [updateClusters]);
+    renderClusters();
+  }, [renderClusters]);
 
-  // Re-run shelter layer update
+  // Update shelters when showShelters changes
   useEffect(() => {
-    updateShelters();
-  }, [updateShelters]);
+    renderShelters();
+  }, [renderShelters]);
 
-  // Handle Province Pan/Zoom
-  const handleProvinceChange = (prov: string) => {
-    setSelectedProvince(prov);
-    if (mapRef.current && PROVINCE_COORDINATES[prov]) {
-      const { lat, lng, zoom } = PROVINCE_COORDINATES[prov];
-      mapRef.current.flyTo([lat, lng], zoom, { duration: 1.2 });
+  // Handle province flyTo
+  const handleProvinceSelect = (provValue: string) => {
+    setSelectedProvince(provValue);
+    const prov = PROVINCES.find((p) => p.value === provValue);
+    if (prov && mapRef.current) {
+      mapRef.current.flyTo([prov.lat, prov.lng], prov.zoom, { duration: 0.8 });
     }
   };
 
   return (
-    <div className="relative w-full h-full min-h-[580px] flex-1 bg-slate-950 overflow-hidden">
-      {/* Map DOM Canvas Container */}
-      <div ref={mapContainerRef} className="w-full h-full absolute inset-0 z-0" />
+    <div className="relative w-full h-[580px] bg-[#090d16] overflow-hidden select-none">
+      {/* Real Map DOM Mount Container */}
+      <div
+        ref={mapContainerRef}
+        id="leaflet-gis-map"
+        className="w-full h-full"
+        style={{ minHeight: '580px', width: '100%', height: '100%' }}
+      />
 
-      {/* Top Floating Control Panel (Filters & Statistics) */}
-      <div className="absolute top-4 left-4 z-10 flex flex-col gap-2 max-w-sm sm:max-w-md w-full pointer-events-none">
-        {/* Main Filter Glass Card */}
-        <div className="bg-[#0b1220]/90 backdrop-blur-md border border-slate-800 rounded-xl p-3.5 shadow-2xl pointer-events-auto space-y-3">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-            <div className="flex items-center gap-2">
-              <Filter className="w-4 h-4 text-orange-400" />
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
-                Filter Spasial Karhutla
-              </span>
-            </div>
-            {/* FPS & Performance Badge */}
-            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-[10px] font-mono">
-              <Gauge className="w-3 h-3 text-emerald-400" />
-              <span className="text-slate-400">GIS:</span>
-              <span className={`font-bold ${fps >= 50 ? 'text-emerald-400' : 'text-amber-400'}`}>
-                {fps} FPS
-              </span>
-            </div>
+      {/* Clean, Restrained Floating Control Bar (Anti-Slop / Taste-Skill) */}
+      <div className="absolute top-3 left-3 right-3 sm:right-auto sm:left-4 z-10 flex flex-wrap items-center gap-2 pointer-events-none">
+        <div className="bg-[#0b1220]/95 backdrop-blur-md border border-slate-800 rounded-lg p-2.5 shadow-xl pointer-events-auto flex flex-wrap items-center gap-3 text-xs font-mono">
+          {/* Active Points Count */}
+          <div className="flex items-center gap-1.5 pr-2 border-r border-slate-800 text-slate-300">
+            <span className="w-2 h-2 rounded-full bg-orange-500"></span>
+            <span className="text-white font-bold">{filteredHotspots.length}</span>
+            <span className="text-slate-400">Titik Api</span>
           </div>
 
-          {/* Quick Metrics Bar */}
-          <div className="grid grid-cols-3 gap-2 text-center text-xs font-mono">
-            <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800">
-              <span className="text-[10px] text-slate-400 block">Titik Aktif</span>
-              <strong className="text-orange-400 text-sm">{filteredHotspots.length}</strong>
-            </div>
-            <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800">
-              <span className="text-[10px] text-slate-400 block">Posko Buka</span>
-              <strong className="text-emerald-400 text-sm">{shelters.length}</strong>
-            </div>
-            <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800">
-              <span className="text-[10px] text-slate-400 block">Pengungsi</span>
-              <strong className="text-blue-400 text-sm">
-                {shelters.reduce((acc, s) => acc + s.current_occupants, 0)}
-              </strong>
-            </div>
-          </div>
-
-          {/* Satellite Sensor Selector */}
-          <div>
-            <label className="text-[11px] text-slate-400 font-mono block mb-1">
-              Sensor Satelit:
-            </label>
-            <div className="grid grid-cols-4 gap-1 text-[10px] font-mono">
-              {['ALL', 'NASA-TERRA/AQUA', 'NASA-NOAA20', 'VIIRS'].map((sat) => (
-                <button
-                  key={sat}
-                  onClick={() => setSelectedSatellite(sat)}
-                  className={`py-1 px-1.5 rounded border text-center truncate transition-colors ${
-                    selectedSatellite === sat
-                      ? 'bg-orange-600 border-orange-500 text-white font-bold'
-                      : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
-                  }`}
-                  title={sat}
-                >
-                  {sat === 'ALL' ? 'Semua' : sat.replace('NASA-', '')}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Province Selector */}
-          <div>
-            <label className="text-[11px] text-slate-400 font-mono block mb-1">
-              Fokus Provinsi Prioritas:
-            </label>
+          {/* Satellite Selector */}
+          <div className="flex items-center gap-1">
+            <span className="text-slate-400">Satelit:</span>
             <select
-              value={selectedProvince}
-              onChange={(e) => handleProvinceChange(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-800 rounded px-2.5 py-1.5 text-xs font-mono text-slate-200 focus:outline-none focus:border-orange-500"
+              value={selectedSatellite}
+              onChange={(e) => setSelectedSatellite(e.target.value)}
+              className="bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200 focus:outline-none focus:border-orange-500"
             >
-              <option value="ALL">Seluruh Wilayah (Sumatera & Kalimantan)</option>
-              <option value="Riau">Riau (Kampar, Pelalawan, Bengkalis)</option>
-              <option value="Jambi">Jambi (Muaro Jambi, Tanjabtim)</option>
-              <option value="Sumatera Selatan">Sumatera Selatan (OKI, Banyuasin)</option>
-              <option value="Kalimantan Barat">Kalimantan Barat (Ketapang, Kuburaya)</option>
-              <option value="Kalimantan Tengah">Kalimantan Tengah (Kotim/Sampit, Kapuas)</option>
-              <option value="Kalimantan Selatan">Kalimantan Selatan (Banjar, Barito Kuala)</option>
+              <option value="ALL">Semua Sensor</option>
+              <option value="NASA-TERRA/AQUA">TERRA/AQUA</option>
+              <option value="NASA-NOAA20">NOAA20</option>
+              <option value="VIIRS">VIIRS</option>
             </select>
           </div>
 
-          {/* Confidence Slider */}
-          <div>
-            <div className="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
-              <span>Filter Kepercayaan:</span>
-              <strong className="text-orange-400">
-                {minConfidence === 0 ? 'Semua (>0%)' : `Tinggi (≥${minConfidence}%)`}
-              </strong>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="90"
-              step="10"
-              value={minConfidence}
-              onChange={(e) => setMinConfidence(Number(e.target.value))}
-              className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-orange-500"
-            />
+          {/* Province Focus */}
+          <div className="flex items-center gap-1">
+            <span className="text-slate-400">Fokus:</span>
+            <select
+              value={selectedProvince}
+              onChange={(e) => handleProvinceSelect(e.target.value)}
+              className="bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200 focus:outline-none focus:border-orange-500"
+            >
+              {PROVINCES.map((p) => (
+                <option key={p.value} value={p.value}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
           </div>
 
+          {/* Confidence Filter Toggle */}
+          <button
+            onClick={() => setMinConfidence(minConfidence === 0 ? 80 : 0)}
+            className={`px-2 py-1 rounded border transition-colors ${
+              minConfidence > 0
+                ? 'bg-red-950/80 text-red-300 border-red-700 font-bold'
+                : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
+            }`}
+          >
+            {minConfidence > 0 ? '≥80% Tingkat Tinggi' : 'Semua Kepercayaan'}
+          </button>
+
           {/* Shelter Layer Toggle */}
-          <div className="flex items-center justify-between pt-1 border-t border-slate-800/80">
-            <span className="text-xs font-mono text-slate-300 flex items-center gap-1.5">
-              <Shield className="w-3.5 h-3.5 text-emerald-400" />
-              Layer Posko Evakuasi
-            </span>
-            <button
-              onClick={() => setShowShelters(!showShelters)}
-              className={`px-2.5 py-0.5 rounded text-[11px] font-mono transition-colors ${
-                showShelters
-                  ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/40'
-                  : 'bg-slate-900 text-slate-500 border border-slate-800'
-              }`}
-            >
-              {showShelters ? 'AKTIF' : 'NONAKTIF'}
-            </button>
-          </div>
+          <button
+            onClick={() => setShowShelters(!showShelters)}
+            className={`flex items-center gap-1 px-2 py-1 rounded border transition-colors ${
+              showShelters
+                ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700 font-bold'
+                : 'bg-slate-900 text-slate-500 border-slate-800'
+            }`}
+          >
+            <Shield className="w-3 h-3 text-emerald-400" />
+            Posko ({shelters.length})
+          </button>
         </div>
       </div>
 
-      {/* Bottom Map Legend */}
-      <div className="absolute bottom-6 left-4 z-10 bg-[#0b1220]/90 backdrop-blur-md border border-slate-800 rounded-lg p-3 text-[11px] font-mono shadow-xl hidden sm:block max-w-xs">
-        <h5 className="font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-          <Layers className="w-3.5 h-3.5 text-orange-400" />
-          Legenda Peta Spasial
-        </h5>
-        <div className="space-y-1.5 text-slate-400">
-          <div className="flex items-center gap-2">
-            <span className="w-3.5 h-3.5 rounded-full bg-red-500 border border-white"></span>
-            <span>Hotspot Tingkat Tinggi (≥80% Conf)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3.5 h-3.5 rounded-full bg-orange-400 border border-white"></span>
-            <span>Hotspot Tingkat Sedang (&lt;80% Conf)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-4 h-4 rounded bg-red-700 text-[9px] text-white font-bold flex items-center justify-center">
-              50+
-            </span>
-            <span>Klaster Titik Api Padat (Supercluster)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-4 h-4 rounded bg-emerald-700 border border-emerald-300 flex items-center justify-center text-white text-[9px]">
-              🛡️
-            </span>
-            <span>Posko Evakuasi Resmi BNPB (A/B/C)</span>
-          </div>
+      {/* Minimal Legend Bottom-Left */}
+      <div className="absolute bottom-3 left-3 z-10 bg-[#0b1220]/90 backdrop-blur-sm border border-slate-800 rounded px-2.5 py-1.5 text-[11px] font-mono text-slate-400 flex items-center gap-3">
+        <div className="flex items-center gap-1">
+          <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span>
+          <span>Tinggi (≥80%)</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <span className="w-2.5 h-2.5 rounded-full bg-orange-500 inline-block"></span>
+          <span>Sedang</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <span className="w-2.5 h-2.5 rounded bg-emerald-600 inline-block"></span>
+          <span>Posko Evakuasi</span>
         </div>
       </div>
     </div>

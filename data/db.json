@@ -8,7 +8,7 @@
       "latitude": 0.4475,
       "longitude": 101.3218,
       "capacity": 350,
-      "current_occupants": 142,
+      "current_occupants": 143,
       "pic_name": "Hendra Wijaya, S.Sos (BPBD Riau)",
       "pic_phone": "0812-7654-3210",
       "created_at": "2026-08-01T08:00:00Z"
@@ -21,7 +21,7 @@
       "latitude": -3.0125,
       "longitude": 104.7782,
       "capacity": 500,
-      "current_occupants": 280,
+      "current_occupants": 281,
       "pic_name": "Siti Rahmah, M.Kes (Dinas Sosial Sumsel)",
       "pic_phone": "0813-8899-1122",
       "created_at": "2026-08-05T09:30:00Z"
@@ -41,6 +41,32 @@
     }
   ],
   "evacuees": [
+    {
+      "shelter_id": 1,
+      "shelter_name": "Posko A - Balai Desa Rimbo Panjang",
+      "full_name": "Rahmat Hidayat",
+      "age": 29,
+      "gender": "Laki-laki",
+      "origin_village": "Kawasan Konsesi Hutan Sekitar Sei Gambut, Kampar",
+      "health_condition": "Sehat",
+      "notes": "Ditemukan melalui tiket TKT-2026-4412. Catatan: Ditemukan di Posko A",
+      "id": 8,
+      "admitted_at": "2026-11-10T19:28:44.514Z",
+      "updated_at": "2026-11-10T19:28:44.514Z"
+    },
+    {
+      "shelter_id": 2,
+      "shelter_name": "Posko B - GOR Dempo Jakabaring",
+      "full_name": "Rahmat Hidayat",
+      "age": 29,
+      "gender": "Laki-laki",
+      "origin_village": "Kawasan Konsesi Hutan Sekitar Sei Gambut, Kampar",
+      "health_condition": "Sehat",
+      "notes": "Ditemukan melalui tiket TKT-2026-4412. Catatan: Ditemukan di Posko B",
+      "id": 7,
+      "admitted_at": "2026-11-10T19:28:44.510Z",
+      "updated_at": "2026-11-10T19:28:44.510Z"
+    },
     {
       "id": 1,
       "shelter_id": 1,
@@ -146,9 +172,12 @@
       "victim_age": 29,
       "last_seen_location": "Kawasan Konsesi Hutan Sekitar Sei Gambut, Kampar",
       "description": "Tinggi badan 172cm, rambut ikal, mengendarai motor Supra hitam tanpa plat depan saat mencoba menyelamatkan ternak.",
-      "status": "PENDING_VERIFICATION",
+      "status": "FOUND_AT_SHELTER",
       "reported_at": "2026-09-04T13:45:00Z",
-      "verified_at": null
+      "verified_at": "2026-11-10T19:28:44.514Z",
+      "matched_shelter_id": 1,
+      "matched_shelter_name": "Posko A - Balai Desa Rimbo Panjang",
+      "officer_notes": "Ditemukan di Posko A"
     },
     {
       "id": 3,
