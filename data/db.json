@@ -1,0 +1,172 @@
+{
+  "shelters": [
+    {
+      "id": 1,
+      "code": "POSKO-A",
+      "name": "Posko A - Balai Desa Rimbo Panjang",
+      "address": "Jl. Raya Pekanbaru - Bangkinang Km 18, Kec. Tambang, Kab. Kampar, Riau",
+      "latitude": 0.4475,
+      "longitude": 101.3218,
+      "capacity": 350,
+      "current_occupants": 142,
+      "pic_name": "Hendra Wijaya, S.Sos (BPBD Riau)",
+      "pic_phone": "0812-7654-3210",
+      "created_at": "2026-08-01T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "code": "POSKO-B",
+      "name": "Posko B - GOR Dempo Jakabaring",
+      "address": "Kompleks Olahraga Jakabaring, Kec. Seberang Ulu I, Kota Palembang, Sumatera Selatan",
+      "latitude": -3.0125,
+      "longitude": 104.7782,
+      "capacity": 500,
+      "current_occupants": 280,
+      "pic_name": "Siti Rahmah, M.Kes (Dinas Sosial Sumsel)",
+      "pic_phone": "0813-8899-1122",
+      "created_at": "2026-08-05T09:30:00Z"
+    },
+    {
+      "id": 3,
+      "code": "POSKO-C",
+      "name": "Posko C - Stadion 29 November Sampit",
+      "address": "Jl. Tjilik Riwut Km 3.5, Baamang Hilir, Kab. Kotawaringin Timur, Kalimantan Tengah",
+      "latitude": -2.5318,
+      "longitude": 112.9463,
+      "capacity": 400,
+      "current_occupants": 195,
+      "pic_name": "Agus Pratama, S.T (Satgas Karhutla Kalteng)",
+      "pic_phone": "0821-4567-8901",
+      "created_at": "2026-08-10T11:00:00Z"
+    }
+  ],
+  "evacuees": [
+    {
+      "id": 1,
+      "shelter_id": 1,
+      "shelter_name": "Posko A - Balai Desa Rimbo Panjang",
+      "full_name": "Farel Silalahi",
+      "age": 34,
+      "gender": "Laki-laki",
+      "origin_village": "Desa Rimbo Panjang RT 04, Kampar",
+      "health_condition": "Kelelahan Ringan",
+      "notes": "Mengungsi bersama 1 anak, butuh masker N95 dan inhaler.",
+      "admitted_at": "2026-09-02T14:20:00Z",
+      "updated_at": "2026-09-02T14:20:00Z"
+    },
+    {
+      "id": 2,
+      "shelter_id": 1,
+      "shelter_name": "Posko A - Balai Desa Rimbo Panjang",
+      "full_name": "Dewi Sartika",
+      "age": 28,
+      "gender": "Perempuan",
+      "origin_village": "Desa Tarai Bangun, Kampar",
+      "health_condition": "Luka Ringan",
+      "notes": "Luka lecet pada kaki saat evakuasi cepat dari kebun kelapa sawit.",
+      "admitted_at": "2026-09-02T16:00:00Z",
+      "updated_at": "2026-09-02T16:00:00Z"
+    },
+    {
+      "id": 3,
+      "shelter_id": 2,
+      "shelter_name": "Posko B - GOR Dempo Jakabaring",
+      "full_name": "Nur Halimah",
+      "age": 62,
+      "gender": "Perempuan",
+      "origin_village": "Dusun Cinta Jaya, Tulung Selapan, OKI",
+      "health_condition": "Gangguan Saluran Pernapasan (ISPA Berat)",
+      "notes": "Pasien geriatri, sesak napas akut kabut asap pekat, terhubung tabung oksigen posko.",
+      "admitted_at": "2026-09-03T10:15:00Z",
+      "updated_at": "2026-09-03T10:15:00Z"
+    },
+    {
+      "id": 4,
+      "shelter_id": 2,
+      "shelter_name": "Posko B - GOR Dempo Jakabaring",
+      "full_name": "Rian Kurniawan",
+      "age": 19,
+      "gender": "Laki-laki",
+      "origin_village": "Cengal, Ogan Komering Ilir",
+      "health_condition": "Sehat",
+      "notes": "Kondisi stabil, aktif membantu distribusi ransum posko.",
+      "admitted_at": "2026-09-03T11:45:00Z",
+      "updated_at": "2026-09-03T11:45:00Z"
+    },
+    {
+      "id": 5,
+      "shelter_id": 3,
+      "shelter_name": "Posko C - Stadion 29 November Sampit",
+      "full_name": "Budi Santoso",
+      "age": 45,
+      "gender": "Laki-laki",
+      "origin_village": "Baamang Tengah, Kotawaringin Timur",
+      "health_condition": "Sehat",
+      "notes": "Mengungsi karena jarak rumah tinggal 200 meter dari kobaran lahan gambut.",
+      "admitted_at": "2026-09-04T08:30:00Z",
+      "updated_at": "2026-09-04T08:30:00Z"
+    },
+    {
+      "id": 6,
+      "shelter_id": 3,
+      "shelter_name": "Posko C - Stadion 29 November Sampit",
+      "full_name": "Ahmad Dani",
+      "age": 12,
+      "gender": "Laki-laki",
+      "origin_village": "Mentawa Baru Hilir, Sampit",
+      "health_condition": "Gangguan Saluran Pernapasan (ISPA Ringan)",
+      "notes": "Batuk kering dan mata perih akibat partikulat PM2.5, telah diberikan obat tetes mata.",
+      "admitted_at": "2026-09-04T09:10:00Z",
+      "updated_at": "2026-09-04T09:10:00Z"
+    }
+  ],
+  "missing_reports": [
+    {
+      "id": 1,
+      "ticket_code": "TKT-2026-8910",
+      "reporter_name": "Surya Silalahi",
+      "reporter_phone": "0812-9988-7766",
+      "victim_name": "Farel Silalahi",
+      "victim_age": 34,
+      "last_seen_location": "Perkebunan Nanas Rimbo Panjang sebelum api membesar",
+      "description": "Mengenakan kaos abu-abu dan celana jeans pendek. Terpisah saat asap pekat menutup jalan.",
+      "status": "FOUND_AT_SHELTER",
+      "matched_shelter_id": 1,
+      "matched_shelter_name": "Posko A - Balai Desa Rimbo Panjang",
+      "officer_notes": "Diverifikasi oleh petugas Posko A pada 02 Sept 2026. Korban sudah berkumpul dengan tim medis posko.",
+      "reported_at": "2026-09-02T11:00:00Z",
+      "verified_at": "2026-09-02T15:00:00Z"
+    },
+    {
+      "id": 2,
+      "ticket_code": "TKT-2026-4412",
+      "reporter_name": "Wahyudi",
+      "reporter_phone": "0821-3344-5566",
+      "victim_name": "Rahmat Hidayat",
+      "victim_age": 29,
+      "last_seen_location": "Kawasan Konsesi Hutan Sekitar Sei Gambut, Kampar",
+      "description": "Tinggi badan 172cm, rambut ikal, mengendarai motor Supra hitam tanpa plat depan saat mencoba menyelamatkan ternak.",
+      "status": "PENDING_VERIFICATION",
+      "reported_at": "2026-09-04T13:45:00Z",
+      "verified_at": null
+    },
+    {
+      "id": 3,
+      "ticket_code": "TKT-2026-1102",
+      "reporter_name": "Lestari Handayani",
+      "reporter_phone": "0852-7788-9900",
+      "victim_name": "Siti Aisyah",
+      "victim_age": 70,
+      "last_seen_location": "Dusun Karya Makmur RT 02, Tulung Selapan, OKI",
+      "description": "Nenek lansia dengan gangguan pendengaran, baju kurung hijau toska. Terakhir dilihat tetangga saat api mendekati pekarangan.",
+      "status": "VERIFIED_MISSING",
+      "officer_notes": "Tim SAR gabungan dan TRC BPBD telah diterjunkan ke titik koordinat terakhir.",
+      "reported_at": "2026-09-03T18:20:00Z",
+      "verified_at": "2026-09-03T20:10:00Z"
+    }
+  ],
+  "auth": {
+    "shared_password_hash": "poskosiaga2026",
+    "token_secret": "si-karhutla-emergency-token-2026"
+  }
+}
