@@ -4,7 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import BottomDock from '@/components/layout/BottomDock';
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
@@ -46,12 +45,11 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${geistMono.variable} ${jetbrainsMono.variable}`}
+      className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${geistMono.variable} ${jetbrainsMono.variable} scroll-smooth`}
     >
-      <body className="min-h-screen bg-[#f5f2eb] text-[#121212] flex flex-col antialiased selection:bg-[#dc5645] selection:text-white pb-14 md:pb-16">
+      <body className="min-h-screen bg-[#f5f2eb] text-[#121212] flex flex-col antialiased selection:bg-[#dc5645] selection:text-white">
         <Header />
         <main className="flex-1 flex flex-col">{children}</main>
-        <BottomDock />
         <Footer />
       </body>
     </html>

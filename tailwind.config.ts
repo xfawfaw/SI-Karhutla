@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        bebas: ["var(--font-bebas)", "Impact", "sans-serif"],
         display: ["var(--font-bebas)", "Impact", "sans-serif"],
         sans: ["var(--font-display)", "var(--font-sans)", "ui-sans-serif", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],

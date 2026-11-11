@@ -9,6 +9,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -19,7 +20,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Muse Group True Soft Brutalism: Borderless, organic, typography-forward */
+/* Muse Group Dynamic Interactive Headline */
+.muse-title-word {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 0.35s ease, color 0.35s ease;
+  cursor: default;
+}
+
+.muse-title-word:hover {
+  transform: scale(1.02) translateY(-2px);
+  letter-spacing: 0.02em;
+}
+
+/* Muse Group True Soft Brutalism Buttons */
 .pill-btn-black {
   display: inline-flex;
   align-items: center;
@@ -28,17 +41,18 @@ body {
   border-radius: 9999px;
   background-color: #121212;
   color: #ffffff;
-  padding: 0.6rem 1.4rem;
+  padding: 0.65rem 1.6rem;
   font-family: var(--font-bebas), sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pill-btn-black:hover {
   background-color: #dc5645;
   color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .pill-btn-coral {
@@ -49,17 +63,18 @@ body {
   border-radius: 9999px;
   background-color: #dc5645;
   color: #ffffff;
-  padding: 0.6rem 1.4rem;
+  padding: 0.65rem 1.6rem;
   font-family: var(--font-bebas), sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pill-btn-coral:hover {
   background-color: #121212;
   color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .pill-btn-blue {
@@ -70,17 +85,18 @@ body {
   border-radius: 9999px;
   background-color: #4392f1;
   color: #ffffff;
-  padding: 0.6rem 1.4rem;
+  padding: 0.65rem 1.6rem;
   font-family: var(--font-bebas), sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pill-btn-blue:hover {
   background-color: #121212;
   color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .pill-btn-yellow {
@@ -91,17 +107,18 @@ body {
   border-radius: 9999px;
   background-color: #e6a73c;
   color: #121212;
-  padding: 0.6rem 1.4rem;
+  padding: 0.65rem 1.6rem;
   font-family: var(--font-bebas), sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pill-btn-yellow:hover {
   background-color: #121212;
   color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .pill-btn-green {
@@ -112,43 +129,44 @@ body {
   border-radius: 9999px;
   background-color: #20bf6b;
   color: #ffffff;
-  padding: 0.6rem 1.4rem;
+  padding: 0.65rem 1.6rem;
   font-family: var(--font-bebas), sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pill-btn-green:hover {
   background-color: #121212;
   color: #ffffff;
+  transform: translateY(-1px);
 }
 
 /* Seamless Organic Cards: No harsh comic borders, natural background blending */
 .soft-card {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
   border-radius: 1.75rem;
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .soft-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.09);
 }
 
 .soft-card-dark {
-  background-color: #181818;
+  background-color: #222222;
   color: #ffffff;
   border-radius: 1.75rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .soft-card-dark:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 /* Sticker Badges (soft rounded capsules with clean solid colors) */
@@ -156,27 +174,38 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.25rem 0.85rem;
+  padding: 0.3rem 0.9rem;
   border-radius: 9999px;
   font-family: var(--font-display), sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
 }
 
-/* Custom Scrollbar */
+/* Smooth Animated Scrollbars (Muse Group Style) */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #f5f2eb;
+  background: #ede8dc;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #d4cec3;
+  background: #121212;
   border-radius: 9999px;
+  border: 2px solid #ede8dc;
+  transition: background-color 0.2s ease;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8b1a3;
+  background: #dc5645;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #121212 #ede8dc;
 }

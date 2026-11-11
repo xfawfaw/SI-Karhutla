@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Flame, ArrowUpRight, Menu, X } from 'lucide-react';
+import { Flame, Phone, Menu, X } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Strictly 3 pages/tabs as requested by user
+  // Exactly 3 main pages/tabs
   const primaryTabs = [
     { href: '/', label: 'PETA & POSKO UTAMA' },
     { href: '/lapor', label: 'LAPORAN HILANG' },
@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-[#f5f2eb]/90 backdrop-blur-md text-[#121212] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand / Logo (Muse Group inspired clean typographic branding) */}
+        {/* Brand / Logo (Muse Group pure typographic style) */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-2xl bg-[#dc5645] flex items-center justify-center text-white group-hover:scale-105 transition-transform">
             <Flame className="w-5 h-5 stroke-[2.5]" />
@@ -39,8 +39,8 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Desktop 3 Main Tabs: Pure Typography with ZERO firm lines or box outlines */}
-        <nav className="hidden md:flex items-center gap-8 font-bebas text-xl tracking-wider">
+        {/* Desktop 3 Main Tabs: Pure Typography, Clean, Single Source of Navigation */}
+        <nav className="hidden md:flex items-center gap-10 font-bebas text-2xl tracking-wider">
           {primaryTabs.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -55,24 +55,22 @@ export default function Header() {
               >
                 {item.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#dc5645] rounded-full" />
+                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#dc5645] rounded-full" />
                 )}
               </Link>
             );
           })}
         </nav>
 
-        {/* Right CTA Button: Borderless Black Pill with Circular Arrow (Exact Muse Group Style) */}
-        <div className="hidden sm:flex items-center gap-3">
-          <Link
-            href="/lapor"
-            className="pill-btn-coral group text-xs tracking-wider"
+        {/* Right side: Emergency Hotline Badge (NOT a duplicate Lapor Hilang button) */}
+        <div className="hidden sm:flex items-center">
+          <a
+            href="tel:117"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#121212] hover:bg-[#dc5645] text-white font-bebas text-sm tracking-wider transition-colors"
           >
-            <span>LAPOR HILANG</span>
-            <div className="w-5 h-5 rounded-full bg-white text-[#dc5645] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[3]" />
-            </div>
-          </Link>
+            <Phone className="w-3.5 h-3.5 text-[#e6a73c]" />
+            <span>DARURAT BNPB: 117</span>
+          </a>
         </div>
 
         {/* Mobile menu toggle */}
@@ -104,14 +102,14 @@ export default function Header() {
               </Link>
             );
           })}
-          <div className="pt-2">
-            <Link
-              href="/lapor"
-              onClick={() => setMobileMenuOpen(false)}
-              className="pill-btn-coral w-full text-center block text-sm"
+          <div className="pt-2 border-t border-black/5">
+            <a
+              href="tel:117"
+              className="flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#121212] text-white text-sm"
             >
-              LAPOR ORANG HILANG →
-            </Link>
+              <Phone className="w-4 h-4 text-[#e6a73c]" />
+              <span>DARURAT BNPB: 117</span>
+            </a>
           </div>
         </div>
       )}

@@ -28,7 +28,9 @@ import {
   HeartPulse,
   Users,
   Compass,
-  FileText
+  FileText,
+  MapPin,
+  Radio
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -43,7 +45,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col flex-1 bg-[#f5f2eb] text-[#121212]">
-      {/* 1. Dynamic Hero Section (Muse Group Style: Giant condensed typography, borderless organic cards, description merged with background) */}
+      {/* 1. Dynamic Hero Section (Muse Group Style: Colossal interactive typography, floating angled cards, description merged with background) */}
       <section className="relative px-4 sm:px-6 lg:px-8 pt-12 pb-16 sm:pb-24 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           {/* Top Pill Badges */}
@@ -55,27 +57,51 @@ export default function HomePage() {
               6 PROVINSI PRIORITAS
             </span>
             <span className="sticker-badge bg-[#4392f1] text-white">
-              INTEGRASI KARHUTLA.CLOUD & EDUKASI KEBENCANAAN
+              SATGAS BNPB & KLHK
             </span>
           </div>
 
-          {/* Giant Condensed Headline (Muse Group pure typography) */}
-          <div className="relative mb-6">
-            <h1 className="font-bebas text-6xl sm:text-8xl md:text-9xl tracking-tight leading-[0.88] uppercase text-[#121212]">
-              SIAGA TANGGAP <br />
-              <span className="text-[#dc5645]">
+          {/* Colossal Interactive Typography with Overlapping Angled Editorial Visuals (Muse Group Aesthetic) */}
+          <div className="relative mb-8 select-none">
+            {/* Giant Headline */}
+            <h1 className="font-bebas text-7xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[13.5rem] tracking-tight leading-[0.82] uppercase text-[#121212]">
+              <span className="muse-title-word block">
+                SIAGA TANGGAP
+              </span>
+              <span className="muse-title-word text-[#dc5645] hover:text-[#e6a73c] block">
                 DARURAT KARHUTLA
               </span>
             </h1>
 
-            {/* Floating Editorial Badges */}
-            <div className="mt-4 sm:mt-0 sm:absolute sm:right-4 sm:bottom-4 flex flex-wrap gap-2">
-              <span className="sticker-badge bg-[#121212] text-white text-xs px-4 py-1.5">
-                PEMANTAUAN SPASIAL 60 FPS
-              </span>
-              <span className="sticker-badge bg-[#20bf6b] text-white text-xs px-4 py-1.5">
-                REUNI KELUARGA PENGUNGSI
-              </span>
+            {/* Angled Editorial Photo Cards (like guitarists/pianists in Muse Group video) */}
+            <div className="hidden lg:flex items-center gap-6 absolute right-8 top-12 pointer-events-auto">
+              {/* Card 1: Satelit NASA VIIRS */}
+              <div className="w-56 p-4 rounded-3xl bg-[#121212] text-white shadow-2xl rotate-[-3deg] hover:rotate-0 hover:scale-105 transition-all duration-300">
+                <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-2">
+                  <span>TELEMETRI SPASIAL</span>
+                  <Radio className="w-3.5 h-3.5 text-[#dc5645] animate-pulse" />
+                </div>
+                <div className="font-bebas text-3xl text-[#e6a73c] leading-none mb-1">
+                  2.400 HOTSPOTS
+                </div>
+                <p className="text-[11px] font-sans text-slate-300 leading-snug">
+                  Sensor NASA-TERRA/AQUA & VIIRS 2026 dipetakan real-time 60 FPS.
+                </p>
+              </div>
+
+              {/* Card 2: Satgas & Posko */}
+              <div className="w-56 p-4 rounded-3xl bg-white text-[#121212] shadow-2xl rotate-[3deg] hover:rotate-0 hover:scale-105 transition-all duration-300">
+                <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 mb-2">
+                  <span>MANIFES EVAKUASI</span>
+                  <Shield className="w-3.5 h-3.5 text-[#20bf6b]" />
+                </div>
+                <div className="font-bebas text-3xl text-[#20bf6b] leading-none mb-1">
+                  3 POSKO RESMI
+                </div>
+                <p className="text-[11px] font-sans text-slate-600 leading-snug">
+                  {totalOccupants} dari {totalCapacity} jiwa tertampung aman bebas asap.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -84,82 +110,82 @@ export default function HomePage() {
             Geoportal pemantauan titik panas berbasis satelit NASA/NOAA, direktori posko evakuasi pengungsi, indeks kualitas udara AQI, dan ensiklopedia edukasi penanggulangan kebakaran hutan & lahan gambut.
           </p>
 
-          {/* Floating Organic Preview Cards (Muse Group style: rounded-3xl, gentle tilt, borderless soft elevation) */}
+          {/* 3 Organic Feature Cards (Muse Group style: rounded-3xl, gentle tilt, borderless soft elevation) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
             {/* Card 1: Satelit & Hotspot */}
-            <div className="soft-card p-7 rotate-[-1.5deg] hover:rotate-0 transition-all flex flex-col justify-between">
+            <div className="soft-card p-8 rotate-[-1deg] hover:rotate-0 transition-all flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-[#dc5645] flex items-center justify-center text-white mb-4">
                   <Flame className="w-6 h-6 stroke-[2.5]" />
                 </div>
                 <span className="font-mono text-xs font-bold text-slate-400 uppercase tracking-wider block">MODUL SPASIAL</span>
-                <h3 className="font-bebas text-3xl uppercase text-[#121212] mt-1">
+                <h3 className="font-bebas text-4xl uppercase text-[#121212] mt-1 leading-tight">
                   2.400+ TITIK PANAS AKTIF
                 </h3>
-                <p className="font-sans text-xs text-slate-600 mt-2 leading-relaxed">
+                <p className="font-sans text-sm text-slate-600 mt-2 leading-relaxed">
                   Deteksi sensor satelit NASA-TERRA/AQUA, NOAA20, dan VIIRS terindeks Supercluster kanvas bebas lag.
                 </p>
               </div>
               <a
                 href="#peta"
-                className="mt-6 inline-flex items-center gap-1.5 font-bebas text-lg text-[#dc5645] hover:text-[#121212] transition-colors"
+                className="mt-6 inline-flex items-center gap-1.5 font-bebas text-xl text-[#dc5645] hover:text-[#121212] transition-colors"
               >
                 JELAJAHI PETA SPASIAL →
               </a>
             </div>
 
             {/* Card 2: Posko & Reuni Keluarga */}
-            <div className="soft-card p-7 rotate-[1.5deg] hover:rotate-0 transition-all flex flex-col justify-between">
+            <div className="soft-card p-8 rotate-[1deg] hover:rotate-0 transition-all flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-[#20bf6b] flex items-center justify-center text-white mb-4">
                   <Shield className="w-6 h-6 stroke-[2.5]" />
                 </div>
                 <span className="font-mono text-xs font-bold text-slate-400 uppercase tracking-wider block">POSKO DARURAT</span>
-                <h3 className="font-bebas text-3xl uppercase text-[#121212] mt-1">
+                <h3 className="font-bebas text-4xl uppercase text-[#121212] mt-1 leading-tight">
                   REUNI KELUARGA PENGUNGSI
                 </h3>
-                <p className="font-sans text-xs text-slate-600 mt-2 leading-relaxed">
+                <p className="font-sans text-sm text-slate-600 mt-2 leading-relaxed">
                   Pencarian instan kerabat yang dievakuasi di Posko A, B, dan C dilengkapi kondisi medis dan narahubung resmi.
                 </p>
               </div>
               <a
                 href="#posko"
-                className="mt-6 inline-flex items-center gap-1.5 font-bebas text-lg text-[#20bf6b] hover:text-[#121212] transition-colors"
+                className="mt-6 inline-flex items-center gap-1.5 font-bebas text-xl text-[#20bf6b] hover:text-[#121212] transition-colors"
               >
                 CARI DAFTAR KORBAN →
               </a>
             </div>
 
             {/* Card 3: Edukasi & Penanggulangan */}
-            <div className="soft-card p-7 rotate-[-1deg] hover:rotate-0 transition-all flex flex-col justify-between">
+            <div className="soft-card p-8 rotate-[-1deg] hover:rotate-0 transition-all flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-[#e6a73c] flex items-center justify-center text-[#121212] mb-4">
                   <BookOpen className="w-6 h-6 stroke-[2.5]" />
                 </div>
                 <span className="font-mono text-xs font-bold text-slate-400 uppercase tracking-wider block">MODUL EDUKASI</span>
-                <h3 className="font-bebas text-3xl uppercase text-[#121212] mt-1">
+                <h3 className="font-bebas text-4xl uppercase text-[#121212] mt-1 leading-tight">
                   EDUKASI & MITIGASI BENCANA
                 </h3>
-                <p className="font-sans text-xs text-slate-600 mt-2 leading-relaxed">
+                <p className="font-sans text-sm text-slate-600 mt-2 leading-relaxed">
                   Studi ilmiah penyebab karhutla, 5 dampak negatif vs 4 dampak positif alami, serta regulasi UU No. 24/2007.
                 </p>
               </div>
               <a
                 href="#edukasi"
-                className="mt-6 inline-flex items-center gap-1.5 font-bebas text-lg text-[#e6a73c] hover:text-[#121212] transition-colors"
+                className="mt-6 inline-flex items-center gap-1.5 font-bebas text-xl text-[#e6a73c] hover:text-[#121212] transition-colors"
               >
                 BACA MATERI EDUKASI →
               </a>
             </div>
           </div>
 
-          {/* Quick Action Navigation Bar */}
+          {/* Quick Action Navigation Bar - Clean, NO redundant Lapor Hilang button */}
           <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-black/10">
             <p className="font-sans text-xs sm:text-sm text-slate-600 max-w-xl">
               Seluruh data mengacu pada standar <strong>BNPB 2026</strong>, integrasi <strong>karhutla.cloud</strong>, serta rujukan <strong>UU No. 24 Tahun 2007</strong>.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-4">
               <a
                 href="#posko"
                 className="pill-btn-coral text-sm"
@@ -167,20 +193,20 @@ export default function HomePage() {
                 <Search className="w-4 h-4" />
                 <span>CARI KORBAN DI POSKO</span>
               </a>
-              <Link
-                href="/lapor"
+              <a
+                href="#peta"
                 className="pill-btn-black text-sm"
               >
-                <AlertCircle className="w-4 h-4 text-[#dc5645]" />
-                <span>LAPOR HILANG (TIKET)</span>
-              </Link>
+                <Flame className="w-4 h-4 text-[#e6a73c]" />
+                <span>LIHAT PETA TITIK PANAS</span>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* 2. Interactive Hotspot Geoportal Map (#peta) - Smooth, borderless, seamless */}
-      <section id="peta" className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-5">
+      <section id="peta" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -190,7 +216,7 @@ export default function HomePage() {
             <h2 className="font-bebas text-5xl sm:text-7xl uppercase tracking-wider text-[#121212] leading-none">
               PETA SEBARAN TITIK PANAS (GIS 2026)
             </h2>
-            <p className="text-sm sm:text-base text-slate-700 font-sans mt-2 max-w-2xl">
+            <p className="text-sm sm:text-base text-slate-700 font-sans mt-2 max-w-2xl leading-relaxed">
               Visualisasi satelit OpenStreetMap 100% bebas watermark • Algoritma Supercluster Canvas 60 FPS • Penanda Posko Evakuasi A, B, C
             </p>
           </div>
@@ -233,7 +259,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Giant Stat Callout (Muse Group style big typography highlight) */}
+            {/* Giant Stat Callout */}
             <div className="bg-[#121212] text-white p-6 rounded-3xl shadow-2xl shrink-0">
               <span className="font-mono text-xs text-slate-400 uppercase tracking-wider block">AQI TERTINGGI HARI INI:</span>
               <div className="font-bebas text-5xl sm:text-6xl text-[#e6a73c] leading-none my-1">
@@ -629,7 +655,7 @@ export default function HomePage() {
             <h2 className="font-bebas text-5xl sm:text-7xl uppercase tracking-wider text-[#121212] leading-none">
               REKAM JEJAK KONSESI DI LAHAN GAMBUT
             </h2>
-            <p className="text-sm sm:text-base text-slate-700 font-sans mt-2 max-w-2xl">
+            <p className="text-sm sm:text-base text-slate-700 font-sans mt-2 max-w-2xl leading-relaxed">
               Data transparansi izin perkebunan kelapa sawit (HGU) dan kehutanan (PBPH-HTI) di sekitar sebaran titik api aktif.
             </p>
           </div>
