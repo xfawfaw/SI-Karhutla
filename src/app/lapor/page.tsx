@@ -101,9 +101,9 @@ function LaporContent() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full flex-1 text-[#121212]">
-      {/* Hero Header (Muse Group style condensed headline + badges) */}
-      <div className="mb-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 w-full flex-1 text-[#121212]">
+      {/* Hero Header (Muse Group style: description merged with background) */}
+      <div className="mb-10">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <span className="sticker-badge bg-[#dc5645] text-white">
             ★ VERIFIKASI SATU PINTU
@@ -115,28 +115,28 @@ function LaporContent() {
             POSKO SATGAS 2026
           </span>
         </div>
-        <h1 className="font-bebas text-5xl sm:text-7xl tracking-wider uppercase text-[#121212] leading-none">
+        <h1 className="font-bebas text-6xl sm:text-8xl tracking-wider uppercase text-[#121212] leading-none">
           FORMULIR LAPOR ORANG HILANG & LACAK TIKET
         </h1>
-        <p className="text-sm sm:text-base text-slate-700 font-sans mt-2 max-w-3xl">
+        <p className="text-base sm:text-lg text-slate-700 font-sans mt-3 max-w-3xl leading-relaxed">
           Layanan pelaporan publik untuk membantu pencarian keluarga yang terpisah saat evakuasi kebakaran hutan. Seluruh data diverifikasi langsung oleh petugas posko lapangan sebelum dipublikasikan.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Form (2 cols) */}
+        {/* Main Form (2 cols) - Seamless borderless card */}
         <div className="lg:col-span-2">
           {successReport ? (
-            <div className="rounded-3xl border-2 border-[#121212] bg-white p-8 sm:p-10 shadow-soft-lg space-y-6">
+            <div className="rounded-3xl bg-white p-8 sm:p-12 shadow-md space-y-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#20bf6b] border-2 border-[#121212] shadow-soft-sm flex items-center justify-center text-white">
+                <div className="w-12 h-12 rounded-2xl bg-[#20bf6b] flex items-center justify-center text-white">
                   <CheckCircle2 className="w-6 h-6 stroke-[3]" />
                 </div>
                 <div>
                   <h2 className="font-bebas text-3xl sm:text-4xl tracking-wider uppercase text-[#121212]">
                     LAPORAN BERHASIL TERCATAT!
                   </h2>
-                  <p className="text-xs text-slate-600 font-mono">
+                  <p className="text-xs text-slate-500 font-mono">
                     Data telah masuk ke meja moderasi posko lapangan.
                   </p>
                 </div>
@@ -146,7 +146,7 @@ function LaporContent() {
                 Simpan atau catat kode tiket resmi di bawah ini. Anda dapat menggunakan kode ini sewaktu-waktu untuk mengecek perkembangan pencarian korban di posko penampungan.
               </p>
 
-              <div className="rounded-2xl border-2 border-[#121212] bg-[#e6a73c] p-6 text-center shadow-soft">
+              <div className="rounded-2xl bg-[#e6a73c] p-6 text-center">
                 <span className="text-xs font-mono font-bold block mb-1 text-[#121212] uppercase tracking-wider">
                   KODE TIKET PELAPORAN RESMI
                 </span>
@@ -155,9 +155,9 @@ function LaporContent() {
                 </span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#f5f2eb] border-2 border-[#121212] text-xs font-mono text-slate-700">
+              <div className="p-4 rounded-2xl bg-[#f5f2eb] text-xs font-mono text-slate-700">
                 <strong>Status Saat Ini:</strong>{' '}
-                <span className="px-2 py-0.5 rounded-full bg-[#e6a73c] font-bold text-[#121212] border border-[#121212]">
+                <span className="px-2 py-0.5 rounded-full bg-[#e6a73c] font-bold text-[#121212]">
                   PENDING_VERIFICATION
                 </span>{' '}
                 • Petugas di Posko A, B, atau C sedang melakukan pencocokan data fisik penyintas di lapangan.
@@ -172,7 +172,7 @@ function LaporContent() {
                     setLastSeenLocation('');
                     setDescription('');
                   }}
-                  className="pill-btn-coral py-3 px-6 text-xs font-display font-black tracking-wider"
+                  className="pill-btn-coral py-3 px-6 text-sm"
                 >
                   BUAT LAPORAN LAIN
                 </button>
@@ -181,10 +181,10 @@ function LaporContent() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="rounded-3xl border-2 border-[#121212] bg-white p-6 sm:p-8 shadow-soft-lg space-y-6"
+              className="rounded-3xl bg-white p-6 sm:p-10 shadow-sm space-y-6"
             >
               {errorMessage && (
-                <div className="rounded-2xl bg-[#dc5645] text-white font-mono font-bold text-xs p-3.5 border-2 border-[#121212] shadow-soft-sm flex items-center gap-2">
+                <div className="rounded-2xl bg-[#dc5645] text-white font-mono font-bold text-xs p-3.5 flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0 stroke-[3]" />
                   <span>{errorMessage}</span>
                 </div>
@@ -193,17 +193,17 @@ function LaporContent() {
               {/* 1. Pelapor Info */}
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#dc5645] text-white border-2 border-[#121212] flex items-center justify-center font-display font-black text-xs">
+                  <span className="w-6 h-6 rounded-full bg-[#dc5645] text-white flex items-center justify-center font-bebas text-xs">
                     1
                   </span>
-                  <h3 className="font-display font-black text-base uppercase tracking-wider text-[#121212]">
+                  <h3 className="font-bebas text-2xl uppercase tracking-wider text-[#121212]">
                     IDENTITAS PELAPOR / KELUARGA
                   </h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-display font-bold text-xs uppercase tracking-wide text-[#121212] mb-1.5">
+                    <label className="block font-sans font-bold text-xs uppercase tracking-wide text-slate-700 mb-1.5">
                       NAMA LENGKAP PELAPOR *
                     </label>
                     <input
@@ -212,11 +212,11 @@ function LaporContent() {
                       placeholder="Contoh: Surya Silalahi"
                       value={reporterName}
                       onChange={(e) => setReporterName(e.target.value)}
-                      className="w-full rounded-2xl border-2 border-[#121212] bg-[#fdfbf7] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
+                      className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block font-display font-bold text-xs uppercase tracking-wide text-[#121212] mb-1.5">
+                    <label className="block font-sans font-bold text-xs uppercase tracking-wide text-slate-700 mb-1.5">
                       NO. WHATSAPP / TELEPON *
                     </label>
                     <input
@@ -225,26 +225,26 @@ function LaporContent() {
                       placeholder="Contoh: 0812-9988-7766"
                       value={reporterPhone}
                       onChange={(e) => setReporterPhone(e.target.value)}
-                      className="w-full rounded-2xl border-2 border-[#121212] bg-[#fdfbf7] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
+                      className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
                     />
                   </div>
                 </div>
               </div>
 
               {/* 2. Victim Info */}
-              <div className="space-y-4 pt-4 border-t-2 border-[#121212]/10">
+              <div className="space-y-4 pt-4 border-t border-black/5">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#20bf6b] text-white border-2 border-[#121212] flex items-center justify-center font-display font-black text-xs">
+                  <span className="w-6 h-6 rounded-full bg-[#20bf6b] text-white flex items-center justify-center font-bebas text-xs">
                     2
                   </span>
-                  <h3 className="font-display font-black text-base uppercase tracking-wider text-[#121212]">
+                  <h3 className="font-bebas text-2xl uppercase tracking-wider text-[#121212]">
                     IDENTITAS KERABAT YANG DICARI
                   </h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="sm:col-span-2">
-                    <label className="block font-display font-bold text-xs uppercase tracking-wide text-[#121212] mb-1.5">
+                    <label className="block font-sans font-bold text-xs uppercase tracking-wide text-slate-700 mb-1.5">
                       NAMA LENGKAP KORBAN *
                     </label>
                     <input
@@ -253,11 +253,11 @@ function LaporContent() {
                       placeholder="Contoh: Farel Silalahi"
                       value={victimName}
                       onChange={(e) => setVictimName(e.target.value)}
-                      className="w-full rounded-2xl border-2 border-[#121212] bg-[#fdfbf7] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
+                      className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block font-display font-bold text-xs uppercase tracking-wide text-[#121212] mb-1.5">
+                    <label className="block font-sans font-bold text-xs uppercase tracking-wide text-slate-700 mb-1.5">
                       PERKIRAAN USIA (THN)
                     </label>
                     <input
@@ -265,13 +265,13 @@ function LaporContent() {
                       placeholder="Contoh: 34"
                       value={victimAge}
                       onChange={(e) => setVictimAge(e.target.value)}
-                      className="w-full rounded-2xl border-2 border-[#121212] bg-[#fdfbf7] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
+                      className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-display font-bold text-xs uppercase tracking-wide text-[#121212] mb-1.5">
+                  <label className="block font-sans font-bold text-xs uppercase tracking-wide text-slate-700 mb-1.5">
                     LOKASI TERAKHIR TERLIHAT / DESA ASAL *
                   </label>
                   <input
@@ -280,20 +280,20 @@ function LaporContent() {
                     placeholder="Contoh: Dusun 2 Rimbo Panjang dekat perbatasan kebun gambut"
                     value={lastSeenLocation}
                     onChange={(e) => setLastSeenLocation(e.target.value)}
-                    className="w-full rounded-2xl border-2 border-[#121212] bg-[#fdfbf7] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
+                    className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-display font-bold text-xs uppercase tracking-wide text-[#121212] mb-1.5">
+                  <label className="block font-sans font-bold text-xs uppercase tracking-wide text-slate-700 mb-1.5">
                     CIRI-CIRI FISIK & PAKAIAN TERAKHIR
                   </label>
                   <textarea
                     rows={3}
-                    placeholder="Contoh: Tinggi ~170cm, kaos abu-abu bertuliskan kampus, celana pendek hitam, ada luka di lengan kiri..."
+                    placeholder="Contoh: Tinggi ~170cm, kaos abu-abu, celana pendek hitam, ada luka di lengan kiri..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full rounded-2xl border-2 border-[#121212] bg-[#fdfbf7] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
+                    className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
                   />
                 </div>
               </div>
@@ -301,7 +301,7 @@ function LaporContent() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="pill-btn-coral w-full py-4 text-base font-display font-black tracking-wider justify-center disabled:opacity-50"
+                className="pill-btn-coral w-full py-4 text-base font-bebas tracking-wider justify-center disabled:opacity-50"
               >
                 {submitting ? (
                   <>
@@ -321,12 +321,12 @@ function LaporContent() {
 
         {/* Sidebar: Lacak Status Tiket (1 col) */}
         <div>
-          <div className="rounded-3xl border-2 border-[#121212] bg-white p-6 shadow-soft space-y-5 sticky top-24">
-            <div className="flex items-center gap-2.5 border-b-2 border-[#121212]/10 pb-3">
-              <div className="w-8 h-8 rounded-xl bg-[#e6a73c] border-2 border-[#121212] flex items-center justify-center text-[#121212]">
+          <div className="rounded-3xl bg-white p-7 shadow-sm space-y-5 sticky top-24">
+            <div className="flex items-center gap-2.5 pb-2">
+              <div className="w-8 h-8 rounded-xl bg-[#e6a73c] flex items-center justify-center text-[#121212]">
                 <Search className="w-4 h-4 stroke-[3]" />
               </div>
-              <h3 className="font-bebas text-2xl tracking-wider uppercase text-[#121212]">
+              <h3 className="font-bebas text-3xl tracking-wider uppercase text-[#121212]">
                 LACAK STATUS TIKET
               </h3>
             </div>
@@ -341,29 +341,29 @@ function LaporContent() {
                 placeholder="CONTOH: TKT-2026-8910"
                 value={ticketSearch}
                 onChange={(e) => setTicketSearch(e.target.value)}
-                className="w-full rounded-2xl border-2 border-[#121212] bg-[#fdfbf7] px-4 py-2.5 text-xs font-mono font-bold uppercase text-[#121212] focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#e6a73c]"
+                className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-xs font-mono font-bold uppercase text-[#121212] focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#e6a73c]"
               />
               <button
                 type="submit"
                 disabled={lookupLoading}
-                className="pill-btn-yellow w-full py-2.5 text-xs font-display font-black tracking-wider justify-center disabled:opacity-50"
+                className="pill-btn-yellow w-full py-3 text-sm font-bebas tracking-wider justify-center disabled:opacity-50"
               >
                 {lookupLoading ? 'MEMERIKSA...' : 'PERIKSA STATUS TIKET'}
               </button>
             </form>
 
             {lookupError && (
-              <div className="p-3 rounded-2xl bg-[#dc5645] text-white font-mono font-bold text-xs border-2 border-[#121212]">
+              <div className="p-3 rounded-2xl bg-[#dc5645] text-white font-mono font-bold text-xs">
                 {lookupError}
               </div>
             )}
 
             {lookupReport && (
-              <div className="p-4 rounded-2xl bg-[#f5f2eb] border-2 border-[#121212] space-y-3 text-xs font-mono">
+              <div className="p-4 rounded-2xl bg-[#f5f2eb] space-y-3 text-xs font-mono">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-bold text-[#121212]">{lookupReport.ticket_code}</span>
                   <span
-                    className={`px-2 py-0.5 rounded-full border border-[#121212] font-black text-[10px] ${
+                    className={`px-2 py-0.5 rounded-full font-black text-[10px] ${
                       getStatusBadge(lookupReport.status).bg
                     }`}
                   >
@@ -371,19 +371,19 @@ function LaporContent() {
                   </span>
                 </div>
 
-                <div className="font-display font-black text-sm text-[#121212] uppercase">
+                <div className="font-bebas text-xl text-[#121212] uppercase">
                   {lookupReport.victim_name} ({lookupReport.victim_age} Thn)
                 </div>
 
                 {lookupReport.matched_shelter_name && (
-                  <div className="bg-[#20bf6b] text-white p-2.5 rounded-xl border border-[#121212] font-bold text-[11px] flex items-center gap-1.5">
+                  <div className="bg-[#20bf6b] text-white p-2.5 rounded-xl font-bold text-[11px] flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4 shrink-0" />
                     <span>Ditemukan di: {lookupReport.matched_shelter_name}</span>
                   </div>
                 )}
 
                 {lookupReport.officer_notes && (
-                  <p className="text-[11px] text-slate-700 italic bg-white p-2 rounded-lg border border-[#121212]/20">
+                  <p className="text-[11px] text-slate-700 italic bg-white p-2.5 rounded-xl">
                     Catatan: {lookupReport.officer_notes}
                   </p>
                 )}

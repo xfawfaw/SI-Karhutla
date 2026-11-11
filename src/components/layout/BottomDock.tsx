@@ -20,52 +20,53 @@ export default function BottomDock() {
   };
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden md:flex items-center gap-1.5 p-1.5 bg-[#f5f2eb]/90 backdrop-blur-md rounded-full border-2 border-[#121212] shadow-soft-lg">
+    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 hidden md:flex items-center gap-6 px-7 py-3 bg-[#121212]/95 backdrop-blur-lg rounded-full text-white shadow-2xl font-bebas text-lg tracking-wider">
       <button
         onClick={() => handleSmoothScroll('peta')}
-        className="pill-btn-black text-xs py-1.5 px-3.5 hover:bg-[#dc5645] transition-colors"
+        className="text-white/75 hover:text-[#e6a73c] transition-colors cursor-pointer flex items-center gap-1.5"
       >
-        <Flame className="w-3.5 h-3.5 text-[#e6a73c]" />
+        <Flame className="w-4 h-4 text-[#e6a73c]" />
         <span>PETA HOTSPOT</span>
       </button>
 
       <button
         onClick={() => handleSmoothScroll('posko')}
-        className="pill-btn-black text-xs py-1.5 px-3.5 hover:bg-[#20bf6b] transition-colors"
+        className="text-white/75 hover:text-[#20bf6b] transition-colors cursor-pointer flex items-center gap-1.5"
       >
-        <Shield className="w-3.5 h-3.5 text-[#20bf6b]" />
+        <Shield className="w-4 h-4 text-[#20bf6b]" />
         <span>KORBAN & POSKO</span>
       </button>
 
       <button
         onClick={() => handleSmoothScroll('aqi')}
-        className="pill-btn-black text-xs py-1.5 px-3.5 hover:bg-[#4392f1] transition-colors"
+        className="text-white/75 hover:text-[#4392f1] transition-colors cursor-pointer flex items-center gap-1.5"
       >
-        <Wind className="w-3.5 h-3.5 text-[#4392f1]" />
+        <Wind className="w-4 h-4 text-[#4392f1]" />
         <span>INDEKS AQI</span>
       </button>
 
       <button
-        onClick={() => handleSmoothScroll('mitigasi')}
-        className="pill-btn-black text-xs py-1.5 px-3.5 hover:bg-[#e6a73c] transition-colors"
+        onClick={() => handleSmoothScroll('edukasi')}
+        className="text-white/75 hover:text-[#e6a73c] transition-colors cursor-pointer flex items-center gap-1.5"
       >
-        <BookOpen className="w-3.5 h-3.5 text-[#e6a73c]" />
-        <span>MITIGASI & HUKUM</span>
+        <BookOpen className="w-4 h-4 text-[#e6a73c]" />
+        <span>EDUKASI & MITIGASI</span>
       </button>
 
+      {/* Seamless CTA Capsule Pill without rigid border */}
       <Link
         href="/lapor"
-        className="pill-btn-coral text-xs py-1.5 px-4 font-bold"
+        className="bg-[#dc5645] hover:bg-[#c94535] text-white px-4 py-1.5 rounded-full text-sm font-black transition-all flex items-center gap-1.5"
       >
-        <AlertCircle className="w-3.5 h-3.5 text-white" />
+        <AlertCircle className="w-3.5 h-3.5" />
         <span>LAPOR HILANG</span>
       </Link>
 
       <Link
         href="/petugas"
-        className="pill-btn-blue text-xs py-1.5 px-3.5 font-bold"
+        className="text-white/75 hover:text-[#4392f1] transition-colors flex items-center gap-1"
       >
-        <UserCheck className="w-3.5 h-3.5 text-white" />
+        <UserCheck className="w-4 h-4" />
         <span>PETUGAS</span>
       </Link>
     </div>
