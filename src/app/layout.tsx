@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono, Bebas_Neue } from 'next/font/google';
+import { Inter, JetBrains_Mono, Bebas_Neue, Syne } from 'next/font/google';
 import 'leaflet/dist/leaflet.css';
 import './globals.css';
 import Header from '@/components/layout/Header';
@@ -8,6 +8,12 @@ import Footer from '@/components/layout/Footer';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+  display: 'swap',
+});
+
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
   display: 'swap',
 });
 
@@ -39,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${inter.variable} ${bebasNeue.variable} ${jetbrainsMono.variable} scroll-smooth`}
+      className={`${inter.variable} ${syne.variable} ${bebasNeue.variable} ${jetbrainsMono.variable} scroll-smooth`}
     >
       <body className="min-h-screen bg-[#f5f2eb] text-[#121212] flex flex-col antialiased selection:bg-[#dc5645] selection:text-white">
         <Header />

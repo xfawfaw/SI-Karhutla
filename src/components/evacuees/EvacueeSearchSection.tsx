@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Search, Shield, MapPin, AlertCircle, ArrowRight, Phone, HeartPulse, UserCheck } from 'lucide-react';
 import { Evacuee, Shelter } from '@/types';
+import { TactileHighlight } from '@/components/ui/tactile-highlight';
 
 interface EvacueeSearchSectionProps {
   initialEvacuees: Evacuee[];
@@ -59,8 +60,8 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
               DATA TERPADU BNPB 2026
             </span>
           </div>
-          <h2 className="font-muse text-4xl sm:text-6xl tracking-tight uppercase text-[#121212] leading-none">
-            PENCARIAN KORBAN & POSKO EVAKUASI
+          <h2 className="font-display text-4xl sm:text-6xl font-extrabold tracking-tight uppercase text-[#121212] leading-none">
+            PENCARIAN KORBAN & <TactileHighlight direction="left" delay={0.15}>POSKO EVAKUASI</TactileHighlight>
           </h2>
           <p className="text-base sm:text-lg text-slate-700 font-sans mt-2 max-w-2xl leading-relaxed">
             Direktori pencarian warga yang telah dievakuasi di posko resmi binaan Satgas Penanggulangan Karhutla dan Dinas Sosial.
