@@ -5,7 +5,7 @@
 /* Muse Group Exact Font: PP Right Grotesk */
 @font-face {
   font-family: 'PPRightGrotesk';
-  src: url('/fonts/PPRightGrotesk-TallR.woff') format('woff');
+  src: url('/fonts/PPRightGrotesk-Tight.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -21,6 +21,22 @@
 
 @font-face {
   font-family: 'PPRightGrotesk';
+  src: url('/fonts/PPRightGrotesk-Tight.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PPRightGrotesk';
+  src: url('/fonts/PPRightGrotesk-Tight.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PPRightGrotesk-Tall';
   src: url('/fonts/PPRightGrotesk-TallB.woff') format('woff');
   font-weight: 700;
   font-style: normal;
@@ -47,18 +63,23 @@ body {
 
 /* Muse Group Dynamic Headline Typography */
 .font-muse {
-  font-family: 'PPRightGrotesk', var(--font-bebas), Impact, sans-serif;
+  font-family: 'PPRightGrotesk', -apple-system, BlinkMacSystemFont, 'Inter', var(--font-sans), sans-serif;
+  letter-spacing: -0.015em;
+}
+
+.font-muse-tall {
+  font-family: 'PPRightGrotesk-Tall', 'PPRightGrotesk', var(--font-bebas), Impact, sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .muse-title-word {
   display: inline-block;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 0.3s ease, color 0.3s ease;
+  transition: color 0.25s ease, letter-spacing 0.25s ease;
   cursor: default;
 }
 
 .muse-title-word:hover {
-  transform: translateY(-2px);
-  letter-spacing: 0.015em;
+  letter-spacing: -0.005em;
 }
 
 /* Smooth Tab Background Transitions */
@@ -170,30 +191,33 @@ body {
   transform: translateY(-1px);
 }
 
-/* Seamless Organic Cards */
+/* Seamless Elegant Cards (High-craft Swiss Grotesk Style) */
 .soft-card {
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  border-radius: 1.75rem;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: #ffffff;
+  border: 1px solid rgba(18, 18, 18, 0.08);
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .soft-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.09);
+  border-color: rgba(18, 18, 18, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.07);
 }
 
 .soft-card-dark {
-  background-color: #222222;
+  background-color: #181818;
   color: #ffffff;
-  border-radius: 1.75rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .soft-card-dark:hover {
-  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Sticker Badges */

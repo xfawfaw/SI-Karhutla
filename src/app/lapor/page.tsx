@@ -115,7 +115,7 @@ function LaporContent() {
             POSKO SATGAS 2026
           </span>
         </div>
-        <h1 className="font-bebas text-6xl sm:text-8xl tracking-wider uppercase text-[#121212] leading-none">
+        <h1 className="font-muse text-5xl sm:text-7xl tracking-tight uppercase text-[#121212] leading-none">
           FORMULIR LAPOR ORANG HILANG & LACAK TIKET
         </h1>
         <p className="text-base sm:text-lg text-slate-700 font-sans mt-3 max-w-3xl leading-relaxed">
@@ -133,7 +133,7 @@ function LaporContent() {
                   <CheckCircle2 className="w-6 h-6 stroke-[3]" />
                 </div>
                 <div>
-                  <h2 className="font-bebas text-3xl sm:text-4xl tracking-wider uppercase text-[#121212]">
+                  <h2 className="font-muse text-2xl sm:text-3xl tracking-tight uppercase text-[#121212]">
                     LAPORAN BERHASIL TERCATAT!
                   </h2>
                   <p className="text-xs text-slate-500 font-mono">
@@ -150,7 +150,7 @@ function LaporContent() {
                 <span className="text-xs font-mono font-bold block mb-1 text-[#121212] uppercase tracking-wider">
                   KODE TIKET PELAPORAN RESMI
                 </span>
-                <span className="font-bebas text-4xl sm:text-6xl tracking-widest text-[#121212]">
+                <span className="font-muse text-3xl sm:text-5xl tracking-widest text-[#121212]">
                   {successReport.ticket_code}
                 </span>
               </div>
@@ -193,10 +193,10 @@ function LaporContent() {
               {/* 1. Pelapor Info */}
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#dc5645] text-white flex items-center justify-center font-bebas text-xs">
+                  <span className="w-6 h-6 rounded-full bg-[#dc5645] text-white flex items-center justify-center font-mono font-bold text-xs">
                     1
                   </span>
-                  <h3 className="font-bebas text-2xl uppercase tracking-wider text-[#121212]">
+                  <h3 className="font-muse text-xl uppercase tracking-wider text-[#121212]">
                     IDENTITAS PELAPOR / KELUARGA
                   </h3>
                 </div>
@@ -234,10 +234,10 @@ function LaporContent() {
               {/* 2. Victim Info */}
               <div className="space-y-4 pt-4 border-t border-black/5">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#20bf6b] text-white flex items-center justify-center font-bebas text-xs">
+                  <span className="w-6 h-6 rounded-full bg-[#20bf6b] text-white flex items-center justify-center font-mono font-bold text-xs">
                     2
                   </span>
-                  <h3 className="font-bebas text-2xl uppercase tracking-wider text-[#121212]">
+                  <h3 className="font-muse text-xl uppercase tracking-wider text-[#121212]">
                     IDENTITAS KERABAT YANG DICARI
                   </h3>
                 </div>
@@ -301,7 +301,7 @@ function LaporContent() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="pill-btn-coral w-full py-4 text-base font-bebas tracking-wider justify-center disabled:opacity-50"
+                className="pill-btn-coral w-full py-4 text-sm font-muse uppercase tracking-wider justify-center disabled:opacity-50"
               >
                 {submitting ? (
                   <>
@@ -323,10 +323,10 @@ function LaporContent() {
         <div>
           <div className="rounded-3xl bg-white p-7 shadow-sm space-y-5 sticky top-24">
             <div className="flex items-center gap-2.5 pb-2">
-              <div className="w-8 h-8 rounded-xl bg-[#e6a73c] flex items-center justify-center text-[#121212]">
+              <div className="w-8 h-8 rounded-xl bg-[#121212] flex items-center justify-center text-white">
                 <Search className="w-4 h-4 stroke-[3]" />
               </div>
-              <h3 className="font-bebas text-3xl tracking-wider uppercase text-[#121212]">
+              <h3 className="font-muse text-2xl tracking-tight uppercase text-[#121212]">
                 LACAK STATUS TIKET
               </h3>
             </div>
@@ -341,12 +341,12 @@ function LaporContent() {
                 placeholder="CONTOH: TKT-2026-8910"
                 value={ticketSearch}
                 onChange={(e) => setTicketSearch(e.target.value)}
-                className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-xs font-mono font-bold uppercase text-[#121212] focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#e6a73c]"
+                className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-xs font-mono font-bold uppercase text-[#121212] focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#121212]"
               />
               <button
                 type="submit"
                 disabled={lookupLoading}
-                className="pill-btn-yellow w-full py-3 text-sm font-bebas tracking-wider justify-center disabled:opacity-50"
+                className="pill-btn-black w-full py-3 text-xs font-muse tracking-wider uppercase justify-center disabled:opacity-50"
               >
                 {lookupLoading ? 'MEMERIKSA...' : 'PERIKSA STATUS TIKET'}
               </button>
@@ -371,7 +371,7 @@ function LaporContent() {
                   </span>
                 </div>
 
-                <div className="font-bebas text-xl text-[#121212] uppercase">
+                <div className="font-muse text-lg font-bold text-[#121212] uppercase">
                   {lookupReport.victim_name} ({lookupReport.victim_age} Thn)
                 </div>
 

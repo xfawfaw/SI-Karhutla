@@ -12,10 +12,10 @@ export default function Footer() {
             <div className="w-8 h-8 rounded-xl bg-[#dc5645] flex items-center justify-center text-white">
               <Flame className="w-4 h-4 stroke-[2.5]" />
             </div>
-            <span className="font-bebas text-2xl tracking-wider text-[#121212]">
+            <span className="font-muse text-xl font-bold tracking-tight text-[#121212]">
               SI-KARHUTLA CLOUD
             </span>
-            <span className="sticker-badge bg-[#e6a73c] text-[#121212] text-[10px] py-0 px-2 font-bold">
+            <span className="sticker-badge bg-[#121212] text-white text-[10px] py-0 px-2 font-mono">
               BNPB 2026
             </span>
           </div>
@@ -25,31 +25,31 @@ export default function Footer() {
         </div>
 
         {/* 3 Main Pages / Tabs */}
-        <div className="flex flex-wrap items-center gap-3 font-bebas text-base">
+        <div className="flex flex-wrap items-center gap-2 font-muse text-xs font-semibold tracking-wider uppercase">
           <Link
             href="/"
-            className="px-4 py-1.5 rounded-full bg-[#f5f2eb] hover:bg-[#121212] hover:text-white transition-colors"
+            className="px-4 py-2 rounded-full bg-black/5 hover:bg-[#121212] hover:text-white transition-colors"
           >
-            Peta & Posko Utama
+            PETA & POSKO UTAMA
           </Link>
           <Link
             href="/lapor"
-            className="px-4 py-1.5 rounded-full bg-[#f5f2eb] hover:bg-[#dc5645] hover:text-white transition-colors"
+            className="px-4 py-2 rounded-full bg-black/5 hover:bg-[#dc5645] hover:text-white transition-colors"
           >
-            Laporan Hilang
+            LAPORAN HILANG
           </Link>
           <Link
             href="/petugas"
-            className="px-4 py-1.5 rounded-full bg-[#f5f2eb] hover:bg-[#4392f1] hover:text-white transition-colors"
+            className="px-4 py-2 rounded-full bg-black/5 hover:bg-[#121212] hover:text-white transition-colors"
           >
-            Portal Petugas
+            PORTAL PETUGAS
           </Link>
         </div>
 
         {/* Emergency Hotline */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#dc5645] text-white font-bebas text-base tracking-wider">
-            <Phone className="w-4 h-4" />
+          <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#121212] text-white font-mono text-xs font-semibold tracking-wider">
+            <Phone className="w-3.5 h-3.5 text-[#dc5645]" />
             <span>HOTLINE BNPB 117</span>
           </div>
         </div>

@@ -21,15 +21,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand / Logo (Muse Group pure typographic style) */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-2xl bg-[#dc5645] flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+          <div className="w-9 h-9 rounded-xl bg-[#dc5645] flex items-center justify-center text-white group-hover:scale-105 transition-transform">
             <Flame className="w-5 h-5 stroke-[2.5]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bebas text-3xl tracking-wider text-[#121212] leading-none">
+              <span className="font-muse text-2xl font-bold tracking-tight text-[#121212] leading-none">
                 SI-KARHUTLA
               </span>
-              <span className="sticker-badge bg-[#e6a73c] text-[#121212] text-[10px] py-0 px-2 font-black">
+              <span className="sticker-badge bg-[#121212] text-white text-[10px] py-0 px-2 font-mono">
                 2026
               </span>
             </div>
@@ -40,14 +40,14 @@ export default function Header() {
         </Link>
 
         {/* Desktop 3 Main Tabs: Smooth Background Pill Transitions */}
-        <nav className="hidden md:flex items-center gap-2 p-1.5 rounded-full bg-black/[0.03]">
+        <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-black/[0.04]">
           {primaryTabs.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-5 py-2 rounded-full font-bebas text-xl tracking-wider transition-all duration-300 ${
+                className={`px-5 py-2 rounded-full font-muse text-sm font-semibold tracking-wide transition-all duration-300 ${
                   isActive
                     ? 'bg-[#121212] text-white shadow-sm'
                     : 'text-[#121212]/75 hover:text-[#dc5645] hover:bg-black/[0.04]'
@@ -63,7 +63,7 @@ export default function Header() {
         <div className="hidden sm:flex items-center">
           <a
             href="tel:117"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#121212] hover:bg-[#dc5645] text-white font-bebas text-sm tracking-wider transition-colors"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#121212] hover:bg-[#dc5645] text-white font-mono text-xs font-semibold tracking-wider transition-colors"
           >
             <Phone className="w-3.5 h-3.5 text-[#e6a73c]" />
             <span>DARURAT BNPB: 117</span>

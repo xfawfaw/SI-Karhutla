@@ -167,7 +167,7 @@ export default function PetugasPage() {
             <div className="w-14 h-14 rounded-2xl bg-[#e6a73c] flex items-center justify-center mx-auto text-[#121212]">
               <Lock className="w-7 h-7 stroke-[2.5]" />
             </div>
-            <h1 className="font-bebas text-4xl sm:text-5xl tracking-wider uppercase text-[#121212]">
+            <h1 className="font-muse text-3xl sm:text-4xl tracking-tight uppercase text-[#121212]">
               PORTAL PETUGAS POSKO
             </h1>
             <p className="text-xs text-slate-500 font-sans">
@@ -196,14 +196,14 @@ export default function PetugasPage() {
                 className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
               />
               <span className="text-[11px] text-slate-500 mt-2 block font-mono">
-                Sandi Bawaan: <strong className="bg-[#e6a73c] px-2 py-0.5 rounded-full text-[#121212]">poskosiaga2026</strong>
+                Sandi Bawaan: <strong className="bg-[#121212] px-2 py-0.5 rounded-full text-white">poskosiaga2026</strong>
               </span>
             </div>
 
             <button
               type="submit"
               disabled={authLoading}
-              className="pill-btn-coral w-full py-3.5 text-base font-bebas tracking-wider justify-center uppercase disabled:opacity-50"
+              className="pill-btn-coral w-full py-3.5 text-xs font-muse tracking-wider justify-center uppercase disabled:opacity-50"
             >
               {authLoading ? 'MEMVERIFIKASI...' : 'MASUK KE MEJA MODERASI'}
             </button>
@@ -219,14 +219,14 @@ export default function PetugasPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/10 pb-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="sticker-badge bg-[#20bf6b] text-white">
+            <span className="sticker-badge bg-[#121212] text-white">
               AUTHORIZED OPERATOR
             </span>
-            <span className="sticker-badge bg-[#e6a73c] text-[#121212]">
+            <span className="sticker-badge bg-[#20bf6b] text-white">
               SATGAS DARURAT 2026
             </span>
           </div>
-          <h1 className="font-bebas text-5xl sm:text-7xl tracking-wider uppercase text-[#121212] leading-none">
+          <h1 className="font-muse text-4xl sm:text-6xl tracking-tight uppercase text-[#121212] leading-none">
             PANEL MODERASI LAPORAN & MANIFES POSKO
           </h1>
         </div>
@@ -263,9 +263,9 @@ export default function PetugasPage() {
         {/* Antrean Verifikasi (2 cols) */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-bebas text-3xl sm:text-4xl tracking-wider uppercase flex items-center gap-2 text-[#121212]">
+            <h2 className="font-muse text-2xl sm:text-3xl tracking-tight uppercase flex items-center gap-2 text-[#121212]">
               <ShieldCheck className="w-6 h-6 text-[#dc5645]" />
-              ANTEAN VERIFIKASI WARGA ({pendingReports.length} TIKET)
+              ANTREAN VERIFIKASI WARGA ({pendingReports.length} TIKET)
             </h2>
           </div>
 
@@ -278,7 +278,7 @@ export default function PetugasPage() {
               <div className="w-12 h-12 rounded-full bg-[#20bf6b] text-white flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-7 h-7 stroke-[3]" />
               </div>
-              <h3 className="font-bebas text-3xl tracking-wider uppercase text-[#121212]">
+              <h3 className="font-muse text-2xl tracking-tight uppercase text-[#121212]">
                 SEMUA LAPORAN BERHASIL DIMODERASI
               </h3>
               <p className="text-sm text-slate-600 font-sans">
@@ -297,7 +297,7 @@ export default function PetugasPage() {
                       <span className="sticker-badge bg-[#dc5645] text-white text-[10px] py-0 px-2">
                         {report.ticket_code}
                       </span>
-                      <h3 className="font-bebas text-3xl uppercase mt-1 text-[#121212]">
+                      <h3 className="font-muse text-2xl uppercase mt-1 text-[#121212]">
                         {report.victim_name} (Usia ~{report.victim_age} Thn)
                       </h3>
                     </div>
@@ -321,7 +321,7 @@ export default function PetugasPage() {
                   </div>
 
                   {/* 1-Click Moderation Buttons */}
-                  <div className="flex flex-wrap items-center gap-2 pt-1 font-bebas text-sm">
+                  <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
                     <button
                       onClick={() => handleModerate(report.id, 'FOUND_AT_SHELTER', 1, 'Tiba di Posko A')}
                       className="pill-btn-green py-1.5 px-3.5 text-xs"
@@ -366,7 +366,7 @@ export default function PetugasPage() {
               <div className="w-8 h-8 rounded-xl bg-[#20bf6b] flex items-center justify-center text-white">
                 <PlusCircle className="w-4 h-4 stroke-[2.5]" />
               </div>
-              <h3 className="font-bebas text-3xl tracking-wider uppercase text-[#121212]">
+              <h3 className="font-muse text-2xl tracking-tight uppercase text-[#121212]">
                 CATAT KEDATANGAN PENYINTAS
               </h3>
             </div>
@@ -482,7 +482,7 @@ export default function PetugasPage() {
               <button
                 type="submit"
                 disabled={intakeLoading}
-                className="pill-btn-green w-full py-3.5 text-sm font-bebas tracking-wider justify-center disabled:opacity-50"
+                className="pill-btn-green w-full py-3.5 text-xs font-muse uppercase tracking-wider justify-center disabled:opacity-50"
               >
                 {intakeLoading ? (
                   <>

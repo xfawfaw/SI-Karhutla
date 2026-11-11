@@ -52,14 +52,14 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="sticker-badge bg-[#20bf6b] text-white text-xs font-bold">
-              ★ REUNI KORBAN & POSKO
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#121212] text-white font-mono text-[11px] uppercase tracking-wider">
+              ● REUNI KORBAN & POSKO
             </span>
-            <span className="sticker-badge bg-[#e6a73c] text-[#121212] text-xs font-bold">
-              DATA TERPADU BNPB
+            <span className="font-mono text-xs text-slate-500 uppercase tracking-wide">
+              DATA TERPADU BNPB 2026
             </span>
           </div>
-          <h2 className="font-bebas text-5xl sm:text-7xl tracking-wider uppercase text-[#121212] leading-none">
+          <h2 className="font-muse text-4xl sm:text-6xl tracking-tight uppercase text-[#121212] leading-none">
             PENCARIAN KORBAN & POSKO EVAKUASI
           </h2>
           <p className="text-base sm:text-lg text-slate-700 font-sans mt-2 max-w-2xl leading-relaxed">
@@ -96,12 +96,12 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
                   <span className="sticker-badge bg-[#20bf6b] text-white text-xs font-black">
                     {s.code}
                   </span>
-                  <span className="font-bebas text-lg text-[#121212]">
+                  <span className="font-mono text-sm font-bold text-[#121212]">
                     {occRatio}% KETERISIAN
                   </span>
                 </div>
 
-                <h3 className="font-bebas text-3xl uppercase text-[#121212] leading-tight">
+                <h3 className="font-muse text-2xl uppercase text-[#121212] leading-tight">
                   {s.name}
                 </h3>
                 <p className="text-xs text-slate-600 font-sans mt-1 line-clamp-2">
@@ -168,7 +168,7 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
             <select
               value={selectedShelterId}
               onChange={(e) => setSelectedShelterId(e.target.value)}
-              className="w-full bg-[#e6a73c] rounded-2xl px-4 py-3 text-sm font-bebas tracking-wider text-[#121212] uppercase focus:outline-none cursor-pointer"
+              className="w-full bg-[#121212] text-white rounded-2xl px-4 py-3 text-xs font-mono font-bold tracking-wider uppercase focus:outline-none cursor-pointer"
             >
               <option value="ALL">SEMUA POSKO EVAKUASI</option>
               {shelters.map((s) => (
@@ -187,7 +187,7 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
           TERDATA: {filtered.length} KORBAN SELAMAT
         </span>
         {searchQuery && (
-          <span className="sticker-badge bg-[#e6a73c] text-[#121212]">
+          <span className="sticker-badge bg-[#dc5645] text-white">
             KATA KUNCI: &ldquo;{searchQuery}&rdquo;
           </span>
         )}
@@ -213,7 +213,7 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
                   </div>
 
                   <div>
-                    <h3 className="font-bebas text-3xl uppercase text-[#121212] leading-tight">
+                    <h3 className="font-muse text-2xl uppercase text-[#121212] leading-tight">
                       {item.full_name}
                     </h3>
                     <p className="font-mono text-xs text-slate-500 mt-0.5">
@@ -250,7 +250,7 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
       ) : (
         <div className="p-12 text-center bg-white/70 rounded-3xl space-y-3">
           <AlertCircle className="w-10 h-10 text-[#dc5645] mx-auto" />
-          <h4 className="font-bebas text-3xl uppercase text-[#121212]">KORBAN TIDAK DITEMUKAN</h4>
+          <h4 className="font-muse text-2xl uppercase text-[#121212]">KORBAN TIDAK DITEMUKAN</h4>
           <p className="text-sm text-slate-600 font-sans max-w-md mx-auto">
             Nama tidak ada dalam manifes ketiga posko? Segera buat laporan orang hilang melalui formulir resmi:
           </p>
