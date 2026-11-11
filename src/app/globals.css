@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --bg: #f4f0e8;
-  --text: #0a0a0a;
+  --bg: #f5f2eb;
+  --text: #121212;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -15,57 +19,121 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Neobrutalism UI Utility Classes */
-.brutal-box {
-  background-color: #ffffff;
-  border: 2px solid #000000;
-  box-shadow: 4px 4px 0px 0px #000000;
+/* Soft Brutalism Pill & Card Classes (Muse Group Inspiration) */
+.pill-btn-black {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 2px solid #121212;
+  background-color: #121212;
+  color: #ffffff;
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 3px 3px 0px 0px rgba(18, 18, 18, 0.4);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.brutal-box-lg {
-  background-color: #ffffff;
-  border: 3px solid #000000;
-  box-shadow: 6px 6px 0px 0px #000000;
-}
-
-.brutal-btn {
-  border: 2px solid #000000;
-  box-shadow: 3px 3px 0px 0px #000000;
-  transition: all 0.1s ease-in-out;
-  cursor: pointer;
-}
-
-.brutal-btn:hover {
+.pill-btn-black:hover {
   transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0px 0px #000000;
+  box-shadow: 1px 1px 0px 0px rgba(18, 18, 18, 0.4);
+  background-color: #262626;
 }
 
-.brutal-btn:active {
+.pill-btn-black:active {
   transform: translate(3px, 3px);
-  box-shadow: 0px 0px 0px 0px #000000;
+  box-shadow: 0px 0px 0px 0px rgba(18, 18, 18, 0.4);
 }
 
-.brutal-badge {
-  border: 2px solid #000000;
-  box-shadow: 2px 2px 0px 0px #000000;
-  font-weight: 700;
+.pill-btn-coral {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 2px solid #121212;
+  background-color: #dc5645;
+  color: #ffffff;
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 3px 3px 0px 0px #121212;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom Leaflet Map styling for Neobrutalism */
+.pill-btn-coral:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px 0px #121212;
+  background-color: #cb4736;
+}
+
+.pill-btn-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 2px solid #121212;
+  background-color: #4392f1;
+  color: #ffffff;
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 3px 3px 0px 0px #121212;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.soft-card {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  border: 2px solid #121212;
+  box-shadow: 4px 4px 0px 0px #121212;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.soft-card:hover {
+  transform: translate(-1px, -2px);
+  box-shadow: 6px 6px 0px 0px #121212;
+}
+
+/* Floating sticker badge */
+.sticker-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 2px solid #121212;
+  padding: 0.25rem 0.85rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0px 0px #121212;
+}
+
+/* Leaflet Container in Soft Brutalism */
 .leaflet-container {
   width: 100% !important;
   height: 100% !important;
-  background-color: #e2dfd7 !important;
+  background-color: #eae7de !important;
   font-family: var(--font-mono), monospace !important;
+  border-radius: 1.5rem;
   z-index: 1;
 }
 
 .leaflet-popup-content-wrapper {
   background: #ffffff !important;
-  color: #000000 !important;
-  border: 2px solid #000000 !important;
-  border-radius: 4px !important;
-  box-shadow: 4px 4px 0px 0px #000000 !important;
+  color: #121212 !important;
+  border: 2px solid #121212 !important;
+  border-radius: 1rem !important;
+  box-shadow: 4px 4px 0px 0px #121212 !important;
   padding: 0 !important;
   overflow: hidden;
 }
@@ -77,10 +145,9 @@ body {
 
 .leaflet-popup-tip {
   background: #ffffff !important;
-  border: 2px solid #000000 !important;
+  border: 2px solid #121212 !important;
 }
 
-/* Neobrutalist cluster marker */
 .custom-cluster-marker {
   display: flex;
   align-items: center;
@@ -88,23 +155,26 @@ body {
   border-radius: 9999px;
   font-weight: 900;
   color: #ffffff;
-  border: 2px solid #000000;
-  box-shadow: 2px 2px 0px 0px #000000;
+  border: 2px solid #121212;
+  box-shadow: 2px 2px 0px 0px #121212;
   cursor: pointer;
   user-select: none;
-  font-family: var(--font-display), var(--font-mono), monospace;
+  font-family: var(--font-display), monospace;
+  transition: transform 0.15s ease;
 }
 
-/* Brutalist Scrollbar */
+.custom-cluster-marker:hover {
+  transform: scale(1.1);
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f4f0e8;
-  border-left: 2px solid #000000;
+  background: #f5f2eb;
 }
 ::-webkit-scrollbar-thumb {
-  background: #ff5722;
-  border: 2px solid #000000;
+  background: #dc5645;
+  border-radius: 4px;
 }

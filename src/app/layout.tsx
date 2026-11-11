@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import BottomDock from '@/components/layout/BottomDock';
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
@@ -31,10 +32,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'SI-KARHUTLA Cloud | Peta Spasial, Indeks Udara AQI & Posko Evakuasi',
+  title: 'SI-KARHUTLA | Geoportal Spasial, Indeks AQI & Posko Bencana 2026',
   description:
-    'Platform Neobrutalisme Pemantauan Titik Panas Karhutla, Indeks Kualitas Udara AQI, Rekam Jejak Korporasi & Reuni Posko Pengungsian BNPB 2026.',
-  keywords: ['karhutla cloud', 'neobrutalism', 'hotspot bnpb', 'posko evakuasi', 'indeks aqi', 'sipongi', 'uu 24 2007'],
+    'Platform terpadu pemantauan titik panas karhutla BNPB 2026, indeks kualitas udara AQI, dan direktori posko evakuasi pengungsi.',
+  keywords: ['karhutla', 'hotspot bnpb', 'posko evakuasi', 'indeks aqi', 'sipongi', 'uu 24 2007', 'reuni keluarga'],
 };
 
 export default function RootLayout({
@@ -47,9 +48,10 @@ export default function RootLayout({
       lang="id"
       className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${geistMono.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="min-h-screen bg-[#f4f0e8] text-[#0a0a0a] flex flex-col antialiased selection:bg-[#ff4d29] selection:text-white">
+      <body className="min-h-screen bg-[#f5f2eb] text-[#121212] flex flex-col antialiased selection:bg-[#dc5645] selection:text-white pb-14 md:pb-16">
         <Header />
         <main className="flex-1 flex flex-col">{children}</main>
+        <BottomDock />
         <Footer />
       </body>
     </html>
