@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import L from 'leaflet';
 import Supercluster from 'supercluster';
 import { Hotspot, Shelter } from '@/types';
-import { Shield, Filter, MapPin, Layers } from 'lucide-react';
+import { Shield, Filter, MapPin, Layers, Flame, Radio } from 'lucide-react';
 
 interface MapInnerProps {
   hotspots: Hotspot[];
@@ -63,7 +63,7 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
     return sc;
   }, [filteredHotspots]);
 
-  // Fast cluster rendering with Neobrutalist markers
+  // Fast cluster rendering with smooth rounded markers
   const renderClusters = useCallback(() => {
     const map = mapRef.current;
     const clusterLayer = clusterLayerRef.current;
@@ -91,12 +91,12 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
         const count = feat.properties.point_count;
         const clusterId = feat.properties.cluster_id;
 
-        const size = count > 100 ? 46 : count > 30 ? 38 : 32;
-        const bgColor = count > 100 ? '#eb3b5a' : count > 30 ? '#ff5722' : '#ffde59';
-        const textColor = count > 30 ? '#ffffff' : '#000000';
+        const size = count > 100 ? 44 : count > 30 ? 38 : 32;
+        const bgColor = count > 100 ? '#eb3b5a' : count > 30 ? '#ff5722' : '#e6a73c';
+        const textColor = count > 30 ? '#ffffff' : '#121212';
 
         const icon = L.divIcon({
-          html: `<div class="custom-cluster-marker" style="width:${size}px; height:${size}px; background:${bgColor}; color:${textColor}; font-size:${size > 36 ? 13 : 11}px; font-weight:900;">
+          html: `<div style="width:${size}px; height:${size}px; border-radius:9999px; background:${bgColor}; color:${textColor}; font-family:'PPRightGrotesk', sans-serif; font-size:${size > 36 ? 13 : 11}px; font-weight:700; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.25); border: 2px solid #ffffff;">
                   ${count}
                  </div>`,
           className: '',
@@ -123,22 +123,22 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
           renderer: canvasRenderer,
           radius: isHigh ? 6 : 4.5,
           fillColor: isHigh ? '#eb3b5a' : '#ff5722',
-          color: '#000000',
+          color: '#ffffff',
           weight: 1.5,
           opacity: 1,
           fillOpacity: 0.9,
         });
 
         circle.bindPopup(`
-          <div style="padding:12px; font-family: monospace; font-size:12px; line-height:1.4; color:#000000; background:#ffffff;">
-            <div style="font-weight:900; background:#ff5722; color:#ffffff; padding:2px 6px; border:2px solid #000; display:inline-block; margin-bottom:6px; font-size:11px;">
+          <div style="padding:14px; font-family: 'Inter', sans-serif; font-size:12px; line-height:1.5; color:#121212; background:#ffffff; border-radius:16px;">
+            <div style="font-weight:700; background:#ff5722; color:#ffffff; padding:3px 8px; border-radius:9999px; display:inline-block; margin-bottom:8px; font-size:11px;">
               🔥 HOTSPOT ${h.confidence}% CONF
             </div>
             <div><strong>Wilayah:</strong> ${h.regency}, ${h.province}</div>
             <div><strong>Satelit:</strong> ${h.satellite}</div>
             <div><strong>Kecerahan:</strong> ${h.brightness} K</div>
-            <div><strong>Waktu:</strong> ${h.acquisition_date} ${h.acquisition_time}</div>
-            <div style="margin-top:4px; font-size:11px; color:#555;">[${lat.toFixed(4)}, ${lng.toFixed(4)}]</div>
+            <div><strong>Waktu Deteksi:</strong> ${h.acquisition_date} ${h.acquisition_time}</div>
+            <div style="margin-top:6px; font-size:11px; color:#666;">[${lat.toFixed(4)}, ${lng.toFixed(4)}]</div>
           </div>
         `);
 
@@ -147,7 +147,7 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
     });
   }, [superclusterIndex]);
 
-  // Render Shelter Layer with Neobrutalism badge
+  // Render Shelter Layer with smooth rounded badge
   const renderShelters = useCallback(() => {
     const layer = shelterLayerRef.current;
     if (!layer) return;
@@ -160,27 +160,27 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
 
       const icon = L.divIcon({
         html: `
-          <div style="width:34px; height:34px; border-radius:4px; background:#20bf6b; border:2.5px solid #000000; box-shadow:3px 3px 0px #000000; display:flex; align-items:center; justify-content:center; cursor:pointer;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5">
+          <div style="width:36px; height:36px; border-radius:12px; background:#20bf6b; border:2px solid #ffffff; box-shadow:0 4px 14px rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center; cursor:pointer;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
           </div>
         `,
         className: '',
-        iconSize: [34, 34],
-        iconAnchor: [17, 17],
+        iconSize: [36, 36],
+        iconAnchor: [18, 18],
       });
 
       const popup = `
-        <div style="padding:12px; font-family: monospace; font-size:12px; line-height:1.4; color:#000000; background:#ffffff;">
-          <div style="font-weight:900; background:#20bf6b; color:#000000; border:2px solid #000; padding:2px 6px; display:inline-block; font-size:12px; margin-bottom:4px;">
+        <div style="padding:14px; font-family: 'Inter', sans-serif; font-size:12px; line-height:1.5; color:#121212; background:#ffffff; border-radius:16px;">
+          <div style="font-weight:700; background:#20bf6b; color:#ffffff; border-radius:9999px; padding:3px 8px; display:inline-block; font-size:11px; margin-bottom:6px;">
             🛡️ ${s.code}: ${s.name}
           </div>
-          <div style="color:#444; font-size:11px; margin-bottom:6px;">${s.address}</div>
-          <div style="font-weight:bold; margin-bottom:4px;">Keterisian: ${s.current_occupants} / ${s.capacity} Jiwa (${occRatio}%)</div>
+          <div style="color:#555; font-size:11px; margin-bottom:6px;">${s.address}</div>
+          <div style="font-weight:600; margin-bottom:4px;">Keterisian: ${s.current_occupants} / ${s.capacity} Jiwa (${occRatio}%)</div>
           <div><strong>PIC:</strong> ${s.pic_name} (${s.pic_phone})</div>
-          <a href="/posko?shelterId=${s.id}" style="display:inline-block; margin-top:8px; padding:6px 10px; background:#ffde59; color:#000000; border:2px solid #000000; box-shadow:2px 2px 0px #000; text-decoration:none; font-size:11px; font-weight:900;">
-            LIHAT MANIFES PENGUNGSI →
+          <a href="/#posko" style="display:inline-block; margin-top:8px; padding:6px 12px; border-radius:9999px; background:#121212; color:#ffffff; text-decoration:none; font-size:11px; font-weight:600;">
+            LIHAT DIREKTORI KORBAN →
           </a>
         </div>
       `;
@@ -190,7 +190,7 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
     });
   }, [shelters, showShelters]);
 
-  // Initial Leaflet Map Setup (Free clean OpenStreetMap tile layer, ZERO watermarks!)
+  // Initial Leaflet Map Setup
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
 
@@ -206,7 +206,7 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
       zoomControl: false,
     });
 
-    // 100% Free OpenStreetMap Tile Layer - NO API KEY, NO WATERMARK!
+    // 100% Free OpenStreetMap Tile Layer
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Data &copy; BNPB 2026',
@@ -257,31 +257,31 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
   };
 
   return (
-    <div className="relative w-full h-[600px] border-3 sm:border-4 border-black bg-[#e5e2da] overflow-hidden shadow-brutal-lg">
+    <div className="relative w-full h-[620px] rounded-3xl bg-[#e5e2da] overflow-hidden shadow-xl">
       {/* Map DOM Mount */}
       <div
         ref={mapContainerRef}
         id="leaflet-gis-map"
         className="w-full h-full"
-        style={{ minHeight: '600px', width: '100%', height: '100%' }}
+        style={{ minHeight: '620px', width: '100%', height: '100%' }}
       />
 
-      {/* Neobrutalist Floating Control Dock */}
-      <div className="absolute top-3 left-3 right-3 sm:right-auto sm:left-4 z-10 pointer-events-none">
-        <div className="bg-[#ffffff] border-2 sm:border-3 border-black p-2.5 sm:p-3 shadow-brutal pointer-events-auto flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-mono">
-          {/* Active Points Count Sticker */}
-          <div className="bg-[#ff5722] text-white font-bold px-2.5 py-1 border-2 border-black shadow-brutal-sm flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
-            <span>{filteredHotspots.length} HOTSPOTS</span>
+      {/* Modern, Neat, High-ZIndex Floating Control Dock (z-[1000] to never be covered by Leaflet) */}
+      <div className="absolute top-4 left-4 right-4 sm:right-auto z-[1000] pointer-events-auto">
+        <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-black/10 p-2.5 sm:p-3 flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-sans">
+          {/* Active Points Count Pill */}
+          <div className="bg-[#dc5645] text-white font-mono font-bold px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping"></span>
+            <span>{filteredHotspots.length} TITIK PANAS</span>
           </div>
 
           {/* Satellite Selector */}
-          <div className="flex items-center gap-1 bg-[#f4f0e8] px-2 py-1 border-2 border-black">
-            <span className="font-bold text-black">SAT:</span>
+          <div className="flex items-center gap-1.5 bg-[#f5f2eb] px-3 py-1.5 rounded-xl border border-black/5">
+            <span className="font-bold text-slate-500 text-[10px] uppercase font-mono">SENSOR:</span>
             <select
               value={selectedSatellite}
               onChange={(e) => setSelectedSatellite(e.target.value)}
-              className="bg-transparent font-bold text-black focus:outline-none cursor-pointer"
+              className="bg-transparent font-medium text-[#121212] focus:outline-none cursor-pointer text-xs"
             >
               <option value="ALL">SEMUA SENSOR</option>
               <option value="NASA-TERRA/AQUA">TERRA / AQUA</option>
@@ -291,12 +291,12 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
           </div>
 
           {/* Province Focus */}
-          <div className="flex items-center gap-1 bg-[#f4f0e8] px-2 py-1 border-2 border-black">
-            <span className="font-bold text-black">WILAYAH:</span>
+          <div className="flex items-center gap-1.5 bg-[#f5f2eb] px-3 py-1.5 rounded-xl border border-black/5">
+            <span className="font-bold text-slate-500 text-[10px] uppercase font-mono">WILAYAH:</span>
             <select
               value={selectedProvince}
               onChange={(e) => handleProvinceSelect(e.target.value)}
-              className="bg-transparent font-bold text-black focus:outline-none cursor-pointer"
+              className="bg-transparent font-medium text-[#121212] focus:outline-none cursor-pointer text-xs"
             >
               {PROVINCES.map((p) => (
                 <option key={p.value} value={p.value}>
@@ -309,8 +309,10 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
           {/* Confidence Filter Toggle */}
           <button
             onClick={() => setMinConfidence(minConfidence === 0 ? 80 : 0)}
-            className={`px-2.5 py-1 font-bold border-2 border-black transition-all brutal-btn ${
-              minConfidence > 0 ? 'bg-[#eb3b5a] text-white' : 'bg-white text-black'
+            className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs ${
+              minConfidence > 0
+                ? 'bg-[#eb3b5a] text-white shadow-sm'
+                : 'bg-[#f5f2eb] text-[#121212] hover:bg-black/5'
             }`}
           >
             {minConfidence > 0 ? '🔥 TINGGI (≥80%)' : 'SEMUA TINGKAT'}
@@ -319,33 +321,35 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
           {/* Shelter Layer Toggle */}
           <button
             onClick={() => setShowShelters(!showShelters)}
-            className={`flex items-center gap-1 px-2.5 py-1 font-bold border-2 border-black transition-all brutal-btn ${
-              showShelters ? 'bg-[#20bf6b] text-black' : 'bg-white text-slate-400'
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold transition-all text-xs ${
+              showShelters
+                ? 'bg-[#20bf6b] text-white shadow-sm'
+                : 'bg-[#f5f2eb] text-slate-400 hover:bg-black/5'
             }`}
           >
             <Shield className="w-3.5 h-3.5" />
-            POSKO ({shelters.length})
+            <span>POSKO ({shelters.length})</span>
           </button>
         </div>
       </div>
 
-      {/* Neobrutalist Legend Bottom-Left */}
-      <div className="absolute bottom-4 left-4 z-10 bg-[#ffffff] border-2 border-black p-2 shadow-brutal font-mono text-[11px] font-bold hidden sm:flex items-center gap-3">
-        <div className="flex items-center gap-1.5">
-          <span className="w-3.5 h-3.5 rounded-full bg-[#eb3b5a] border border-black inline-block"></span>
-          <span>≥80% Sangat Rawan</span>
+      {/* Modern, Neat Legend Bottom-Left (z-[1000] guaranteed always visible) */}
+      <div className="absolute bottom-4 left-4 z-[1000] bg-white/95 backdrop-blur-md rounded-2xl shadow-lg border border-black/10 px-4 py-2.5 font-sans text-xs hidden sm:flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#eb3b5a] inline-block shadow-sm"></span>
+          <span className="text-slate-700 font-medium">≥80% Sangat Rawan</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="w-3.5 h-3.5 rounded-full bg-[#ff5722] border border-black inline-block"></span>
-          <span>Sedang</span>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#ff5722] inline-block shadow-sm"></span>
+          <span className="text-slate-700 font-medium">Sedang</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="w-3.5 h-3.5 rounded-full bg-[#ffde59] border border-black inline-block"></span>
-          <span>Klaster Api</span>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#e6a73c] inline-block shadow-sm"></span>
+          <span className="text-slate-700 font-medium">Klaster Api</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="w-3.5 h-3.5 bg-[#20bf6b] border border-black inline-block"></span>
-          <span>Posko Evakuasi</span>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-md bg-[#20bf6b] inline-block shadow-sm"></span>
+          <span className="text-slate-700 font-medium">Posko Evakuasi</span>
         </div>
       </div>
     </div>

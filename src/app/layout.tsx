@@ -1,9 +1,15 @@
 import type { Metadata } from 'next';
-import { JetBrains_Mono, Geist_Mono, Bebas_Neue, Space_Grotesk } from 'next/font/google';
+import { Inter, JetBrains_Mono, Bebas_Neue } from 'next/font/google';
 import 'leaflet/dist/leaflet.css';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
@@ -12,21 +18,9 @@ const bebasNeue = Bebas_Neue({
   display: 'swap',
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-});
-
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
-  display: 'swap',
-});
-
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-sans',
   display: 'swap',
 });
 
@@ -45,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${geistMono.variable} ${jetbrainsMono.variable} scroll-smooth`}
+      className={`${inter.variable} ${bebasNeue.variable} ${jetbrainsMono.variable} scroll-smooth`}
     >
       <body className="min-h-screen bg-[#f5f2eb] text-[#121212] flex flex-col antialiased selection:bg-[#dc5645] selection:text-white">
         <Header />

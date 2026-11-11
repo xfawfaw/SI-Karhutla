@@ -17,7 +17,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#f5f2eb]/90 backdrop-blur-md text-[#121212] transition-all">
+    <header className="sticky top-0 z-50 bg-[#f5f2eb]/90 backdrop-blur-md text-[#121212] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand / Logo (Muse Group pure typographic style) */}
         <Link href="/" className="flex items-center gap-3 group">
@@ -39,34 +39,31 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Desktop 3 Main Tabs: Pure Typography, Clean, Single Source of Navigation */}
-        <nav className="hidden md:flex items-center gap-10 font-bebas text-2xl tracking-wider">
+        {/* Desktop 3 Main Tabs: Smooth Background Pill Transitions */}
+        <nav className="hidden md:flex items-center gap-2 p-1.5 rounded-full bg-black/[0.03]">
           {primaryTabs.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative py-1 transition-colors ${
+                className={`px-5 py-2 rounded-full font-bebas text-xl tracking-wider transition-all duration-300 ${
                   isActive
-                    ? 'text-[#dc5645] font-black'
-                    : 'text-[#121212]/70 hover:text-[#dc5645]'
+                    ? 'bg-[#121212] text-white shadow-sm'
+                    : 'text-[#121212]/75 hover:text-[#dc5645] hover:bg-black/[0.04]'
                 }`}
               >
                 {item.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#dc5645] rounded-full" />
-                )}
               </Link>
             );
           })}
         </nav>
 
-        {/* Right side: Emergency Hotline Badge (NOT a duplicate Lapor Hilang button) */}
+        {/* Right side: Emergency Hotline Badge */}
         <div className="hidden sm:flex items-center">
           <a
             href="tel:117"
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#121212] hover:bg-[#dc5645] text-white font-bebas text-sm tracking-wider transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#121212] hover:bg-[#dc5645] text-white font-bebas text-sm tracking-wider transition-colors"
           >
             <Phone className="w-3.5 h-3.5 text-[#e6a73c]" />
             <span>DARURAT BNPB: 117</span>
@@ -94,8 +91,8 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block py-2 ${
-                  isActive ? 'text-[#dc5645] font-black' : 'text-[#121212]'
+                className={`block py-2.5 px-4 rounded-2xl transition-colors ${
+                  isActive ? 'bg-[#121212] text-white' : 'text-[#121212]'
                 }`}
               >
                 {item.label}
@@ -105,7 +102,7 @@ export default function Header() {
           <div className="pt-2 border-t border-black/5">
             <a
               href="tel:117"
-              className="flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#121212] text-white text-sm"
+              className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#121212] text-white text-sm"
             >
               <Phone className="w-4 h-4 text-[#e6a73c]" />
               <span>DARURAT BNPB: 117</span>
