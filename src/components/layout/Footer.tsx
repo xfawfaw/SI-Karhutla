@@ -1,10 +1,19 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { Flame, Phone, Shield, ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Flame, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-white/80 backdrop-blur-md text-[#121212] text-xs py-12 px-4 sm:px-6 lg:px-8 mt-auto font-sans">
+    <motion.footer
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-20px' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="bg-white/80 backdrop-blur-md text-[#121212] text-xs py-14 px-4 sm:px-6 lg:px-8 mt-auto font-sans border-t border-black/[0.08]"
+    >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         {/* Brand */}
         <div className="space-y-2">
@@ -12,20 +21,20 @@ export default function Footer() {
             <div className="w-8 h-8 rounded-xl bg-[#dc5645] flex items-center justify-center text-white">
               <Flame className="w-4 h-4 stroke-[2.5]" />
             </div>
-            <span className="font-muse text-xl font-bold tracking-tight text-[#121212]">
+            <span className="font-display font-black text-xl tracking-tight text-[#121212]">
               SI-KARHUTLA CLOUD
             </span>
-            <span className="sticker-badge bg-[#121212] text-white text-[10px] py-0 px-2 font-mono">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#121212] text-white text-[10px] font-mono font-bold">
               BNPB 2026
             </span>
           </div>
-          <p className="text-slate-600 text-xs font-sans max-w-md">
+          <p className="text-slate-600 text-xs font-sans max-w-md leading-relaxed">
             Sistem Geoportal Hotspot, Kualitas Udara US EPA AQI & Manajemen Posko Evakuasi Bencana. Berbasis standar BNPB 2026 & UU No. 24 Tahun 2007.
           </p>
         </div>
 
         {/* 3 Main Pages / Tabs */}
-        <div className="flex flex-wrap items-center gap-2 font-muse text-xs font-semibold tracking-wider uppercase">
+        <div className="flex flex-wrap items-center gap-2 font-display text-xs font-bold tracking-wider uppercase">
           <Link
             href="/"
             className="px-4 py-2 rounded-full bg-black/5 hover:bg-[#121212] hover:text-white transition-colors"
@@ -48,10 +57,13 @@ export default function Footer() {
 
         {/* Emergency Hotline */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#121212] text-white font-mono text-xs font-semibold tracking-wider">
-            <Phone className="w-3.5 h-3.5 text-[#dc5645]" />
+          <a
+            href="tel:117"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#121212] hover:bg-[#dc5645] text-white font-mono text-xs font-semibold tracking-wider transition-colors"
+          >
+            <Phone className="w-3.5 h-3.5 text-[#e6a73c]" />
             <span>HOTLINE BNPB 117</span>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -59,6 +71,6 @@ export default function Footer() {
         <p>© 2026 SI-KARHUTLA Cloud • Terinspirasi dari karhutla.cloud & Standar Bencana BNPB.</p>
         <p className="font-bold text-[#121212]">Dynamic Smooth Soft Brutalism • 60 FPS GIS Engine</p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

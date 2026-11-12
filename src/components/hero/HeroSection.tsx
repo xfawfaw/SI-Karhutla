@@ -140,11 +140,11 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
             className="lg:col-span-4 relative"
           >
             <div className="relative rounded-3xl overflow-hidden border border-black/10 shadow-2xl bg-[#121212] aspect-[4/5] max-w-sm mx-auto group">
-              {/* Real Unsplash Peatland / Forest Smoke Aerial Photography */}
+              {/* Real Unsplash Peatland & Forest Wildfire Photography */}
               <img
-                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80"
-                alt="Pantauan Udara Asap Karhutla Gambut"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
+                src="https://images.unsplash.com/photo-1579202673506-ca3ce28943ef?auto=format&fit=crop&w=1200&q=80"
+                alt="Kobaran Api Kebakaran Hutan & Lahan Gambut"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-85"
               />
 
               {/* Editorial Gradient & Telemetry HUD Overlay */}
