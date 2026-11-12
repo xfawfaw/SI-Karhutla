@@ -32,8 +32,6 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
   });
 
   const headlineY = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, -35]);
-  const imageRotate = useTransform(scrollYProgress, [0, 1], [-1, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.3]);
 
   return (
@@ -69,124 +67,76 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
           </div>
         </motion.div>
 
-        {/* Hero Main Grid: Headline & Floating Firefighter Photography */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-12">
-          {/* Colossal Combined Headline */}
-          <motion.div
-            style={{ y: headlineY, opacity }}
-            className="lg:col-span-8 select-none"
-          >
-            <h1 className="leading-[0.88] uppercase text-white">
-              <motion.span
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] tracking-tight block text-white drop-shadow-sm"
-              >
-                SIAGA TANGGAP
-              </motion.span>
-
-              {/* Combined Font Style: Elegant Italic Serif accentuating Bold Grotesk & Tactile Highlight */}
-              <motion.span
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-wrap items-baseline gap-2.5 sm:gap-4 mt-2 sm:mt-3"
-              >
-                <span className="font-serif italic lowercase font-normal text-3xl sm:text-5xl md:text-6xl text-[#e6a73c] tracking-normal select-none">
-                  fase
-                </span>
-                <TactileHighlight
-                  direction="left"
-                  delay={0.25}
-                  trigger="inView"
-                  highlightClassName="bg-[#121212] shadow-2xl"
-                >
-                  <span className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-[7rem] tracking-tight text-white">
-                    DARURAT KARHUTLA
-                  </span>
-                </TactileHighlight>
-              </motion.span>
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
+        {/* Colossal Combined Headline & Actions (Clean Broadsheet Editorial) */}
+        <motion.div
+          style={{ y: headlineY, opacity }}
+          className="max-w-5xl select-none mb-12 sm:mb-16"
+        >
+          <h1 className="leading-[0.88] uppercase text-white">
+            <motion.span
+              initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="text-lg sm:text-2xl text-white/90 font-sans leading-relaxed max-w-2xl mt-6"
+              transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[8.5rem] xl:text-[9.5rem] tracking-tight block text-white drop-shadow-sm"
             >
-              Geoportal pemantauan titik panas satelit NASA & NOAA secara real-time, koordinasi cepat posko pengungsian korban bencana, serta ensiklopedia mitigasi kebakaran hutan & lahan gambut Indonesia.
-            </motion.p>
+              SIAGA TANGGAP
+            </motion.span>
 
-            {/* High-Contrast CTA Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
+            {/* Combined Font Style: Elegant Italic Serif accentuating Bold Grotesk & Tactile Highlight */}
+            <motion.span
+              initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center gap-4 mt-8"
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-baseline gap-3 sm:gap-5 mt-2 sm:mt-4"
             >
-              <a
-                href="#peta"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#121212] hover:bg-white text-white hover:text-[#121212] font-mono text-xs font-bold tracking-wider transition-all duration-300 shadow-xl group"
+              <span className="font-serif italic lowercase font-normal text-3xl sm:text-6xl md:text-7xl text-[#e6a73c] tracking-normal select-none">
+                fase
+              </span>
+              <TactileHighlight
+                direction="left"
+                delay={0.25}
+                trigger="inView"
+                highlightClassName="bg-[#121212] shadow-2xl"
               >
-                <Flame className="w-4 h-4 text-[#e6a73c] group-hover:text-[#dc5645] transition-colors" />
-                <span>LIHAT PETA TITIK PANAS</span>
-              </a>
-              <a
-                href="#posko"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-[#121212] text-[#121212] hover:text-white font-mono text-xs font-bold tracking-wider transition-all duration-300 shadow-xl"
-              >
-                <Search className="w-4 h-4" />
-                <span>CARI KORBAN DI POSKO</span>
-              </a>
-            </motion.div>
-          </motion.div>
+                <span className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[8rem] tracking-tight text-white">
+                  DARURAT KARHUTLA
+                </span>
+              </TactileHighlight>
+            </motion.span>
+          </h1>
 
-          {/* Floating Editorial Photography: Imported User Firefighter Photo Asset (Uncluttered) */}
-          <motion.div
-            style={{ y: imageY, rotate: imageRotate }}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-4 relative"
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="text-lg sm:text-2xl text-white/90 font-sans leading-relaxed max-w-3xl mt-6 sm:mt-8"
           >
-            <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-[#121212] aspect-[4/5] max-w-sm mx-auto group">
-              {/* Imported Firefighter Image from User */}
-              <img
-                src="/images/firefighter-hero.jpg"
-                alt="Petugas Pemadam Karhutla Bencana"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-              />
+            Geoportal pemantauan titik panas satelit NASA & NOAA secara real-time, koordinasi cepat posko pengungsian korban bencana, serta ensiklopedia mitigasi kebakaran hutan & lahan gambut Indonesia.
+          </motion.p>
 
-              {/* Editorial Gradient & Telemetry HUD Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
-
-              {/* Top HUD Badge */}
-              <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-white font-mono text-[10px]">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 uppercase">
-                  <span className="w-2 h-2 rounded-full bg-[#e6a73c] animate-ping" />
-                  SATGAS MANGGALA AGNI
-                </span>
-                <span className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 uppercase text-slate-300">
-                  SIAGA 24 JAM
-                </span>
-              </div>
-
-              {/* Bottom HUD Information */}
-              <div className="absolute bottom-5 left-5 right-5 text-white space-y-1.5">
-                <span className="font-mono text-[10px] text-white/70 uppercase tracking-widest block">
-                  TELEMETRI SATELIT LIVE
-                </span>
-                <div className="font-display font-extrabold text-2xl uppercase tracking-tight text-white leading-tight">
-                  2.400+ ANOMALI TERMAL
-                </div>
-                <p className="font-serif italic text-xs text-white/80">
-                  resolusi spasial 375m sensor VIIRS terindeks supercluster
-                </p>
-              </div>
-            </div>
+          {/* High-Contrast CTA Action Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-wrap items-center gap-4 mt-8 sm:mt-10"
+          >
+            <a
+              href="#peta"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-[#121212] hover:bg-white text-white hover:text-[#121212] font-mono text-xs font-bold tracking-wider transition-all duration-300 shadow-xl group"
+            >
+              <Flame className="w-4 h-4 text-[#e6a73c] group-hover:text-[#dc5645] transition-colors" />
+              <span>LIHAT PETA TITIK PANAS</span>
+            </a>
+            <a
+              href="#posko"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white hover:bg-[#121212] text-[#121212] hover:text-white font-mono text-xs font-bold tracking-wider transition-all duration-300 shadow-xl"
+            >
+              <Search className="w-4 h-4" />
+              <span>CARI KORBAN DI POSKO</span>
+            </a>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* 3 Architectural Editorial Modules (Open Broadsheet Divider Layout on Red Background) */}
         <motion.div
