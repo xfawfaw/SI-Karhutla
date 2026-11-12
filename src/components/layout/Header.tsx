@@ -17,40 +17,40 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#f5f2eb]/90 backdrop-blur-md text-[#121212] transition-colors">
+    <header className="sticky top-0 z-50 bg-[#dc5645]/95 backdrop-blur-md text-white border-b border-white/15 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand / Logo (Muse Group pure typographic style) */}
+        {/* Brand / Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-xl bg-[#dc5645] flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+          <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center text-[#dc5645] group-hover:scale-105 transition-transform shadow-md">
             <Flame className="w-5 h-5 stroke-[2.5]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-muse text-2xl font-bold tracking-tight text-[#121212] leading-none">
+              <span className="font-display font-black text-2xl tracking-tight text-white leading-none">
                 SI-KARHUTLA
               </span>
-              <span className="sticker-badge bg-[#121212] text-white text-[10px] py-0 px-2 font-mono">
+              <span className="px-2 py-0.5 rounded-full bg-[#121212] text-white text-[10px] font-mono font-bold">
                 2026
               </span>
             </div>
-            <p className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-tight">
+            <p className="text-[10px] font-mono font-medium text-white/80 uppercase tracking-tight">
               GEOPORTAL SPASIAL & POSKO KORBAN
             </p>
           </div>
         </Link>
 
-        {/* Desktop 3 Main Tabs: Smooth Background Pill Transitions */}
-        <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-black/[0.04]">
+        {/* Desktop 3 Main Tabs */}
+        <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-black/20 backdrop-blur-md">
           {primaryTabs.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-5 py-2 rounded-full font-muse text-sm font-semibold tracking-wide transition-all duration-300 ${
+                className={`px-5 py-2 rounded-full font-display text-sm font-bold tracking-wide transition-all duration-300 ${
                   isActive
-                    ? 'bg-[#121212] text-white shadow-sm'
-                    : 'text-[#121212]/75 hover:text-[#dc5645] hover:bg-black/[0.04]'
+                    ? 'bg-[#121212] text-white shadow-md'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {item.label}
@@ -63,7 +63,7 @@ export default function Header() {
         <div className="hidden sm:flex items-center">
           <a
             href="tel:117"
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#121212] hover:bg-[#dc5645] text-white font-mono text-xs font-semibold tracking-wider transition-colors"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#121212] hover:bg-white text-white hover:text-[#121212] font-mono text-xs font-semibold tracking-wider transition-all shadow-md"
           >
             <Phone className="w-3.5 h-3.5 text-[#e6a73c]" />
             <span>DARURAT BNPB: 117</span>
@@ -83,7 +83,7 @@ export default function Header() {
 
       {/* Mobile menu dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#f5f2eb] px-6 py-4 space-y-3 font-bebas text-xl border-t border-black/5">
+        <div className="md:hidden bg-[#dc5645] px-6 py-4 space-y-3 font-display text-lg border-t border-white/10 text-white">
           {primaryTabs.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -92,17 +92,17 @@ export default function Header() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block py-2.5 px-4 rounded-2xl transition-colors ${
-                  isActive ? 'bg-[#121212] text-white' : 'text-[#121212]'
+                  isActive ? 'bg-[#121212] text-white' : 'text-white/90 hover:bg-white/10'
                 }`}
               >
                 {item.label}
               </Link>
             );
           })}
-          <div className="pt-2 border-t border-black/5">
+          <div className="pt-2 border-t border-white/10">
             <a
               href="tel:117"
-              className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#121212] text-white text-sm"
+              className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#121212] text-white text-sm font-mono"
             >
               <Phone className="w-4 h-4 text-[#e6a73c]" />
               <span>DARURAT BNPB: 117</span>
