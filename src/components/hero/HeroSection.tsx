@@ -12,8 +12,10 @@ import {
   BookOpen,
   ArrowRight,
   ArrowUpRight,
-  AlertCircle,
-  Activity
+  Activity,
+  Compass,
+  AlertTriangle,
+  Camera
 } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -24,14 +26,16 @@ interface HeroSectionProps {
 export default function HeroSection({ totalOccupants, totalCapacity }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll animations for the hero section
+  // Advanced scroll-driven parallax for the hero section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
 
-  const headlineY = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.25]);
+  const headlineY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, -45]);
+  const imageRotate = useTransform(scrollYProgress, [0, 1], [-1.5, 1.5]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
 
   return (
     <section
@@ -39,7 +43,7 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
       className="relative px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pb-24 overflow-hidden bg-[#f5f2eb] text-[#121212]"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Top Operational Status Strip - Open & Unboxed */}
+        {/* Top Status Strip: Monospace Technical Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,46 +70,56 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
           </div>
         </motion.div>
 
-        {/* Colossal Monumental Headline with Scroll Parallax & Tactile Highlight */}
-        <motion.div
-          style={{ y: headlineY, opacity }}
-          className="relative mb-10 select-none"
-        >
-          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.25rem] xl:text-[8rem] font-extrabold tracking-tight leading-[0.9] uppercase text-[#121212]">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="block"
-            >
-              SIAGA TANGGAP
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="block mt-1 sm:mt-2 text-[#dc5645]"
-            >
-              <TactileHighlight direction="left" delay={0.25} trigger="inView">
-                DARURAT KARHUTLA
-              </TactileHighlight>
-            </motion.span>
-          </h1>
-        </motion.div>
-
-        {/* Editorial Summary & Typographic Telemetry - Free of Clunky Card Boxes */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-14">
+        {/* Hero Main Grid: Headline & Floating Editorial Photography */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-12">
+          {/* Colossal Combined Headline (Bold Grotesk + Literary Italic Serif + Tactile Highlight) */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7"
+            style={{ y: headlineY, opacity }}
+            className="lg:col-span-8 select-none"
           >
-            <p className="text-lg sm:text-2xl text-slate-700 font-sans leading-relaxed">
-              Geoportal pemantauan titik panas satelit NASA & NOAA secara real-time, koordinasi cepat posko pengungsian korban bencana, serta ensiklopedia mitigasi kebakaran hutan & lahan gambut Indonesia.
-            </p>
+            <h1 className="leading-[0.88] uppercase text-[#121212]">
+              <motion.span
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] tracking-tight block"
+              >
+                SIAGA TANGGAP
+              </motion.span>
 
-            <div className="flex flex-wrap items-center gap-4 mt-6">
+              {/* Combined Font Style: Elegant Italic Serif accentuating Bold Grotesk & Tactile Highlight */}
+              <motion.span
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-wrap items-baseline gap-2.5 sm:gap-4 mt-2 sm:mt-3"
+              >
+                <span className="font-serif italic lowercase font-normal text-3xl sm:text-5xl md:text-6xl text-[#dc5645] tracking-normal select-none">
+                  fase
+                </span>
+                <TactileHighlight direction="left" delay={0.25} trigger="inView">
+                  <span className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-[7rem] tracking-tight text-white">
+                    DARURAT KARHUTLA
+                  </span>
+                </TactileHighlight>
+              </motion.span>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="text-lg sm:text-2xl text-slate-700 font-sans leading-relaxed max-w-2xl mt-6"
+            >
+              Geoportal pemantauan titik panas satelit NASA & NOAA secara real-time, koordinasi cepat posko pengungsian korban bencana, serta ensiklopedia mitigasi kebakaran hutan & lahan gambut Indonesia.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-center gap-4 mt-8"
+            >
               <a href="#peta" className="pill-btn-black text-sm">
                 <Flame className="w-4 h-4 text-[#dc5645]" />
                 <span>LIHAT PETA TITIK PANAS</span>
@@ -114,49 +128,72 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                 <Search className="w-4 h-4" />
                 <span>CARI KORBAN DI POSKO</span>
               </a>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Integrated Typographic Telemetry Strip (No Card Boxes!) */}
+          {/* Floating Editorial Photography Asset (Muse Group Style with Parallax & Unsplash Image) */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 flex flex-col justify-between space-y-4 pt-2 border-t lg:border-t-0 lg:border-l border-black/[0.08] lg:pl-8"
+            style={{ y: imageY, rotate: imageRotate }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-4 relative"
           >
-            <div className="flex items-baseline justify-between border-b border-black/[0.06] pb-3">
-              <div>
-                <span className="font-display text-4xl sm:text-5xl font-bold text-[#121212] tracking-tight block leading-none">
-                  2.400+
+            <div className="relative rounded-3xl overflow-hidden border border-black/10 shadow-2xl bg-[#121212] aspect-[4/5] max-w-sm mx-auto group">
+              {/* Real Unsplash Peatland / Forest Smoke Aerial Photography */}
+              <img
+                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80"
+                alt="Pantauan Udara Asap Karhutla Gambut"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
+              />
+
+              {/* Editorial Gradient & Telemetry HUD Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+
+              {/* Top HUD Badge */}
+              <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-white font-mono text-[10px]">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 uppercase">
+                  <span className="w-2 h-2 rounded-full bg-[#dc5645] animate-ping" />
+                  SENSOR AKTIF 0°45'S
                 </span>
-                <span className="font-mono text-xs text-slate-500 uppercase tracking-wide block mt-1">
-                  Titik Panas Terdeteksi Satelit
+                <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 uppercase text-slate-300">
+                  SUMATERA - RIAU
                 </span>
               </div>
-              <span className="font-mono text-xs font-bold text-[#dc5645] bg-[#dc5645]/10 px-2.5 py-1 rounded-full">
-                NASA VIIRS LIVE
-              </span>
+
+              {/* Bottom HUD Information */}
+              <div className="absolute bottom-5 left-5 right-5 text-white space-y-1.5">
+                <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest block">
+                  TELEMETRI SATELIT LIVE
+                </span>
+                <div className="font-display font-extrabold text-2xl uppercase tracking-tight text-white leading-tight">
+                  2.400+ ANOMALI TERMAL
+                </div>
+                <p className="font-serif italic text-xs text-slate-300">
+                  resolusi spasial 375m sensor VIIRS terindeks supercluster
+                </p>
+              </div>
             </div>
 
-            <div className="flex items-baseline justify-between border-b border-black/[0.06] pb-3">
+            {/* Floating Mini Stat Tag */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="absolute -bottom-4 -left-4 sm:-left-6 bg-white p-3.5 px-4 rounded-2xl border border-black/[0.08] shadow-lg flex items-center gap-3 font-mono text-xs"
+            >
+              <div className="w-8 h-8 rounded-xl bg-[#20bf6b]/15 text-[#20bf6b] flex items-center justify-center font-bold">
+                <Shield className="w-4 h-4" />
+              </div>
               <div>
-                <span className="font-display text-4xl sm:text-5xl font-bold text-[#121212] tracking-tight block leading-none">
-                  {totalOccupants}{' '}
-                  <span className="text-xl font-normal text-slate-400">/ {totalCapacity}</span>
+                <span className="font-display font-bold text-sm text-[#121212] block leading-none">
+                  3 POSKO RESMI
                 </span>
-                <span className="font-mono text-xs text-slate-500 uppercase tracking-wide block mt-1">
-                  Penyintas di 3 Posko Resmi
+                <span className="text-[10px] text-slate-500 uppercase mt-0.5 block">
+                  {totalOccupants} / {totalCapacity} Penyintas
                 </span>
               </div>
-              <span className="font-mono text-xs font-bold text-[#20bf6b] bg-[#20bf6b]/10 px-2.5 py-1 rounded-full">
-                TERVERIFIKASI
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between text-xs font-mono text-slate-500 pt-1">
-              <span>SUMATERA & KALIMANTAN</span>
-              <span>STANDAR BNPB 2026</span>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 
@@ -181,10 +218,15 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                   </div>
                 </div>
 
-                <h3 className="font-display text-3xl sm:text-4xl font-bold uppercase text-[#121212] leading-tight mb-3">
+                <h3 className="leading-tight mb-2">
                   <TactileHighlight direction="left" delay={0.1} trigger="hover">
-                    2.400+ TITIK API
+                    <span className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white">
+                      2.400+ TITIK API
+                    </span>
                   </TactileHighlight>
+                  <span className="font-serif italic text-slate-500 text-xs block mt-1.5 lowercase">
+                    deteksi anomali termal satelit nasa/noaa
+                  </span>
                 </h3>
                 <p className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
                   Deteksi sensor satelit NASA-TERRA/AQUA, NOAA20, dan VIIRS terindeks Supercluster kanvas 60 FPS bebas lag tanpa watermark.
@@ -212,10 +254,15 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                   </div>
                 </div>
 
-                <h3 className="font-display text-3xl sm:text-4xl font-bold uppercase text-[#121212] leading-tight mb-3">
+                <h3 className="leading-tight mb-2">
                   <TactileHighlight direction="left" delay={0.15} trigger="hover">
-                    DIREKTORI POSKO
+                    <span className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white">
+                      DIREKTORI POSKO
+                    </span>
                   </TactileHighlight>
+                  <span className="font-serif italic text-slate-500 text-xs block mt-1.5 lowercase">
+                    manifes pengungsi resmi binaan satgas
+                  </span>
                 </h3>
                 <p className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
                   Pencarian instan kerabat yang dievakuasi di Posko A (Riau), Posko B (Sumsel), dan Posko C (Kalteng) terhubung langsung ke narahubung resmi.
@@ -243,10 +290,15 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                   </div>
                 </div>
 
-                <h3 className="font-display text-3xl sm:text-4xl font-bold uppercase text-[#121212] leading-tight mb-3">
+                <h3 className="leading-tight mb-2">
                   <TactileHighlight direction="left" delay={0.2} trigger="hover">
-                    EDUKASI GAMBUT
+                    <span className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white">
+                      EDUKASI GAMBUT
+                    </span>
                   </TactileHighlight>
+                  <span className="font-serif italic text-slate-500 text-xs block mt-1.5 lowercase">
+                    pedoman rekayasa kanal & sanksi uu 24/2007
+                  </span>
                 </h3>
                 <p className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
                   Kajian ilmiah penyebab karhutla, 5 dampak negatif vs 4 dampak positif alami, restorasi canal blocking, serta regulasi UU No. 24/2007.

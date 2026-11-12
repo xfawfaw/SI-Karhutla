@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import HotspotMap from '@/components/map/HotspotMap';
+import MapSection from '@/components/map/MapSection';
 import EvacueeSearchSection from '@/components/evacuees/EvacueeSearchSection';
 import HeroSection from '@/components/hero/HeroSection';
 import {
@@ -49,32 +49,8 @@ export default function HomePage() {
       {/* 1. Dynamic Hero Section (Muse Group Style + Tactile Highlight + Scroll Animations) */}
       <HeroSection totalOccupants={totalOccupants} totalCapacity={totalCapacity} />
 
-      {/* 2. Interactive Hotspot Geoportal Map (#peta) - Smooth, borderless, seamless */}
-      <section id="peta" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-3 h-3 rounded-full bg-[#dc5645] inline-block animate-ping"></span>
-              <span className="font-mono text-xs font-bold text-slate-500 uppercase">MODUL SPASIAL LIVE</span>
-            </div>
-            <h2 className="font-display text-5xl sm:text-7xl font-extrabold uppercase tracking-tight text-[#121212] leading-none">
-              PETA SEBARAN TITIK PANAS (GIS 2026)
-            </h2>
-            <p className="text-sm sm:text-base text-slate-700 font-sans mt-2 max-w-2xl leading-relaxed">
-              Visualisasi satelit OpenStreetMap 100% bebas watermark • Algoritma Supercluster Canvas 60 FPS • Penanda Posko Evakuasi A, B, C
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2 font-mono text-xs shrink-0">
-            <span className="sticker-badge bg-[#121212] text-white">
-              SUMATERA & KALIMANTAN
-            </span>
-          </div>
-        </div>
-
-        {/* Map Container */}
-        <HotspotMap hotspots={hotspots} shelters={shelters} />
-      </section>
+      {/* 2. Interactive Hotspot Geoportal Map (#peta) - Scroll Animated & Combined Fonts */}
+      <MapSection hotspots={hotspots} shelters={shelters} />
 
       {/* 3. Section: Korban & Posko Evakuasi Interactive Directory (#posko) */}
       <div className="bg-[#fbf9f4] transition-colors duration-500">

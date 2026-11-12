@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,600&family=JetBrains+Mono:wght@400;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -63,13 +64,18 @@ body {
 
 /* Eye-Catching Modern Display Typography (Syne + PPRightGrotesk) */
 .font-display {
-  font-family: var(--font-syne), 'PPRightGrotesk', var(--font-sans), sans-serif;
+  font-family: 'Syne', 'PPRightGrotesk', system-ui, -apple-system, sans-serif;
   letter-spacing: -0.025em;
+}
+
+/* Editorial Literary Serif for High-Craft Contrast */
+.font-serif {
+  font-family: 'Newsreader', 'Playfair Display', Georgia, Cambria, serif;
 }
 
 /* Muse Group Dynamic Headline Typography */
 .font-muse {
-  font-family: 'PPRightGrotesk', -apple-system, BlinkMacSystemFont, 'Inter', var(--font-sans), sans-serif;
+  font-family: 'PPRightGrotesk', system-ui, -apple-system, 'Inter', sans-serif;
   letter-spacing: -0.015em;
 }
 
