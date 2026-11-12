@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { AirQualityStation } from '@/types';
 import { TactileHighlight } from '@/components/ui/tactile-highlight';
-import { Wind, Activity, HeartPulse } from 'lucide-react';
+import { Wind, HeartPulse } from 'lucide-react';
 
 interface AqiSectionProps {
   aqiStations: AirQualityStation[];
@@ -51,8 +51,13 @@ export default function AqiSection({ aqiStations }: AqiSectionProps) {
                 <span className="font-serif italic lowercase font-normal text-3xl sm:text-5xl md:text-6xl text-white/80 tracking-normal select-none">
                   konsentrasi pm2.5
                 </span>
-                <TactileHighlight direction="left" delay={0.15} trigger="inView">
-                  <span className="font-display font-black text-3xl sm:text-5xl md:text-6xl text-[#121212]">
+                <TactileHighlight
+                  direction="left"
+                  delay={0.15}
+                  trigger="inView"
+                  highlightClassName="bg-[#121212] shadow-xl"
+                >
+                  <span className="font-display font-black text-3xl sm:text-5xl md:text-6xl text-white">
                     (AQI LIVE)
                   </span>
                 </TactileHighlight>
@@ -87,64 +92,82 @@ export default function AqiSection({ aqiStations }: AqiSectionProps) {
           </motion.div>
         </motion.div>
 
-        {/* 6 City Station Cards - Restored Original High-Contrast White Composition with Smooth Scroll Reveal */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {aqiStations.map((station, idx) => (
-            <motion.div
-              key={station.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-white/95 backdrop-blur-md text-[#121212] p-6 sm:p-7 rounded-3xl shadow-md flex flex-col justify-between group hover:bg-white hover:shadow-xl transition-all duration-300"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    {station.province}
-                  </span>
-                  <span
-                    className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-black uppercase tracking-wider"
-                    style={{
-                      backgroundColor: station.color,
-                      color: station.category === 'SEDANG' ? '#000' : '#fff',
-                    }}
-                  >
-                    {station.category}
-                  </span>
-                </div>
+        {/* 6 City Station Display: Open Broadsheet Divider Layout (Matching Architecture without Box Overload) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="border-y border-white/20 py-8 sm:py-12 my-6"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/20 gap-y-12">
+            {aqiStations.map((station, idx) => {
+              const paddingClass =
+                idx % 3 === 0
+                  ? 'py-6 md:py-0 md:pr-8'
+                  : idx % 3 === 1
+                  ? 'py-6 md:py-0 md:px-8'
+                  : 'py-6 md:py-0 md:pl-8';
 
-                <h3 className="leading-tight mb-2">
-                  <TactileHighlight direction="left" delay={0.05 * (idx + 1)} trigger="hover">
-                    <span className="font-display text-3xl font-extrabold uppercase text-white">
-                      {station.city}
-                    </span>
-                  </TactileHighlight>
-                </h3>
+              return (
+                <div
+                  key={station.id}
+                  className={`${paddingClass} flex flex-col justify-between group`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="font-mono text-xs font-bold text-white/80 uppercase tracking-widest">
+                        {station.province}
+                      </span>
+                      <span
+                        className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-black uppercase tracking-wider shadow-sm"
+                        style={{
+                          backgroundColor: station.color,
+                          color: station.category === 'SEDANG' ? '#000' : '#fff',
+                        }}
+                      >
+                        {station.category}
+                      </span>
+                    </div>
 
-                <div className="flex items-baseline gap-3 my-3">
-                  <span
-                    className="font-display font-black text-5xl leading-none"
-                    style={{ color: station.color }}
-                  >
-                    {station.aqi}
-                  </span>
-                  <span className="font-mono text-xs text-slate-500 font-bold">
-                    AQI • PM2.5: {station.pm25} µg/m³
-                  </span>
-                </div>
-              </div>
+                    <h3 className="leading-tight mb-2">
+                      <TactileHighlight
+                        direction="left"
+                        delay={0.05 * (idx + 1)}
+                        trigger="hover"
+                        highlightClassName="bg-[#121212]"
+                      >
+                        <span className="font-display text-3xl font-extrabold uppercase text-white">
+                          {station.city}
+                        </span>
+                      </TactileHighlight>
+                    </h3>
 
-              <div className="mt-4 pt-4 border-t border-black/5 font-sans text-xs bg-[#f5f2eb] p-3.5 rounded-2xl text-slate-800 space-y-1">
-                <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase font-bold text-[#dc5645]">
-                  <HeartPulse className="w-3.5 h-3.5" />
-                  <span>Saran Medis & Masker:</span>
+                    <div className="flex items-baseline gap-3 my-3">
+                      <span
+                        className="font-display font-black text-5xl leading-none text-white drop-shadow-sm"
+                      >
+                        {station.aqi}
+                      </span>
+                      <span className="font-mono text-xs text-white/90 font-bold">
+                        AQI • PM2.5: {station.pm25} µg/m³
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Clean Broadsheet Divider for Medical Advice (No Box Overload) */}
+                  <div className="mt-6 pt-4 border-t border-white/20 font-sans text-xs text-white/90 space-y-1">
+                    <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase font-bold text-[#e6a73c]">
+                      <HeartPulse className="w-3.5 h-3.5" />
+                      <span>Saran Medis & Masker:</span>
+                    </div>
+                    <p className="leading-relaxed text-white/85">{station.recommendation}</p>
+                  </div>
                 </div>
-                <p className="leading-relaxed">{station.recommendation}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

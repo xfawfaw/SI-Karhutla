@@ -96,8 +96,13 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                 <span className="font-serif italic lowercase font-normal text-3xl sm:text-5xl md:text-6xl text-[#e6a73c] tracking-normal select-none">
                   fase
                 </span>
-                <TactileHighlight direction="left" delay={0.25} trigger="inView">
-                  <span className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-[7rem] tracking-tight text-[#121212]">
+                <TactileHighlight
+                  direction="left"
+                  delay={0.25}
+                  trigger="inView"
+                  highlightClassName="bg-[#121212] shadow-2xl"
+                >
+                  <span className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-[7rem] tracking-tight text-white">
                     DARURAT KARHUTLA
                   </span>
                 </TactileHighlight>
@@ -137,7 +142,7 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
             </motion.div>
           </motion.div>
 
-          {/* Floating Editorial Photography: Imported User Firefighter Photo Asset */}
+          {/* Floating Editorial Photography: Imported User Firefighter Photo Asset (Uncluttered) */}
           <motion.div
             style={{ y: imageY, rotate: imageRotate }}
             initial={{ opacity: 0, scale: 0.95 }}
@@ -180,26 +185,6 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                 </p>
               </div>
             </div>
-
-            {/* Floating Mini Stat Tag */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              className="absolute -bottom-4 -left-4 sm:-left-6 bg-[#121212] p-3.5 px-4 rounded-2xl border border-white/15 shadow-2xl flex items-center gap-3 font-mono text-xs text-white"
-            >
-              <div className="w-8 h-8 rounded-xl bg-[#20bf6b]/20 text-[#20bf6b] flex items-center justify-center font-bold">
-                <Shield className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="font-display font-bold text-sm text-white block leading-none">
-                  3 POSKO RESMI
-                </span>
-                <span className="text-[10px] text-white/70 uppercase mt-0.5 block">
-                  {totalOccupants} / {totalCapacity} Penyintas
-                </span>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
 
@@ -225,7 +210,12 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                 </div>
 
                 <h3 className="leading-tight mb-2">
-                  <TactileHighlight direction="left" delay={0.1} trigger="hover">
+                  <TactileHighlight
+                    direction="left"
+                    delay={0.1}
+                    trigger="hover"
+                    highlightClassName="bg-[#121212]"
+                  >
                     <span className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white">
                       2.400+ TITIK API
                     </span>
@@ -261,7 +251,12 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                 </div>
 
                 <h3 className="leading-tight mb-2">
-                  <TactileHighlight direction="left" delay={0.15} trigger="hover">
+                  <TactileHighlight
+                    direction="left"
+                    delay={0.15}
+                    trigger="hover"
+                    highlightClassName="bg-[#121212]"
+                  >
                     <span className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white">
                       DIREKTORI POSKO
                     </span>
@@ -297,7 +292,12 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                 </div>
 
                 <h3 className="leading-tight mb-2">
-                  <TactileHighlight direction="left" delay={0.2} trigger="hover">
+                  <TactileHighlight
+                    direction="left"
+                    delay={0.2}
+                    trigger="hover"
+                    highlightClassName="bg-[#121212]"
+                  >
                     <span className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white">
                       EDUKASI GAMBUT
                     </span>

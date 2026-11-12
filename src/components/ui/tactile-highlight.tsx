@@ -9,6 +9,7 @@ type HighlightDirection = "left" | "right" | "top" | "bottom";
 interface TactileHighlightProps {
   children: React.ReactNode;
   className?: string;
+  highlightClassName?: string;
   direction?: HighlightDirection;
   delay?: number;
   trigger?: "auto" | "hover" | "inView";
@@ -16,18 +17,18 @@ interface TactileHighlightProps {
 
 /**
  * TactileHighlight - A premium animated text highlight component.
- * Uses `mix-blend-difference` to guarantee mathematically perfect contrast
- * across both Light and Dark modes dynamically.
+ * High-contrast spring reveal with crisp solid typography.
+ * Eliminates blend-mode washouts so text is always crystal clear.
  */
 export const TactileHighlight = ({
   children,
   className,
+  highlightClassName,
   direction = "left",
   delay = 0.1,
   trigger = "inView",
 }: TactileHighlightProps) => {
   const ref = useRef(null);
-  // once: false allows the animation to elegantly restart when scrolling back into view
   const isInView = useInView(ref, { once: false, margin: "-10%" });
 
   const isAnimated = trigger === "auto" || (trigger === "inView" && isInView);
@@ -38,12 +39,12 @@ export const TactileHighlight = ({
       scaleY: direction === "top" || direction === "bottom" ? 0 : 1,
       originX: direction === "left" ? 0 : direction === "right" ? 1 : 0.5,
       originY: direction === "top" ? 0 : direction === "bottom" ? 1 : 0.5,
-      borderRadius: "12px", // Starts very rounded
+      borderRadius: "12px",
     },
     visible: {
       scaleX: 1,
       scaleY: 1,
-      borderRadius: "4px", // Snaps to sharp corners
+      borderRadius: "4px",
       transition: {
         type: "spring",
         damping: 22,
@@ -53,9 +54,9 @@ export const TactileHighlight = ({
       },
     },
     hover: {
-      scale: 1.05,
-      rotate: direction === "left" ? -1.5 : direction === "right" ? 1.5 : 0,
-      borderRadius: "8px",
+      scale: 1.03,
+      rotate: direction === "left" ? -0.8 : direction === "right" ? 0.8 : 0,
+      borderRadius: "6px",
       transition: {
         type: "spring",
         damping: 15,
@@ -69,17 +70,20 @@ export const TactileHighlight = ({
       ref={ref}
       className={cn(
         "relative inline-block whitespace-nowrap cursor-default group/tactile",
-        className,
+        className
       )}
-      style={{ padding: "0 0.15em", margin: "0 -0.15em" }}
+      style={{ padding: "0 0.18em", margin: "0 -0.05em" }}
     >
-      {/* Background Block: Dark in light mode, Light in dark mode */}
+      {/* Animated Tactile Highlight Plate */}
       <motion.span
         initial="hidden"
         animate={isAnimated ? "visible" : "hidden"}
         whileHover={trigger === "hover" ? "visible" : "hover"}
         variants={variants}
-        className="absolute inset-0 bg-zinc-950 dark:bg-white shadow-xl z-0 origin-[var(--origin-x)_var(--origin-y)]"
+        className={cn(
+          "absolute inset-0 bg-[#121212] shadow-xl z-0 origin-[var(--origin-x)_var(--origin-y)]",
+          highlightClassName
+        )}
         style={
           {
             "--origin-x":
@@ -90,13 +94,8 @@ export const TactileHighlight = ({
         }
       />
 
-      {/* 
-        Text Layer: Always white, but uses difference blending.
-        Light Mode (White Page): White text difference White page = Black Text.
-        Dark Mode (Black Page): White text difference Black page = White Text.
-        Inside Highlight: Color perfectly inverts. 
-      */}
-      <span className="relative z-10 text-white mix-blend-difference pointer-events-none">
+      {/* Crisp Solid Text Layer (High Contrast Guaranteed) */}
+      <span className="relative z-10 pointer-events-none inline-block">
         {children}
       </span>
     </span>
