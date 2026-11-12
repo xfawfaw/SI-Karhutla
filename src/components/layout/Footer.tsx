@@ -69,7 +69,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto border-t border-black/5 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 font-mono gap-2">
         <p>© 2026 SI-KARHUTLA Cloud • Terinspirasi dari karhutla.cloud & Standar Bencana BNPB.</p>
-        <p className="font-bold text-[#121212]">Dynamic Smooth Soft Brutalism • 60 FPS GIS Engine</p>
+        <p className="font-bold text-[#121212]">Project Based Build By Kelompok 6 SIMB UPN &ldquo;Veteran&rdquo; Yogyakarta</p>
       </div>
     </motion.footer>
   );

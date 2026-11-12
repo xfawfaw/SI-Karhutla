@@ -97,13 +97,11 @@ export default function ConcessionsSection({ corporateConcessions }: Concessions
                     </span>
                   </div>
 
-                  {/* Company Name with Tactile Highlight */}
+                  {/* Company Name */}
                   <h3 className="leading-tight mb-2">
-                    <TactileHighlight direction="left" delay={0.1 * (idx + 1)} trigger="hover">
-                      <span className="font-display text-2xl sm:text-3xl font-bold uppercase text-white">
-                        {corp.company_name}
-                      </span>
-                    </TactileHighlight>
+                    <span className="font-display text-2xl sm:text-3xl font-black uppercase text-[#121212] group-hover:text-[#dc5645] transition-colors block">
+                      {corp.company_name}
+                    </span>
                     <span className="font-serif italic text-slate-500 text-xs block mt-1">
                       Grup: {corp.group_name} • {corp.regency}, {corp.province}
                     </span>

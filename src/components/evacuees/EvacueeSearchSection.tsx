@@ -139,11 +139,9 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
                   </div>
 
                   <h3 className="leading-tight mb-2">
-                    <TactileHighlight direction="left" delay={0.1 * (idx + 1)} trigger="hover">
-                      <span className="font-display text-2xl sm:text-3xl font-bold uppercase text-white">
-                        {s.name}
-                      </span>
-                    </TactileHighlight>
+                    <span className="font-display text-2xl sm:text-3xl font-black uppercase text-[#121212] group-hover:text-[#dc5645] transition-colors block">
+                      {s.name}
+                    </span>
                     <span className="font-serif italic text-slate-500 text-xs block mt-1.5 line-clamp-1">
                       {s.address}
                     </span>
@@ -276,11 +274,9 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
                     </div>
 
                     <h3 className="leading-tight mb-2">
-                      <TactileHighlight direction="left" delay={0.05 * (idx % 6)} trigger="hover">
-                        <span className="font-display text-2xl font-bold uppercase text-white">
-                          {item.full_name}
-                        </span>
-                      </TactileHighlight>
+                      <span className="font-display text-2xl font-black uppercase text-[#121212] group-hover:text-[#dc5645] transition-colors block">
+                        {item.full_name}
+                      </span>
                       <span className="font-serif italic text-slate-500 text-xs block mt-1">
                         {item.age} Tahun • {item.gender}
                       </span>
@@ -298,7 +294,7 @@ export default function EvacueeSearchSection({ initialEvacuees, shelters }: Evac
                     </div>
 
                     {item.notes && (
-                      <p className="font-sans text-xs text-slate-600 italic bg-black/[0.03] p-2.5 rounded-xl border border-black/[0.04]">
+                      <p className="font-sans text-xs text-slate-600 italic mt-2.5 pt-2 border-t border-black/[0.04]">
                         &ldquo;{item.notes}&rdquo;
                       </p>
                     )}

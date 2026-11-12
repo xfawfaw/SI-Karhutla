@@ -26,7 +26,7 @@ export default function Header() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-display font-black text-2xl tracking-tight text-white leading-none">
+              <span className="font-muse text-2xl font-black tracking-tight text-white leading-none">
                 SI-KARHUTLA
               </span>
               <span className="px-2 py-0.5 rounded-full bg-[#121212] text-white text-[10px] font-mono font-bold">
@@ -39,18 +39,18 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Desktop 3 Main Tabs */}
-        <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-black/20 backdrop-blur-md">
+        {/* Desktop 3 Main Tabs: Punchy Eye-Catching Bold Grotesk */}
+        <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-black/25 backdrop-blur-md border border-white/10">
           {primaryTabs.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-5 py-2 rounded-full font-display text-sm font-bold tracking-wide transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-full font-muse text-sm font-black tracking-wider uppercase transition-all duration-300 ${
                   isActive
-                    ? 'bg-[#121212] text-white shadow-md'
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                    ? 'bg-[#121212] text-white shadow-lg scale-[1.02]'
+                    : 'text-white/90 hover:text-white hover:bg-white/15'
                 }`}
               >
                 {item.label}
@@ -83,7 +83,7 @@ export default function Header() {
 
       {/* Mobile menu dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#dc5645] px-6 py-4 space-y-3 font-display text-lg border-t border-white/10 text-white">
+        <div className="md:hidden bg-[#dc5645] px-6 py-4 space-y-3 font-muse text-lg font-black tracking-wider uppercase border-t border-white/10 text-white">
           {primaryTabs.map((item) => {
             const isActive = pathname === item.href;
             return (
