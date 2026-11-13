@@ -257,7 +257,7 @@ export default function MapInner({ hotspots, shelters }: MapInnerProps) {
   };
 
   return (
-    <div className="relative w-full h-[620px] rounded-3xl bg-[#e5e2da] overflow-hidden shadow-xl">
+    <div className="relative isolate z-10 w-full h-[620px] rounded-3xl bg-[#e5e2da] overflow-hidden shadow-xl">
       {/* Map DOM Mount */}
       <div
         ref={mapContainerRef}

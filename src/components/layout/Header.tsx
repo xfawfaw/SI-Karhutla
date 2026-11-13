@@ -17,7 +17,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#dc5645]/95 backdrop-blur-md text-white border-b border-white/15 transition-colors">
+    <header className="sticky top-0 z-[9999] bg-[#dc5645]/95 backdrop-blur-md text-white border-b border-white/15 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand / Logo */}
         <Link href="/" className="flex items-center gap-3 group">
