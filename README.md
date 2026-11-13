@@ -31,55 +31,52 @@
 
 ---
 
-## 👥 Profil Anggota Pengembang (Kelompok 6)
+## 👥 Anggota Kelompok 6
 
-Urutan anggota tim disusun secara berurutan berdasarkan **Nomor Induk Mahasiswa (NIM 124250132 – 124250145)**:
-
-<div align="center">
-
-| No | Pas Foto / Profil | Nama Lengkap | NIM | Peran Utama |
-| :---: | :---: | :--- | :---: | :--- |
-| **01** | 👨‍💻 | **Farel Paul Jhogi Silalahi** | `124250132` | **Fullstack GIS & Database Architect** |
-| **02** | 👨‍💻 | **Muammar Ghazy Syafrudin** | `124250133` | **Spatial Telemetry & Frontend Engineer** |
-| **03** | 👨‍💻 | **Bintang Fergiawan** | `124250143` | **Disaster Management & Mitigasi Research** |
-| **04** | 👨‍💻 | **Makfiy Ahmad Hamizan** | `124250145` | **UI/UX Interaction & Verification Flow** |
-
-</div>
+| No | Nama Lengkap | NIM |
+| :---: | :--- | :---: |
+| **01** | Farel Paul Jhogi Silalahi | `124250132` |
+| **02** | Muammar Ghazy Syafrudin | `124250133` |
+| **03** | Bintang Fergiawan | `124250143` |
+| **04** | Makfiy Ahmad Hamizan | `124250145` |
 
 ---
 
-## 🌐 Arsitektur Sistem Kedaruratan (SIM Bencana)
+## 🌐 Arsitektur Sistem Kedaruratan
 
 ```mermaid
-flowchart TD
-    subgraph SENSOR["🛰️ TELEMETRI SATELIT & SENSOR (LIVE)"]
-        S1["NASA-TERRA / AQUA"]
-        S2["NASA-NOAA20"]
-        S3["Sensor VIIRS (375m)"]
-        S4["Stasiun ISPU / AQI PM2.5"]
+flowchart LR
+    classDef source fill:#18181b,stroke:#e6a73c,stroke-width:1.5px,color:#ffffff
+    classDef core fill:#dc5645,stroke:#121212,stroke-width:1.5px,color:#ffffff
+    classDef store fill:#f5f2eb,stroke:#121212,stroke-width:1.5px,color:#121212
+    classDef actor fill:#20bf6b,stroke:#121212,stroke-width:1.5px,color:#ffffff
+
+    subgraph S["Telemetri & Sensor"]
+        direction TB
+        S1["NASA TERRA / AQUA"]:::source
+        S2["NASA-NOAA20 & VIIRS 375m"]:::source
+        S3["Stasiun AQI & PM2.5"]:::source
     end
 
-    subgraph CORE["⚡ SI-KARHUTLA ENGINE (NEXT.JS 16)"]
-        GIS["Leaflet Canvas + Supercluster (60 FPS)"]
-        DB[("Database Relasional: Shelters, Evacuees, Reports, Concessions")]
-        API["REST Route Handlers (/api/*)"]
+    subgraph E["SI-KARHUTLA Core (Next.js 16)"]
+        direction TB
+        GIS["Leaflet + Supercluster 60 FPS"]:::core
+        API["REST API Route Handlers"]:::core
+        DB[("Database Relasional")]:::store
+        GIS <--> API
+        API <--> DB
     end
 
-    subgraph ACTORS["👥 PENGGUNA SISTEM KEBENCANAAN"]
-        PUBLIK["Warga Publik / Korban"]
-        PETUGAS["Satgas Manggala Agni / Petugas BNPB"]
-        GAKKUM["KemenLHK & Auditor Konsesi"]
+    subgraph U["Layanan & Pengguna"]
+        direction TB
+        U1["Publik: Peta, AQI & Lapor Hilang"]:::actor
+        U2["Petugas: Verifikasi & Posko"]:::actor
+        U3["Gakkum: Audit Konsesi Gambut"]:::actor
     end
 
-    SENSOR --> GIS
-    SENSOR --> API
-    API <--> DB
-    GIS <--> API
-
-    PUBLIK -->|"Lapor Orang Hilang / Pantau AQI"| CORE
-    CORE -->|"Pencarian Reuni Pengungsi Posko"| PUBLIK
-    PETUGAS -->|"Verifikasi Tiket & Validasi Lapangan"| CORE
-    GAKKUM -->|"Audit Anomali Konsesi Sawit/HTI"| CORE
+    S1 & S2 --> GIS
+    S3 --> API
+    E <--> U1 & U2 & U3
 ```
 
 ---
@@ -91,7 +88,7 @@ flowchart TD
 <br/>
 
 - **Mesin Spasial Cepat:** Didukung algoritma *Supercluster Canvas* yang mampu merender ribuan titik anomali termal NASA & NOAA tanpa lag.
-- **Filter Multi-Kriteria:** Filter interaktif berdasarkan jenis sensor satelit, provinsi prioritas (*Riau, Jambi, Sumsel, Kalbar, Kalteng, Kalsel*), dan tingkat kepercayaan (*confidence $\ge 80\%$*).
+- **Filter Multi-Kriteria:** Filter interaktif berdasarkan jenis sensor satelit, provinsi prioritas (*Riau, Jambi, Sumsel, Kalbar, Kalteng, Kalsel*), dan tingkat kepercayaan (*confidence* ≥ 80%).
 - **Layer Posko Terpadu:** Menampilkan sebaran posko evakuasi dengan pin pelindung interaktif dan detail kapasitas.
 
 </details>
@@ -170,40 +167,6 @@ flowchart TD
 | `GET` | `/api/aqi` | Mengambil indeks kualitas udara US EPA AQI & PM2.5 |
 | `GET` | `/api/concessions`| Mengambil data konsesi korporasi & anomali titik api |
 | `POST` | `/api/auth` | Verifikasi kredensial akses Portal Petugas Lapangan |
-
----
-
-## 🚀 Panduan Menjalankan Sistem (Lokal)
-
-### Prasyarat
-- **Node.js** versi `v18.17.0` atau yang lebih baru
-- Package manager `npm`, `pnpm`, atau `yarn`
-
-### Langkah Instalasi
-```bash
-# 1. Clone repositori ini
-git clone https://github.com/xfawfaw/SI-Karhutla.git
-
-# 2. Masuk ke direktori proyek
-cd SI-Karhutla
-
-# 3. Pasang semua dependensi
-npm install
-
-# 4. Jalankan mode pengembangan (development)
-npm run dev
-```
-
-Buka peramban Anda di **[http://localhost:3000](http://localhost:3000)**.
-
-### Build untuk Produksi
-```bash
-# Kompilasi aplikasi dengan Turbopack
-npm run build
-
-# Menjalankan server produksi
-npm start
-```
 
 ---
 
