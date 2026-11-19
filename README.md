@@ -8,13 +8,13 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Leaflet GIS](https://img.shields.io/badge/Leaflet-GIS_Engine-199900?style=for-the-badge&logo=leaflet&logoColor=white)](https://leafletjs.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-Smooth_14-f08c00?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
-[![Status Bencana](https://img.shields.io/badge/Status-SIAGA_1_DARURAT-dc5645?style=for-the-badge&logo=fire&logoColor=white)](#)
+[![Status Prototipe](https://img.shields.io/badge/Status-PROTOTIPE_SIMULASI-dc5645?style=for-the-badge&logo=fire&logoColor=white)](#)
 
 <br/>
 
 <p align="center">
   <a href="https://sikarhutla.vercel.app">
-    <img src="https://img.shields.io/badge/🚀_LIVE_PRODUCTION-sikarhutla.vercel.app-dc5645?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+    <img src="https://img.shields.io/badge/🚀_PROTOTIPE_DEMO-sikarhutla.vercel.app-dc5645?style=for-the-badge&logo=vercel&logoColor=white" alt="Prototipe Demo" />
   </a>
   <a href="tel:117">
     <img src="https://img.shields.io/badge/📞_HOTLINE_BNPB-117-e6a73c?style=for-the-badge&logo=phone&logoColor=121212" alt="BNPB Hotline" />
@@ -51,18 +51,18 @@ flowchart LR
     classDef store fill:#f5f2eb,stroke:#121212,stroke-width:1.5px,color:#121212
     classDef actor fill:#20bf6b,stroke:#121212,stroke-width:1.5px,color:#ffffff
 
-    subgraph S["Telemetri & Sensor"]
+    subgraph S["Dataset Simulasi & Skema Sensor"]
         direction TB
-        S1["NASA TERRA / AQUA"]:::source
-        S2["NASA-NOAA20 & VIIRS 375m"]:::source
-        S3["Stasiun AQI & PM2.5"]:::source
+        S1["Skema NASA TERRA / AQUA"]:::source
+        S2["Skema NOAA20 & VIIRS"]:::source
+        S3["Data Simulasi AQI & PM2.5"]:::source
     end
 
     subgraph E["SI-KARHUTLA Core (Next.js 16)"]
         direction TB
-        GIS["Leaflet + Supercluster 60 FPS"]:::core
+        GIS["Leaflet + Supercluster Canvas"]:::core
         API["REST API Route Handlers"]:::core
-        DB[("Database Relasional")]:::store
+        DB[("JSON Store (db.json & seeds)")]:::store
         GIS <--> API
         API <--> DB
     end
@@ -84,10 +84,10 @@ flowchart LR
 ## ✨ Fitur-Fitur Utama Platform
 
 <details open>
-<summary><b>🔥 1. Geoportal Spasial Titik Panas (Hotspot GIS 60 FPS)</b></summary>
+<summary><b>🔥 1. Geoportal Spasial Titik Panas (Hotspot GIS Canvas)</b></summary>
 <br/>
 
-- **Mesin Spasial Cepat:** Didukung algoritma *Supercluster Canvas* yang mampu merender ribuan titik anomali termal NASA & NOAA tanpa lag.
+- **Mesin Spasial Cepat:** Didukung algoritma *Supercluster* dan renderer *Canvas* Leaflet untuk merender 2.400 titik simulasi anomali termal secara ringan.
 - **Filter Multi-Kriteria:** Filter interaktif berdasarkan jenis sensor satelit, provinsi prioritas (*Riau, Jambi, Sumsel, Kalbar, Kalteng, Kalsel*), dan tingkat kepercayaan (*confidence* ≥ 80%).
 - **Layer Posko Terpadu:** Menampilkan sebaran posko evakuasi dengan pin pelindung interaktif dan detail kapasitas.
 
@@ -97,8 +97,8 @@ flowchart LR
 <summary><b>🛡️ 2. Direktori Posko & Reuni Keluarga Pengungsi</b></summary>
 <br/>
 
-- **Live Capacity Bar:** Indikator persentase keterisian posko evakuasi (Posko A Rimbo Panjang, Posko B Minas Jaya, Posko C Danau Bingkuang).
-- **Pencarian Kerabat Instan:** Fasilitas pencarian data warga terevakuasi, kondisi kesehatan medis (*Sehat, Kelelahan, ISPA Ringan, ISPA Berat, Perawatan Intensif*), asal desa, dan kontak darurat PIC resmi posko.
+- **Indikator Kapasitas Posko:** Persentase keterisian posko evakuasi prototipe (Posko A Rimbo Panjang, Posko B Minas Jaya, Posko C Danau Bingkuang).
+- **Pencarian Kerabat Instan:** Fasilitas pencarian data warga terevakuasi, kondisi kesehatan medis (*Sehat, Kelelahan Ringan, Luka Ringan, ISPA Ringan, ISPA Berat, Perawatan Intensif*), asal desa, dan kontak darurat PIC resmi posko.
 
 </details>
 
@@ -107,7 +107,7 @@ flowchart LR
 <br/>
 
 - **Formulir Laporan Terbuka:** Masyarakat dapat menerbitkan laporan orang hilang akibat karhutla secara cepat.
-- **Kode Tiket Instan:** Setiap laporan menghasilkan kode unik (contoh: `LAPOR-2026-9812`) untuk memudahkan pelacakan status tanpa perlu login.
+- **Kode Tiket Instan:** Setiap laporan menghasilkan kode unik (contoh: `TKT-2026-9812`) untuk memudahkan pelacakan status tanpa perlu login.
 
 </details>
 
@@ -115,16 +115,16 @@ flowchart LR
 <summary><b>🔐 4. Portal Petugas Verifikator Lapangan (`/petugas`)</b></summary>
 <br/>
 
-- **Autentikasi Terproteksi:** Portal khusus bagi petugas BNPB dan Satgas Posko.
-- **Pencocokan Otomatis (*Matching Engine*):** Memverifikasi aduan korban hilang langsung ke daftar manifes pengungsi posko dengan status: `PENDING_VERIFICATION`, `VERIFIED_MISSING`, atau `FOUND_AT_SHELTER`.
+- **Autentikasi Terproteksi:** Portal khusus petugas dengan *shared password* ter-hash (*scrypt*) dan cookie sesi.
+- **Alur Moderasi Laporan:** Memverifikasi aduan korban hilang ke daftar pengungsi posko dengan status: `PENDING_VERIFICATION`, `VERIFIED_MISSING`, `FOUND_AT_SHELTER`, atau `REJECTED`.
 
 </details>
 
 <details>
-<summary><b>🌬️ 5. Telemetri Kualitas Udara (Indeks US EPA AQI & PM2.5)</b></summary>
+<summary><b>🌬️ 5. Simulasi Kualitas Udara (Indeks US EPA AQI & PM2.5)</b></summary>
 <br/>
 
-- **Pemantauan Real-Time:** Stasiun pemantau AQI dari Pekanbaru, Palembang, Jambi, Pontianak, Palangka Raya, hingga Banjarmasin.
+- **Dataset Simulasi AQI:** Stasiun pemantau AQI prototipe di Pekanbaru, Palembang, Jambi, Pontianak, Palangka Raya, hingga Banjarmasin.
 - **Panduan Medis Tanggap Bencana:** Kategori bahaya kualitas udara (*Baik, Sedang, Tidak Sehat, Berbahaya*) lengkap dengan protokol masker respirator N95/P100 dan evakuasi balita/lansia.
 
 </details>
@@ -150,7 +150,7 @@ flowchart LR
 | **Motion Engine** | Framer Motion 14 | Animasi *scroll-driven*, *parallax*, dan *tactile hover* |
 | **GIS & Mapping** | Leaflet 1.9 + Supercluster | Peta interaktif OpenStreetMap bebas watermark |
 | **Icons & Typography** | Lucide React + PP Right Grotesk | Tipografi berkarakter editorial jurnalistik |
-| **Storage & API** | Next.js Route Handlers + JSON DB | RESTful Endpoints (`/api/*`) dengan schema validation |
+| **Storage & API** | Next.js Route Handlers + JSON (`data/db.json`) | Prototipe penyimpanan berkas JSON & RESTful Endpoints (`/api/*`); seluruh data titik panas, posko, AQI, dan konsesi bersifat simulasi |
 
 ---
 
@@ -158,7 +158,7 @@ flowchart LR
 
 | Method | Endpoint | Deskripsi Fungsi |
 | :---: | :--- | :--- |
-| `GET` | `/api/hotspots` | Mengambil seluruh titik panas satelit aktif NASA/NOAA |
+| `GET` | `/api/hotspots` | Mengambil titik panas simulasi sesuai filter sensor/provinsi/confidence |
 | `GET` | `/api/shelters` | Mengambil daftar posko evakuasi & kapasitas terkini |
 | `GET` | `/api/evacuees` | Mengambil data penyintas/korban yang dievakuasi di posko |
 | `GET` | `/api/reports` | Mengambil daftar tiket laporan orang hilang |

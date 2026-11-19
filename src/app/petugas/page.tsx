@@ -196,7 +196,7 @@ export default function PetugasPage() {
                 className="w-full rounded-2xl bg-[#f5f2eb] px-4 py-3 text-sm font-sans focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#dc5645] transition-all"
               />
               <span className="text-[11px] text-slate-500 mt-2 block font-mono">
-                Sandi Bawaan: <strong className="bg-[#121212] px-2 py-0.5 rounded-full text-white">poskosiaga2026</strong>
+                Akses khusus petugas terotorisasi. Hubungi koordinator posko untuk kredensial.
               </span>
             </div>
 

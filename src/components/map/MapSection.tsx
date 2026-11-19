@@ -38,11 +38,11 @@ export default function MapSection({ hotspots, shelters }: MapSectionProps) {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#dc5645] inline-block animate-ping" />
             <span className="font-mono text-xs font-bold text-[#dc5645] uppercase tracking-wider">
-              MODUL 01 • TELEMETRI SPASIAL SATELIT
+              MODUL 01 • PETA SPASIAL TITIK PANAS (SIMULASI)
             </span>
             <span className="text-black/20">•</span>
             <span className="font-mono text-xs text-slate-500 uppercase">
-              KANVAS 60 FPS BEBAS LAG
+              SUPERCLUSTER CANVAS LEAFLET
             </span>
           </div>
 
@@ -88,10 +88,10 @@ export default function MapSection({ hotspots, shelters }: MapSectionProps) {
           <div className="font-mono text-xs">
             <span className="flex items-center gap-1.5 font-bold text-[#121212] uppercase">
               <Globe2 className="w-3.5 h-3.5 text-[#dc5645]" />
-              ORBITAL TELEMETRY
+              DATASET SIMULASI
             </span>
             <span className="text-[11px] text-slate-500 block mt-0.5">
-              NASA-FIRMS / NOAA-20
+              Skema NASA-FIRMS / NOAA-20
             </span>
           </div>
         </motion.div>

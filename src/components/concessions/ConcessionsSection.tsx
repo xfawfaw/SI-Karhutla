@@ -28,11 +28,11 @@ export default function ConcessionsSection({ corporateConcessions }: Concessions
           <div className="flex items-center gap-2">
             <Building2 className="w-4 h-4 text-[#dc5645]" />
             <span className="font-mono text-xs font-bold text-[#121212] uppercase tracking-wider">
-              AKUNTABILITAS KORPORASI • DATA TRANSPARANSI
+              MODUL 05 • SIMULASI KONSESI KORPORASI
             </span>
             <span className="text-black/20">•</span>
             <span className="font-mono text-xs text-slate-500 uppercase">
-              GAKKUM KLHK 2026
+              DATA PROTOTIPE
             </span>
           </div>
 
@@ -54,7 +54,7 @@ export default function ConcessionsSection({ corporateConcessions }: Concessions
           </h2>
 
           <p className="text-sm sm:text-base text-slate-600 font-sans max-w-2xl leading-relaxed pt-1">
-            Data transparansi izin perkebunan kelapa sawit (HGU) dan kehutanan (PBPH-HTI) di sekitar sebaran titik api aktif beserta status penegakan hukum KLHK.
+            Simulasi data konsesi perkebunan kelapa sawit (HGU) dan kehutanan (PBPH-HTI) di lahan gambut beserta contoh status penegakan hukum.
           </p>
         </div>
 

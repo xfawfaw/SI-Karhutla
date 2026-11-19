@@ -195,7 +195,7 @@
     }
   ],
   "auth": {
-    "shared_password_hash": "poskosiaga2026",
-    "token_secret": "si-karhutla-emergency-token-2026"
+    "password_salt": "08a29a8fb4a597cdd502235e992089b2",
+    "password_hash": "5a55c12af90a62dc821696bede23a2af0af6eb1c10f8d055d2511edb9bad9a874325480c0691fdf97824609fa01008ad5c6bf1df89d22a29d4e097447c64a0e9"
   }
 }

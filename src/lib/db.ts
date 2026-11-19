@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { Shelter, Evacuee, MissingReport, Hotspot, AirQualityStation, CorporateConcession } from '@/types';
 import {
   INITIAL_SHELTERS,
@@ -17,14 +18,19 @@ interface DatabaseSchema {
   aqi_stations: AirQualityStation[];
   corporate_concessions: CorporateConcession[];
   auth: {
-    shared_password_hash: string;
-    token_secret: string;
+    password_salt: string;
+    password_hash: string;
   };
 }
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
-const DEFAULT_PASSWORD = 'poskosiaga2026';
+// Salted scrypt hash fallback (no plaintext password stored in repository)
+const FALLBACK_AUTH = {
+  password_salt: '08a29a8fb4a597cdd502235e992089b2',
+  password_hash:
+    '5a55c12af90a62dc821696bede23a2af0af6eb1c10f8d055d2511edb9bad9a874325480c0691fdf97824609fa01008ad5c6bf1df89d22a29d4e097447c64a0e9',
+};
 
 function initDatabase(): DatabaseSchema {
   if (!fs.existsSync(DATA_DIR)) {
@@ -38,6 +44,9 @@ function initDatabase(): DatabaseSchema {
       // Ensure new tables are seeded if not present
       if (!parsed.aqi_stations) parsed.aqi_stations = INITIAL_AQI_STATIONS;
       if (!parsed.corporate_concessions) parsed.corporate_concessions = INITIAL_CORPORATE_CONCESSIONS;
+      if (!parsed.auth?.password_hash || !parsed.auth?.password_salt) {
+        parsed.auth = { ...FALLBACK_AUTH };
+      }
       return parsed;
     } catch (e) {
       console.error('Error reading db.json, falling back to initial data', e);
@@ -50,10 +59,7 @@ function initDatabase(): DatabaseSchema {
     missing_reports: INITIAL_MISSING_REPORTS,
     aqi_stations: INITIAL_AQI_STATIONS,
     corporate_concessions: INITIAL_CORPORATE_CONCESSIONS,
-    auth: {
-      shared_password_hash: DEFAULT_PASSWORD,
-      token_secret: 'si-karhutla-emergency-token-2026',
-    },
+    auth: { ...FALLBACK_AUTH },
   };
 
   fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), 'utf-8');
@@ -263,6 +269,18 @@ export function getCorporateConcessions(): CorporateConcession[] {
 
 // ==================== AUTH ====================
 export function verifySharedPassword(password: string): boolean {
+  const envPassword = process.env.OFFICER_PASSWORD;
+  if (envPassword) {
+    const a = Buffer.from(password, 'utf8');
+    const b = Buffer.from(envPassword, 'utf8');
+    return a.length === b.length && crypto.timingSafeEqual(a, b);
+  }
+
   const db = getDb();
-  return password === db.auth.shared_password_hash || password === DEFAULT_PASSWORD;
+  const salt = db.auth?.password_salt || FALLBACK_AUTH.password_salt;
+  const expectedHash = db.auth?.password_hash || FALLBACK_AUTH.password_hash;
+
+  const derived = crypto.scryptSync(password, salt, 64);
+  const expected = Buffer.from(expectedHash, 'hex');
+  return derived.length === expected.length && crypto.timingSafeEqual(derived, expected);
 }

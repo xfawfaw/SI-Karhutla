@@ -50,10 +50,10 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] text-white font-mono text-[11px] uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#20bf6b] animate-ping" />
-              SISTEM AKTIF 2026
+              PROTOTIPE SIMB 2026
             </span>
             <span className="font-mono text-xs text-white/90 uppercase tracking-wide">
-              PUSDALOPS BNPB • KEMENLHK • TELEMETRI NASA/NOAA
+              RUJUKAN STANDAR BNPB • DATASET SIMULASI
             </span>
           </div>
 
@@ -111,7 +111,7 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
             transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="text-lg sm:text-2xl text-white/90 font-sans leading-relaxed max-w-3xl mt-6 sm:mt-8"
           >
-            Geoportal pemantauan titik panas satelit NASA & NOAA secara real-time, koordinasi cepat posko pengungsian korban bencana, serta ensiklopedia mitigasi kebakaran hutan & lahan gambut Indonesia.
+            Prototipe geoportal pemantauan titik panas berbasis dataset simulasi satelit NASA & NOAA, koordinasi cepat posko pengungsian korban bencana, serta ensiklopedia mitigasi kebakaran hutan & lahan gambut Indonesia.
           </motion.p>
 
           {/* High-Contrast CTA Action Buttons */}
@@ -171,11 +171,11 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
                     </span>
                   </TactileHighlight>
                   <span className="font-serif italic text-white/75 text-xs block mt-1.5 lowercase">
-                    deteksi anomali termal satelit nasa/noaa
+                    dataset simulasi anomali termal satelit
                   </span>
                 </h3>
                 <p className="font-sans text-sm text-white/85 leading-relaxed mb-6">
-                  Deteksi sensor satelit NASA-TERRA/AQUA, NOAA20, dan VIIRS terindeks Supercluster kanvas 60 FPS bebas lag tanpa watermark.
+                  Visualisasi 2.400 titik simulasi sensor NASA-TERRA/AQUA, NOAA20, dan VIIRS terindeks Supercluster pada kanvas Leaflet.
                 </p>
               </div>
 
@@ -275,7 +275,7 @@ export default function HeroSection({ totalOccupants, totalCapacity }: HeroSecti
         {/* Clean Grounding Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 pt-2 font-mono text-xs text-white/75">
           <p>
-            Standardisasi data <strong>PUSDALOPS BNPB 2026</strong> • Integrasi <strong>karhutla.cloud</strong> • Rujukan yuridis <strong>UU No. 24 Tahun 2007</strong>
+            Prototipe data simulasi standar <strong>BNPB 2026</strong> • Referensi fitur <strong>karhutla.cloud</strong> • Rujukan yuridis <strong>UU No. 24 Tahun 2007</strong>
           </p>
           <div className="flex items-center gap-2 font-bold text-white">
             <span>HOTLINE DARURAT 24 JAM:</span>

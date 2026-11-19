@@ -35,10 +35,10 @@ export default function AqiSection({ aqiStations }: AqiSectionProps) {
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e6a73c] text-[#121212] font-mono text-[11px] font-bold uppercase tracking-wider">
                 <Wind className="w-3.5 h-3.5" />
-                INTEGRASI KARHUTLA.CLOUD
+                REFERENSI KARHUTLA.CLOUD
               </span>
               <span className="px-3 py-1 rounded-full bg-white text-[#121212] font-mono text-[11px] font-bold uppercase tracking-wider">
-                STANDAR US EPA AIRNOW
+                SKEMA US EPA (DATA SIMULASI)
               </span>
             </div>
 
@@ -58,14 +58,14 @@ export default function AqiSection({ aqiStations }: AqiSectionProps) {
                   highlightClassName="bg-[#121212] shadow-xl"
                 >
                   <span className="font-display font-black text-3xl sm:text-5xl md:text-6xl text-white">
-                    (AQI LIVE)
+                    (DATA SIMULASI)
                   </span>
                 </TactileHighlight>
               </span>
             </h2>
 
             <p className="text-base sm:text-lg text-white/90 font-sans max-w-2xl leading-relaxed pt-1">
-              Pemantauan konsentrasi partikulat polusi mikro PM2.5 akibat kabut asap kebakaran hutan di 6 stasiun daerah terdampak paling parah Sumatera dan Kalimantan.
+              Simulasi pemantauan konsentrasi partikulat polusi mikro PM2.5 akibat kabut asap kebakaran hutan di 6 kota prioritas Sumatera dan Kalimantan.
             </p>
           </div>
 
@@ -79,7 +79,7 @@ export default function AqiSection({ aqiStations }: AqiSectionProps) {
           >
             <div className="flex items-center justify-between gap-4 mb-2">
               <span className="font-mono text-xs text-slate-400 uppercase tracking-wider">
-                AQI TERTINGGI HARI INI
+                AQI TERTINGGI (SIMULASI)
               </span>
               <span className="w-2 h-2 rounded-full bg-[#eb3b5a] animate-ping" />
             </div>

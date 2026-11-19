@@ -506,7 +506,7 @@ export default function EducationSection() {
                     <div className="pt-3.5">
                       <strong className="text-white text-sm block mb-1">4. Sistem Peringatan Dini (FDRS & Satelit)</strong>
                       <p className="leading-relaxed">
-                        Fire Danger Rating System (FDRS) BMKG dan pemantauan satelit hotspot MODIS/VIIRS secara real-time oleh BNPB.
+                        Fire Danger Rating System (FDRS) BMKG dan pemantauan satelit hotspot (MODIS/VIIRS) oleh BNPB.
                       </p>
                     </div>
                   </div>
